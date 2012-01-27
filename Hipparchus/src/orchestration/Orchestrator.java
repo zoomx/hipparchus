@@ -29,7 +29,7 @@ public class Orchestrator {
      * of a 10cm circle (3.9")
      */
     // TODO: Needs to be defined properly when hardware installed
-    public static double ENCODERS_STEP = 20000;
+    public static long MOUSE_TICKS_PER_REV = 20000;
     public static double ALT_LIMIT = 0;//This can be configured in the front-end
     public static double starRaArray[] = {
         8.97,22.14,19.51,4.6,0.22,10.33,9.46,0.14,2.03,16.49,5.55,5.42,5.92,6.4,
@@ -147,6 +147,10 @@ public class Orchestrator {
 
         if (keyWord.equals("xy")) {
             getTelescopeAltAz(firstVaule, secondValue);
+            startTracking();
+        }
+        if (keyWord.equals("xyt")){
+            getTelescopeAltAz(firstVaule, secondValue);
         }
     }
 
@@ -238,18 +242,15 @@ public class Orchestrator {
 
     public void startTracking() {
         
-        long delay = 1;
-        long period = 1;
+        long delay = 0;
+        long period = 1000;
         timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        //timer.scheduleAtFixedRate(new TimerTask() {
 
-            public void run() {
+            //public void run() {
                 Calendar cal = Calendar.getInstance();
-                //cal.set(2011, 10, 21, 21, 52, 12);// this is a test
-                t = tau.getLocalDecimalTime(cal);
-                
+                t = tau.getLocalDecimalTime(cal);                
                 targetDcEq = ccm.starDcEquatorial(ra, dec, t, t0);
-                //targetDcEq = ccm.starDcEquatorial(0.7186, -18.038, 21.87, 21.0);//this is a test
                 targetDcTel = T.times(targetDcEq);
                 
                 double[] targetArrayDcTel = targetDcTel.getColumnPackedCopy();
@@ -267,8 +268,15 @@ public class Orchestrator {
                 ac.setDegreeDecimal(az);
                 ac.convertToDegMinSec();
                 GuiUpdater.window.objectsAz.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'" + ac.getSec() + "\"");
-            }
-        }, delay, period);
+
+                //Goto functions
+                double revInMin = 360*60;
+                double minPerTick = revInMin/MOUSE_TICKS_PER_REV;
+                double altInMin = alt*60;
+                int stepsToGo = (int)(altInMin/minPerTick);
+                sendMessage("G"+String.valueOf(stepsToGo));
+            //}
+        //}, delay, period);
     }
 
     public void stopTracking() {
@@ -308,17 +316,8 @@ public class Orchestrator {
         double yDouble = Double.parseDouble(y);
 
         //convert to degrees based on the steps
-        double xCoordinate = (xDouble / ENCODERS_STEP) * 360.0;
-        double yCoordinate = (yDouble / ENCODERS_STEP) * 360.0;
-
-        if (xCoordinate > 360.0) {
-            //reset mouse position with X monitoring
-            sendMessage("RX");
-        }
-        if (yCoordinate > 360.0) {
-            //reset mouse position with X monitoring
-            sendMessage("RY");
-        }
+        double xCoordinate = (xDouble / MOUSE_TICKS_PER_REV) * 360.0;
+        double yCoordinate = (yDouble / MOUSE_TICKS_PER_REV) * 360.0;
 
         //DecimalFormat df = new DecimalFormat("#.####");
         //AngleConverter acAz = new AngleConverter(xCoordinate);
@@ -326,10 +325,10 @@ public class Orchestrator {
 
         ac.setDegreeDecimal(yCoordinate);
         ac.convertToDegMinSec();
-        GuiUpdater.window.scopeAlt.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'");
+        GuiUpdater.window.scopeAlt.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'" + ac.getSec() + "\"");
         ac.setDegreeDecimal(xCoordinate);
         ac.convertToDegMinSec();
-        GuiUpdater.window.scopeAz.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'");
+        GuiUpdater.window.scopeAz.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'" + ac.getSec() + "\"");
 
         scopeAlt = yCoordinate;
         scopeAz = xCoordinate;

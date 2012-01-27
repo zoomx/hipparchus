@@ -25,7 +25,7 @@ public class Communicator implements SerialPortEventListener {
     private boolean bConnected = false;
     private final static int TIMEOUT = 2000;
     private final static char END_OF_LINE = '\n';
-    private final static int BAUD_RATE = 115200;
+    private final static int BAUD_RATE = 9600;
 
     /*
      * TODO: Fix this in order to be the proper size by adding the
