@@ -29,7 +29,7 @@ public class Orchestrator {
      * of a 10cm circle (3.9")
      */
     // TODO: Needs to be defined properly when hardware installed
-    public static long MOUSE_TICKS_PER_REV = 20000;
+    public static double MOUSE_TICKS_PER_REV = 43200;
     public static double ALT_LIMIT = 0;//This can be configured in the front-end
     public static double starRaArray[] = {
         8.97,22.14,19.51,4.6,0.22,10.33,9.46,0.14,2.03,16.49,5.55,5.42,5.92,6.4,
@@ -270,6 +270,7 @@ public class Orchestrator {
                 GuiUpdater.window.objectsAz.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'" + ac.getSec() + "\"");
 
                 //Goto functions
+                // TODO: Needs improovement. Firmware runs into oscilation with pid
                 double revInMin = 360*60;
                 double minPerTick = revInMin/MOUSE_TICKS_PER_REV;
                 double altInMin = alt*60;
