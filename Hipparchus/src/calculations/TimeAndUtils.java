@@ -42,8 +42,8 @@ public class TimeAndUtils {
         double hour = cal.get(Calendar.HOUR_OF_DAY);
         double min = cal.get(Calendar.MINUTE);
         double sec = cal.get(Calendar.SECOND);
-        double ms = cal.get(Calendar.MILLISECOND);
-        sec += (sec + ms/1000);
+        //double ms = cal.get(Calendar.MILLISECOND);
+        //sec += (sec + ms/1000);
         return convertToDecimal(hour, min, sec);
     }
 

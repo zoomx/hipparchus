@@ -17,7 +17,7 @@ public class Gui extends javax.swing.JFrame {
 
     private static final long serialVersionUID = -4715143923818683881L;
     
-    Orchestrator or = new Orchestrator();
+	Orchestrator mh = new Orchestrator();
     GuiUpdater gu = new GuiUpdater(this);
     VisibleStarsInJTable visStarsTable = new VisibleStarsInJTable();
 
@@ -28,7 +28,7 @@ public class Gui extends javax.swing.JFrame {
     }
 
     private void createObjects() {
-        or.updatePortList();
+        mh.updatePortList();
     }
 
     /** This method is called from within the constructor to
@@ -662,9 +662,9 @@ public class Gui extends javax.swing.JFrame {
                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(scopeCoordinates1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(objectsAz, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                    .addComponent(objectsAlt, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(objectsAz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(objectsAlt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         scopeCoordinates1Layout.setVerticalGroup(
             scopeCoordinates1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -929,12 +929,12 @@ public class Gui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectArduinoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectArduinoBtnActionPerformed
-        or.connectToSerial((String) portList.getSelectedItem());
+        mh.connectToSerial((String) portList.getSelectedItem());
     }//GEN-LAST:event_connectArduinoBtnActionPerformed
 
     private void disconnectArduinoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectArduinoBtnActionPerformed
-        or.sendMessage("R");
-        or.disconnectSerial();
+        mh.sendMessage("R");
+        mh.disconnectSerial();
     }//GEN-LAST:event_disconnectArduinoBtnActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
@@ -946,19 +946,19 @@ public class Gui extends javax.swing.JFrame {
     }//GEN-LAST:event_clearLogActionPerformed
 
     private void startTrackingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startTrackingActionPerformed
-        or.setRa(raH.getText(), raM.getText(), raS.getText());
-        or.setDec(decD.getText(), decM.getText(), decS.getText());
-        or.startTracking();
-        //or.sendMessage("GN");
+        mh.setRa(raH.getText(), raM.getText(), raS.getText());
+        mh.setDec(decD.getText(), decM.getText(), decS.getText());
+        mh.startTracking();
+        mh.sendMessage("G");
     }//GEN-LAST:event_startTrackingActionPerformed
 
     private void stopTrackingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopTrackingActionPerformed
-        or.stopTracking();
-        or.sendMessage("S");
+        mh.stopTracking();
+        mh.sendMessage("S");
     }//GEN-LAST:event_stopTrackingActionPerformed
 
     private void resetXYPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetXYPositionActionPerformed
-        or.sendMessage("R");
+        mh.sendMessage("R");
     }//GEN-LAST:event_resetXYPositionActionPerformed
 
     private void getFirstObjectPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getFirstObjectPositionActionPerformed
@@ -971,15 +971,15 @@ public class Gui extends javax.swing.JFrame {
         star1Ra.setText((String) visStarsTable.getValueAt(selectedRow, 1));
         star1Dec.setText((String) visStarsTable.getValueAt(selectedRow, 2));
 
-        // Get the decimal values of ra, dec from a constants list and set it to or
-        or.setRa(Orchestrator.visibleStarsRa.get(selectedRow));
-        or.setDec(Orchestrator.visibleStarsDec.get(selectedRow));
+        // Get the decimal values of ra, dec from a constants list and set it to mh
+        mh.setRa(Orchestrator.visibleStarsRa.get(selectedRow));
+        mh.setDec(Orchestrator.visibleStarsDec.get(selectedRow));
         
         // Get the current alt, az from arduino
-        or.sendMessage("T");
+        mh.sendMessage("T");
         
         // Calculate direction cosines for star 1
-        or.calcStar1(or.getRa(), or.getDec());
+        mh.calcStar1(mh.getRa(), mh.getDec());
     }//GEN-LAST:event_getFirstObjectPositionActionPerformed
 
     private void getSecondObjectPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getSecondObjectPositionActionPerformed
@@ -991,19 +991,19 @@ public class Gui extends javax.swing.JFrame {
         star2Ra.setText((String) visStarsTable.getValueAt(selectedRow, 1));
         star2Dec.setText((String) visStarsTable.getValueAt(selectedRow, 2));
 
-        // Get the decimal values of ra, dec from a constants list and set it to or
-        or.setRa(Orchestrator.visibleStarsRa.get(selectedRow));
-        or.setDec(Orchestrator.visibleStarsDec.get(selectedRow));
+        // Get the decimal values of ra, dec from a constants list and set it to mh
+        mh.setRa(Orchestrator.visibleStarsRa.get(selectedRow));
+        mh.setDec(Orchestrator.visibleStarsDec.get(selectedRow));
         
         // Get the current alt, az from arduino
-        or.sendMessage("T");
+        mh.sendMessage("T");
 
         // Calculate direction cosines for star 1
-        or.calcStar2(or.getRa(), or.getDec());
+        mh.calcStar2(mh.getRa(), mh.getDec());
     }//GEN-LAST:event_getSecondObjectPositionActionPerformed
 
     private void calibrateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calibrateBtnActionPerformed
-        or.twoStarAlign();
+        mh.twoStarAlign();
     }//GEN-LAST:event_calibrateBtnActionPerformed
 
     private void resetLocationBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetLocationBtn1ActionPerformed
@@ -1013,16 +1013,16 @@ public class Gui extends javax.swing.JFrame {
         latitudeDegText.setText("00");
         latitudeMinText.setText("00");
         latitudeSecText.setText("00");
-        or.clearVisibleStarLists();
+        mh.clearVisibleStarLists();
         visStarsTable.updateTableModel();
         visStarsTable.fireTableDataChanged();
     }//GEN-LAST:event_resetLocationBtn1ActionPerformed
 
     private void saveLocationBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveLocationBtn1ActionPerformed
-        or.setLongitude(longitudeDegText.getText(), longitudeMinText.getText(), longitudeSecText.getText(), northRadioButton.isSelected());
-        or.setLatitude(latitudeDegText.getText(), latitudeMinText.getText(), latitudeSecText.getText(), eastRadioButton.isSelected());
-        or.clearVisibleStarLists();
-        or.calcVisibleStars();
+        mh.setLongitude(longitudeDegText.getText(), longitudeMinText.getText(), longitudeSecText.getText(), northRadioButton.isSelected());
+        mh.setLatitude(latitudeDegText.getText(), latitudeMinText.getText(), latitudeSecText.getText(), eastRadioButton.isSelected());
+        mh.clearVisibleStarLists();
+        mh.calcVisibleStars();
         visStarsTable.updateTableModel();
         visStarsTable.fireTableDataChanged();
         starListTable = visStarsTable.autoResizeColWidth(starListTable, visStarsTable);
