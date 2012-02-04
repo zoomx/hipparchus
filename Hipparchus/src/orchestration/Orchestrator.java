@@ -242,9 +242,9 @@ public class Orchestrator {
 
     public void startTracking() {
         
-        long delay = 0;
-        long period = 1000;
-        timer = new Timer();
+        //long delay = 0;
+        //long period = 500;
+        //timer = new Timer();
         //timer.scheduleAtFixedRate(new TimerTask() {
 
             //public void run() {
@@ -271,11 +271,12 @@ public class Orchestrator {
 
                 //Goto functions
                 // TODO: Needs improovement. Firmware runs into oscilation with pid
-                double revInMin = 360*60;
-                double minPerTick = revInMin/MOUSE_TICKS_PER_REV;
+                double revInMin = 21600;//360*60;
+                double minPerTick = 1;//revInMin/MOUSE_TICKS_PER_REV;
                 double altInMin = alt*60;
-                int stepsToGo = (int)(altInMin/minPerTick);
+                double stepsToGo = altInMin/minPerTick;
                 sendMessage("G"+String.valueOf(stepsToGo));
+                System.out.println(stepsToGo);
             //}
         //}, delay, period);
     }

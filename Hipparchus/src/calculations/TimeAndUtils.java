@@ -29,10 +29,13 @@ public class TimeAndUtils {
         int i = Double.compare(hour, 0.0);
         if (i < 0) {
             timeInDecimal = hour - (decimalMinutes / 60);
+            System.out.println(timeInDecimal);
         }
         if (i > 0) {
             timeInDecimal = hour + (decimalMinutes / 60);
+            System.out.println(timeInDecimal);
         }
+        
         return timeInDecimal;
     }
 
@@ -43,7 +46,7 @@ public class TimeAndUtils {
         double min = cal.get(Calendar.MINUTE);
         double sec = cal.get(Calendar.SECOND);
         double ms = cal.get(Calendar.MILLISECOND);
-        sec += (sec + ms/1000);
+        sec += ms/1000;
         return convertToDecimal(hour, min, sec);
     }
 
