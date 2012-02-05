@@ -1,16 +1,10 @@
-#include <PID_v1.h>
 #include <ps2.h>
 
 //Serial communication vars
 char cmd[10];
 int index;
 
-//PID vars
 double Setpoint, Input, Output;
-double Kp = 5;
-double Ki = 0.5;
-double Kd = 1;
-PID myPID(&Input, &Output, &Setpoint,Kp,Ki,Kd, DIRECT);
 
 // Motor's pins
 int motorApinA = 3;
@@ -28,9 +22,15 @@ PS2Mouse mouse2(8, 2);
 boolean goTo;
 boolean sendPosition;
 
+MouseInfo mouseInfo;
+MouseInfo mouseInfo2;
+
+double previousPosition;
+double tmp;
+int spd;
+
 void setup()
 {
-
   pinMode(motorApinA, OUTPUT);
   pinMode(motorApinB, OUTPUT);
   pinMode(motorBpinA, OUTPUT);
@@ -38,11 +38,8 @@ void setup()
 
   Serial.begin(9600);
 
-/********************* PID initialisation *************************/
   Input = 0;//the current position
   Setpoint = 0;//the target position
-  myPID.SetMode(AUTOMATIC);//turn on the pid
-
 
   mouse.init();
   mouse2.init();
@@ -53,16 +50,14 @@ void setup()
 
 void loop()
 {
-/******************Encoders initialisation*************************/
-  MouseInfo mouseInfo;
-  MouseInfo mouseInfo2;
+  /************************ Mouse routines **************************/
   mouse.getData(&mouseInfo);
   mouse2.getData(&mouseInfo2);
   xPosition = mouseInfo.cX;
   yPosition = mouseInfo2.cY;
-/******************************************************************/
-  
-/********************* Serial Communication ***********************/
+  /******************************************************************/
+
+  /********************* Serial Communication ***********************/
   index = 0;
   //Get the serial command and store it to the char array
   while (Serial.available())
@@ -71,13 +66,13 @@ void loop()
     delay(1);
     index++;
   }
-  //Null character in ASCII at the end of each line
   cmd[index] = 0;
-  //Communication protocol
+
   if (index > 0)
   {
     if (cmd[0] == 'G'){
       Setpoint = atoi(cmd+1);
+      previousPosition = yPosition;
       goTo = true;
     }
     if (cmd[0] == 'S')
@@ -99,23 +94,42 @@ void loop()
       mouse2.reset();
     }
   }
-/*****************************************Serial communication end********************************/
+  /************************** Serial communication end ************************/
+  /****************************************************************************/
+  /******************************* Go-To/Tracking *****************************/
+  tmp = yPosition;
+  if ((abs(tmp - previousPosition) <= 50) || (abs(Setpoint - tmp) <= 50))
+  {
+    spd = 250;
+  }
+  if ((abs(tmp - previousPosition) <= 40) || (abs(Setpoint - tmp) <= 40))
+  {
+    spd = 200;
+  }
+  if ((abs(tmp - previousPosition) <= 30) || (abs(Setpoint - tmp) <= 30))
+  {
+    spd = 150;
+  }
+  if ((abs(tmp - previousPosition) <= 20) || (abs(Setpoint - tmp) <= 20))
+  {
+    spd = 100;
+  }
+  if ((abs(tmp - previousPosition) <= 10) || (abs(Setpoint - tmp) <= 10))
+  {
+    spd = 50;
+  }
   if (goTo)
   {
-/*********************************************Go-To/Tracking**************************************/
     Input = yPosition;
-    myPID.Compute();
     if (abs(Setpoint - Input) != 0)
     {
       if (Setpoint < Input)
       {
-        myPID.SetControllerDirection(REVERSE);
-        motorABack(Output);
+        motorABack(spd);
       }
       if (Setpoint > Input)
       {
-        myPID.SetControllerDirection(DIRECT);
-        motorAForward(Output);
+        motorAForward(spd);
       }
     }
     else
@@ -124,37 +138,22 @@ void loop()
       goTo = false;
       sendPosition = true;
     }
-    /**************************************************End goto**************************************/
-    if (sendPosition)
-    {
-      Serial.print("G:xy:");
-      Serial.print(xPosition);
-      Serial.print(":");
-      Serial.print(yPosition);
-      Serial.print("\n");
-      //delay(50);
-      sendPosition = false;
-    }
+    /********************************** End goto ******************************/
+    /**************************************************************************/
   }
-  /*********************************************Go-To/Tracking**************************************
-   * //Input = mouseInfo.cY;
-   * Input = mouseY;
-   * myPID.Compute();
-   * if (Setpoint < Input){
-   * myPID.SetControllerDirection(REVERSE);
-   * motorABack(Output);
-   * }
-   * if (Setpoint > Input){
-   * myPID.SetControllerDirection(DIRECT);
-   * motorAForward(Output);
-   * }
-   * if (abs(Setpoint - Input) <= 6 ){
-   * motorAStop();
-   * }
-  /**************************************************End goto**************************************/
+  if (sendPosition)
+  {
+    Serial.print("G:xy:");
+    Serial.print(xPosition);
+    Serial.print(":");
+    Serial.print(yPosition);
+    Serial.print("\n");
+    delay(200);
+    sendPosition = false;
+  }
 }
 
-/************************************************Motor control commands*********************************/
+/***************************** Motor control commands **************************/
 void motorAForward(int spd)
 {
   digitalWrite(motorApinA, HIGH);
@@ -175,3 +174,8 @@ void motorAStop()
   digitalWrite(motorApinB, LOW);
   analogWrite(motorApinB, 0);
 }
+
+
+
+
+
