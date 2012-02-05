@@ -29,7 +29,7 @@ public class Orchestrator {
      * of a 10cm circle (3.9")
      */
     // TODO: Needs to be defined properly when hardware installed
-    public static double MOUSE_TICKS_PER_REV = 43200;
+    public static double MOUSE_TICKS_PER_REV = 21600;
     public static double ALT_LIMIT = 0;//This can be configured in the front-end
     public static double starRaArray[] = {
         8.97,22.14,19.51,4.6,0.22,10.33,9.46,0.14,2.03,16.49,5.55,5.42,5.92,6.4,
@@ -125,7 +125,6 @@ public class Orchestrator {
 
     public Orchestrator() {
         Calendar cal = Calendar.getInstance();
-        //cal.set(2011, 10, 21, 21, 0, 0);// this is a test
         t0 = tau.getLocalDecimalTime(cal);
     }
 
@@ -221,7 +220,6 @@ public class Orchestrator {
             double ha = tau.getHourAngleInHours(lst, starRaArray[i]);
             
             double alt = cc.convertRaDecToAlt(starDecArray[i], latitude, ha);
-            //double az = cc.convertRaDecToAz(starDecArray[i], latitude, alt, ha);
             if (alt > ALT_LIMIT){
                 visibleStarsRa.add(starRaArray[i]);
                 visibleStarsDec.add(starDecArray[i]);
@@ -264,19 +262,16 @@ public class Orchestrator {
                 
                 ac.setDegreeDecimal(alt);
                 ac.convertToDegMinSec();
-                GuiUpdater.window.objectsAlt.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'" + ac.getSec() + "\"");
+                GuiUpdater.window.objectsAlt.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'");
                 ac.setDegreeDecimal(az);
                 ac.convertToDegMinSec();
-                GuiUpdater.window.objectsAz.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'" + ac.getSec() + "\"");
+                GuiUpdater.window.objectsAz.setText("" + ac.getDeg() + "\u00b0" + ac.getMin() + "'");
 
-                //Goto functions
-                // TODO: Needs improovement. Firmware runs into oscilation with pid
                 double revInMin = 21600;//360*60;
-                double minPerTick = 1;//revInMin/MOUSE_TICKS_PER_REV;
+                double minPerTick = revInMin/MOUSE_TICKS_PER_REV;
                 double altInMin = alt*60;
-                double stepsToGo = altInMin/minPerTick;
+                int stepsToGo = (int)(altInMin/minPerTick);
                 sendMessage("G"+String.valueOf(stepsToGo));
-                System.out.println(stepsToGo);
             //}
         //}, delay, period);
     }
@@ -320,10 +315,6 @@ public class Orchestrator {
         //convert to degrees based on the steps
         double xCoordinate = (xDouble / MOUSE_TICKS_PER_REV) * 360.0;
         double yCoordinate = (yDouble / MOUSE_TICKS_PER_REV) * 360.0;
-
-        //DecimalFormat df = new DecimalFormat("#.####");
-        //AngleConverter acAz = new AngleConverter(xCoordinate);
-        //AngleConverter acAlt = new AngleConverter(yCoordinate);
 
         ac.setDegreeDecimal(yCoordinate);
         ac.convertToDegMinSec();
