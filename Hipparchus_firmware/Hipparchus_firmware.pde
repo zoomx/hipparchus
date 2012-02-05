@@ -98,25 +98,25 @@ void loop()
   /****************************************************************************/
   /******************************* Go-To/Tracking *****************************/
   tmp = yPosition;
-  if ((abs(tmp - previousPosition) <= 50) || (abs(Setpoint - tmp) <= 50))
-  {
-    spd = 250;
-  }
-  if ((abs(tmp - previousPosition) <= 40) || (abs(Setpoint - tmp) <= 40))
-  {
-    spd = 200;
-  }
-  if ((abs(tmp - previousPosition) <= 30) || (abs(Setpoint - tmp) <= 30))
-  {
-    spd = 150;
-  }
-  if ((abs(tmp - previousPosition) <= 20) || (abs(Setpoint - tmp) <= 20))
-  {
-    spd = 100;
-  }
   if ((abs(tmp - previousPosition) <= 10) || (abs(Setpoint - tmp) <= 10))
   {
     spd = 50;
+  }
+  else if ((abs(tmp - previousPosition) <= 20) || (abs(Setpoint - tmp) <= 20))
+  {
+    spd = 100;
+  }
+  else if ((abs(tmp - previousPosition) <= 30) || (abs(Setpoint - tmp) <= 30))
+  {
+    spd = 150;
+  }
+  else if ((abs(tmp - previousPosition) <= 40) || (abs(Setpoint - tmp) <= 40))
+  {
+    spd = 200;
+  }
+  else
+  {
+    spd = 250;
   }
   if (goTo)
   {
@@ -174,6 +174,7 @@ void motorAStop()
   digitalWrite(motorApinB, LOW);
   analogWrite(motorApinB, 0);
 }
+
 
 
 
