@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.6" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
@@ -150,7 +150,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="1"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="longitude" min="-2" max="-2" attributes="1"/>
@@ -189,7 +189,7 @@
                           <Component id="connectArduinoBtn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="disconnectArduinoBtn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="497" max="32767" attributes="0"/>
+                          <EmptySpace pref="501" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -201,7 +201,7 @@
                                   <Component id="connectArduinoBtn" alignment="2" min="-2" pref="44" max="-2" attributes="0"/>
                                   <Component id="portList" alignment="2" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="disconnectArduinoBtn" alignment="0" pref="44" max="32767" attributes="0"/>
+                              <Component id="disconnectArduinoBtn" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -581,7 +581,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="calibrateBtn" pref="414" max="32767" attributes="0"/>
+                          <Component id="calibrateBtn" pref="416" max="32767" attributes="0"/>
                           <Component id="starListScroll" min="-2" pref="414" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -667,7 +667,7 @@
                                       <Component id="star1Dec" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="getFirstObjectPosition" alignment="0" pref="75" max="32767" attributes="1"/>
+                              <Component id="getFirstObjectPosition" alignment="0" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -777,7 +777,7 @@
                                   <Component id="star2Dec" min="-2" pref="154" max="-2" attributes="1"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="6" max="32767" attributes="0"/>
                           <Component id="getSecondObjectPosition" min="-2" max="-2" attributes="1"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -787,7 +787,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="getSecondObjectPosition" alignment="0" pref="75" max="32767" attributes="1"/>
+                              <Component id="getSecondObjectPosition" alignment="0" max="32767" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="2" attributes="0">
                                       <Component id="star2Name" alignment="2" min="-2" pref="21" max="-2" attributes="2"/>
@@ -943,7 +943,7 @@
                           <Component id="scopeCoordinates1" max="32767" attributes="1"/>
                           <Component id="scopeCoordinates" alignment="0" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace pref="128" max="32767" attributes="0"/>
+                      <EmptySpace pref="132" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -955,11 +955,11 @@
                           <Component id="scopeCoordinates2" alignment="0" max="32767" attributes="1"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="scopeCoordinates1" min="-2" pref="105" max="-2" attributes="1"/>
-                              <EmptySpace pref="11" max="32767" attributes="0"/>
+                              <EmptySpace pref="12" max="32767" attributes="0"/>
                               <Component id="scopeCoordinates" min="-2" max="-2" attributes="1"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="55" max="32767" attributes="0"/>
+                      <EmptySpace pref="57" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1113,7 +1113,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="objectsAz" pref="228" max="32767" attributes="0"/>
+                              <Component id="objectsAz" pref="232" max="32767" attributes="0"/>
                               <Component id="objectsAlt" alignment="0" pref="228" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1132,7 +1132,7 @@
                               <Component id="jLabel12" min="-2" max="-2" attributes="1"/>
                               <Component id="objectsAz" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="14" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1212,8 +1212,8 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="stopTracking" alignment="0" pref="239" max="32767" attributes="1"/>
-                              <Component id="startTracking" alignment="1" pref="239" max="32767" attributes="1"/>
+                              <Component id="stopTracking" alignment="0" max="32767" attributes="1"/>
+                              <Component id="startTracking" alignment="1" max="32767" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="ra" alignment="1" min="-2" max="-2" attributes="0"/>

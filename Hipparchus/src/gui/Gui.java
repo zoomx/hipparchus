@@ -949,11 +949,9 @@ public class Gui extends javax.swing.JFrame {
         or.setRa(raH.getText(), raM.getText(), raS.getText());
         or.setDec(decD.getText(), decM.getText(), decS.getText());
         or.startTracking();
-        //or.sendMessage("GN");
     }//GEN-LAST:event_startTrackingActionPerformed
 
     private void stopTrackingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopTrackingActionPerformed
-        or.stopTracking();
         or.sendMessage("S");
     }//GEN-LAST:event_stopTrackingActionPerformed
 
