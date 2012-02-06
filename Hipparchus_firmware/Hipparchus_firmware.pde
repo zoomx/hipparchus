@@ -1,10 +1,11 @@
 #include <ps2.h>
 
 //Serial communication vars
-char cmd[10];
+char cmd[20];
 int index;
 
-double Setpoint, Input, Output;
+int Setpoint1, Input1, Output1;
+int Setpoint2, Input2, Output2;
 
 // Motor's pins
 int motorApinA = 3;
@@ -12,22 +13,25 @@ int motorApinB = 5;
 int motorBpinA = 9;
 int motorBpinB = 11;
 
-double xPosition = 0;
-double yPosition = 0;
-
 //Mouse initialisation. PS2Mouse(clock, data)
 PS2Mouse mouse(12, 7);
 PS2Mouse mouse2(8, 2);
 
-boolean goTo;
+boolean goTo1;
+boolean goTo2;
 boolean sendPosition;
 
 MouseInfo mouseInfo;
 MouseInfo mouseInfo2;
 
-double previousPosition;
-double tmp;
-int spd;
+int xPosition;
+int yPosition;
+int previousPosition1;
+int previousPosition2;
+int tmp1;
+int tmp2;
+int spd1;
+int spd2;
 
 void setup()
 {
@@ -38,13 +42,19 @@ void setup()
 
   Serial.begin(9600);
 
-  Input = 0;//the current position
-  Setpoint = 0;//the target position
+  xPosition = 0;
+  yPosition = 0;
+  
+  Input1 = 0;
+  Setpoint1 = 0;
+  Input2 = 0;
+  Setpoint2 = 0;
 
   mouse.init();
   mouse2.init();
 
-  goTo = false;
+  goTo1 = false;
+  goTo2 = false;
   sendPosition = false;
 }
 
@@ -71,13 +81,18 @@ void loop()
   if (index > 0)
   {
     if (cmd[0] == 'G'){
-      Setpoint = atoi(cmd+1);
-      previousPosition = yPosition;
-      goTo = true;
+      Setpoint2 = atoi(strtok((cmd+1), ","));
+      Setpoint1 = atoi(strtok(NULL, ","));
+      
+      previousPosition1 = yPosition;
+      previousPosition2 = xPosition;
+      goTo1 = true;
+      goTo2 = true;
     }
     if (cmd[0] == 'S')
     {
-      goTo = false;
+      goTo1 = false;
+      goTo2 = false;
       sendPosition = false;
     }
     if (cmd[0] == 'T')
@@ -96,51 +111,96 @@ void loop()
   }
   /************************** Serial communication end ************************/
   /****************************************************************************/
+  
   /******************************* Go-To/Tracking *****************************/
-  tmp = yPosition;
-  if ((abs(tmp - previousPosition) <= 10) || (abs(Setpoint - tmp) <= 10))
+  tmp1 = yPosition;
+  tmp2 = xPosition;
+  if ((abs(tmp1 - previousPosition1) <= 10) || (abs(Setpoint1 - tmp1) <= 10))
   {
-    spd = 50;
+    spd1 = 50;
   }
-  else if ((abs(tmp - previousPosition) <= 20) || (abs(Setpoint - tmp) <= 20))
+  else if ((abs(tmp1 - previousPosition1) <= 20) || (abs(Setpoint1 - tmp1) <= 20))
   {
-    spd = 100;
+    spd1 = 100;
   }
-  else if ((abs(tmp - previousPosition) <= 30) || (abs(Setpoint - tmp) <= 30))
+  else if ((abs(tmp1 - previousPosition1) <= 30) || (abs(Setpoint1 - tmp1) <= 30))
   {
-    spd = 150;
+    spd1 = 150;
   }
-  else if ((abs(tmp - previousPosition) <= 40) || (abs(Setpoint - tmp) <= 40))
+  else if ((abs(tmp1 - previousPosition1) <= 40) || (abs(Setpoint1 - tmp1) <= 40))
   {
-    spd = 200;
+    spd1 = 200;
   }
   else
   {
-    spd = 250;
+    spd1 = 250;
   }
-  if (goTo)
+  
+  if ((abs(tmp2 - previousPosition2) <= 10) || (abs(Setpoint2 - tmp2) <= 10))
   {
-    Input = yPosition;
-    if (abs(Setpoint - Input) != 0)
+    spd2 = 50;
+  }
+  else if ((abs(tmp2 - previousPosition2) <= 20) || (abs(Setpoint2 - tmp2) <= 20))
+  {
+    spd2 = 100;
+  }
+  else if ((abs(tmp2 - previousPosition2) <= 30) || (abs(Setpoint2 - tmp2) <= 30))
+  {
+    spd2 = 150;
+  }
+  else if ((abs(tmp2 - previousPosition2) <= 40) || (abs(Setpoint2 - tmp2) <= 40))
+  {
+    spd2 = 200;
+  }
+  else
+  {
+    spd2 = 250;
+  }
+  if (goTo1)
+  {
+    Input1 = yPosition;
+    if (abs(Setpoint1 - Input1) != 0)
     {
-      if (Setpoint < Input)
+      if (Setpoint1 < Input1)
       {
-        motorABack(spd);
+        motorABack(spd1);
       }
-      if (Setpoint > Input)
+      if (Setpoint1 > Input1)
       {
-        motorAForward(spd);
+        motorAForward(spd1);
       }
     }
     else
     {
       motorAStop();
-      goTo = false;
+      goTo1 = false;
       sendPosition = true;
     }
-    /********************************** End goto ******************************/
-    /**************************************************************************/
   }
+  if (goTo2)
+  {
+    Input2 = xPosition;
+    if (abs(Setpoint2 - Input2) != 0)
+    {
+      if (Setpoint2 < Input2)
+      {
+        motorBBack(spd2);
+      }
+      if (Setpoint2 > Input2)
+      {
+        motorBForward(spd2);
+      }
+    }
+    else
+    {
+      motorBStop();
+      goTo2 = false;
+      sendPosition = true;
+    }
+  }
+  /***************************** Go-To/Tracking end ***************************/
+  /****************************************************************************/
+
   if (sendPosition)
   {
     Serial.print("G:xy:");
@@ -174,9 +234,23 @@ void motorAStop()
   digitalWrite(motorApinB, LOW);
   analogWrite(motorApinB, 0);
 }
+void motorBForward(int spd)
+{
+  digitalWrite(motorBpinA, HIGH);
+  digitalWrite(motorBpinB, LOW);
+  analogWrite(motorBpinA, spd);
+}
 
+void motorBBack(int spd)
+{
+  digitalWrite(motorBpinA, LOW);
+  digitalWrite(motorBpinB, HIGH);
+  analogWrite(motorBpinB, spd);
+}
 
-
-
-
-
+void motorBStop()
+{
+  digitalWrite(motorBpinA, LOW);
+  digitalWrite(motorBpinB, LOW);
+  analogWrite(motorBpinB, 0);
+}
