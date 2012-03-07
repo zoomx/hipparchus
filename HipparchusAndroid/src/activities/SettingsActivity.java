@@ -1,5 +1,6 @@
 package activities;
 
+import gr.mandim.R;
 import location.myLocation;
 import bluetooth.BluetoothService;
 
@@ -15,6 +16,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +49,7 @@ public class SettingsActivity extends Activity {
 
 	// Intent request codes
 	private static final int REQUEST_ENABLE_BT = 3;
+	private static final int REQUEST_RECONNECT = 4;
 
 	// The FireFly mac address (Sparkfun Bluesmirf gold module)
 	private static final String MAC_ADDRESS = "00:06:66:04:DB:38";
@@ -67,8 +72,9 @@ public class SettingsActivity extends Activity {
 
 		// Initialise the user location
 		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		LocationListener ll = new myLocation();
+		LocationListener ll = new myLocation(mHandler);
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+
 	}
 
 	@Override
@@ -88,11 +94,13 @@ public class SettingsActivity extends Activity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		if (D)
+			Log.e(TAG, "--- ON DESTROY ---");
 		// Stop the Bluetooth chat services
 		if (mService != null)
 			mService.stop();
-		if (D)
-			Log.e(TAG, "--- ON DESTROY ---");
+		mBluetoothAdapter.disable();
+
 	}
 
 	private final Handler mHandler = new Handler() {
@@ -140,6 +148,7 @@ public class SettingsActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				break;
 			case MESSAGE_TOAST:
+				dialog.dismiss();
 				Toast.makeText(getApplicationContext(),
 						msg.getData().getString(TOAST), Toast.LENGTH_SHORT)
 						.show();
@@ -173,6 +182,48 @@ public class SettingsActivity extends Activity {
 						.show();
 				finish();
 			}
+			break;
+		case REQUEST_RECONNECT:
+			// When the request to enable Bluetooth returns
+			if (resultCode == Activity.RESULT_OK) {
+				// Initialize the BluetoothChatService to perform bluetooth
+				// connections
+				// mService = new BluetoothService(this, mHandler);
+				BluetoothDevice device = mBluetoothAdapter
+						.getRemoteDevice(MAC_ADDRESS);
+				dialog = ProgressDialog.show(this, "",
+						"Connecting with Dob...", true);
+				mService.connect(device);
+			} else {
+				// User did not enable Bluetooth or an error occured
+				Log.d(TAG, "BT not enabled");
+				Toast.makeText(this, "Unable to enable BT", Toast.LENGTH_SHORT)
+						.show();
+				finish();
+			}
+			break;
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.settings_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.reconnect:
+			// Launch the DeviceListActivity to see devices and do scan
+			Intent enableBtIntent = new Intent(
+					BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+			return true;
+
+		}
+		return false;
 	}
 }
