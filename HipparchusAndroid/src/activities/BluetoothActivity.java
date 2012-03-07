@@ -14,7 +14,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class BluetoothActivity extends Activity {
 
 	// Debugging
     private static final String TAG = "Bluetooth";
