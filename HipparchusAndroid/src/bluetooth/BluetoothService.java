@@ -232,9 +232,9 @@ public class BluetoothService {
      */
     private void connectionFailed() {
         // Send a failure message back to the Activity
-        Message msg = mHandler.obtainMessage(SettingsActivity.MESSAGE_TOAST);
+        Message msg = mHandler.obtainMessage(SettingsActivity.MESSAGE_UNABLE_TO_CONNECT);
         Bundle bundle = new Bundle();
-        bundle.putString(SettingsActivity.TOAST, "Unable to connect with Dob");
+        bundle.putString(SettingsActivity.TOAST, "Unable to connect with \nTelescope");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
@@ -247,7 +247,7 @@ public class BluetoothService {
      */
     private void connectionLost() {
         // Send a failure message back to the Activity
-        Message msg = mHandler.obtainMessage(SettingsActivity.MESSAGE_TOAST);
+        Message msg = mHandler.obtainMessage(SettingsActivity.MESSAGE_UNABLE_TO_CONNECT);
         Bundle bundle = new Bundle();
         bundle.putString(SettingsActivity.TOAST, "Device connection was lost");
         msg.setData(bundle);
