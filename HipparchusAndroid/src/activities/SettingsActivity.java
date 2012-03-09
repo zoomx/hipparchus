@@ -109,7 +109,7 @@ public class SettingsActivity extends Activity {
 				BluetoothDevice device = mBluetoothAdapter
 						.getRemoteDevice(MAC_ADDRESS);
 				dialog = ProgressDialog.show(this, "",
-						"Connecting with \nTelescope...", true);
+						"Connecting with \nthe Telescope...", true);
 				mService.connect(device);
 			} else {
 				// User did not enable Bluetooth or an error occured
