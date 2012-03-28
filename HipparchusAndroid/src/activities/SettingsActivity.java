@@ -154,12 +154,15 @@ public class SettingsActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.reconnect:
-			// Launch the DeviceListActivity to see devices and do scan
+			// Activate bt connection
 			Intent enableBtIntent = new Intent(
 					BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 			return true;
-
+		case R.id.starAlignment:
+			// Launch TwoStarAlignment activity
+			
+			return true;
 		}
 		return false;
 	}

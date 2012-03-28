@@ -61,7 +61,7 @@
             android:id="@+id/locationBtn"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="@string/m_location_btn"/>
+            android:text="@string/location_btn"/>
         
     </LinearLayout>
 

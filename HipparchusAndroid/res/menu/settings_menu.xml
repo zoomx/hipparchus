@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/reconnect" android:title="@string/m_reconnect"></item>
+    <item android:id="@+id/reconnect" android:title="@string/bt_reconnect"></item>
+    <item android:id="@+id/starAlignment" android:title="@string/starAlignment"></item>
     
 
 </menu>
