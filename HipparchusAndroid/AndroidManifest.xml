@@ -15,7 +15,7 @@
 
     <application
         android:icon="@drawable/ic_launcher"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+        android:theme="@android:style/Theme.Black"
         android:label="Hipparchus">       
         <activity android:name="activities.SettingsActivity">
             <intent-filter>

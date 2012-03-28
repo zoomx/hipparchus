@@ -19,6 +19,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class SettingsActivity extends Activity {
@@ -50,11 +54,15 @@ public class SettingsActivity extends Activity {
 	private BluetoothService mService = null;
 	private BluetoothAdapter mBluetoothAdapter = null;
 	private ProgressDialog dialog = null;
+	
+	private EditText latitudeText;
+	private EditText longitudeText;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_layout);
+		
 		// Check bt availability. If no bt available close the application
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
@@ -63,11 +71,29 @@ public class SettingsActivity extends Activity {
 			finish();
 			return;
 		}
-		// Initialise the user location
+		/* Initialise the user location
 		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		LocationListener ll = new myLocation(mHandler);
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);*/
 
+		Button locationBtn = (Button) findViewById(R.id.locationBtn);
+		locationBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+				LocationListener ll = new myLocation();
+				lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
+				//lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			}
+		});
+		latitudeText = (EditText) findViewById(R.id.locationText1);
+		longitudeText = (EditText) findViewById(R.id.locationText2);
+	}
+	public void getLocation(View view){
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		LocationListener ll = new myLocation();
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
 	}
 
 	@Override
@@ -75,11 +101,13 @@ public class SettingsActivity extends Activity {
 		super.onStart();
 		if (D)
 			Log.e(TAG, "++ ON START ++");
+		
 		if (!mBluetoothAdapter.isEnabled()) {
 			Intent enableBtIntent = new Intent(
 					BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 		}
+		
 	}
 
 	@Override
@@ -188,23 +216,15 @@ public class SettingsActivity extends Activity {
 						msg.getData().getString(TOAST), Toast.LENGTH_SHORT)
 						.show();
 				break;
-			case MESSAGE_LOCATION:
-				Toast.makeText(getApplicationContext(),
-						msg.getData().getString(TOAST), Toast.LENGTH_SHORT)
-						.show();
-				break;
+			
 			}
 		}
 	};
 	
 	public class myLocation implements LocationListener {
-		
-		private final Handler myHandler;
 
-		public myLocation(Handler lHandler) {
+		public myLocation() {
 			super();
-			myHandler = lHandler;
-
 		}
 
 		@Override
@@ -212,14 +232,9 @@ public class SettingsActivity extends Activity {
 			if (location != null) {
 				Log.d("LOCATION CHANGED", location.getLatitude() + "");
 				Log.d("LOCATION CHANGED", location.getLongitude() + "");
-
-				Message msg = myHandler.obtainMessage(SettingsActivity.MESSAGE_LOCATION);
-		        Bundle bundle = new Bundle();
-		        bundle.putString(SettingsActivity.TOAST, "Lat: "+location.getLatitude()+"\nLon: "+location.getLongitude());
-		        msg.setData(bundle);
-		        myHandler.sendMessage(msg);
+				latitudeText.setText(String.valueOf(location.getLatitude()));
+				longitudeText.setText(String.valueOf(location.getLongitude()));
 			}
-
 		}
 
 		@Override

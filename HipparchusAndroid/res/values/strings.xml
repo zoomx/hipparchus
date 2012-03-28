@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="m_reconnect">Reconnect</string>
+    <string name="m_location_btn">Get location</string>
+    <string name="lon">Longitude:</string>
+    <string name="lat">Latitude:</string>
 
 </resources>
