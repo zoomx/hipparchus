@@ -44,17 +44,19 @@ public class SettingsActivity extends Activity {
 	public static final String TOAST = "toast";
 
 	// Name of the connected device
-	private String mConnectedDeviceName = null;
+	private String mConnectedDeviceName;
 
 	// Intent request codes
 	private static final int REQUEST_ENABLE_BT = 3;
 
 	// The FireFly mac address (Sparkfun Bluesmirf gold module)
 	private static final String MAC_ADDRESS = "00:06:66:04:DB:38";
-	private BluetoothService mService = null;
-	private BluetoothAdapter mBluetoothAdapter = null;
-	private ProgressDialog dialog = null;
-	
+	private BluetoothService mService;
+	private BluetoothAdapter mBluetoothAdapter;
+	private LocationManager locationManager;
+	private LocationListener locationListener;
+	private ProgressDialog dialog;
+
 	private EditText latitudeText;
 	private EditText longitudeText;
 
@@ -62,7 +64,7 @@ public class SettingsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_layout);
-		
+
 		// Check bt availability. If no bt available close the application
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
@@ -71,29 +73,21 @@ public class SettingsActivity extends Activity {
 			finish();
 			return;
 		}
-		/* Initialise the user location
-		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		LocationListener ll = new myLocation(mHandler);
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);*/
 
 		Button locationBtn = (Button) findViewById(R.id.locationBtn);
 		locationBtn.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-				LocationListener ll = new myLocation();
-				lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
-				//lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+				locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+				locationListener = new myLocation();
+				locationManager.requestLocationUpdates(
+						LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+				
 			}
 		});
 		latitudeText = (EditText) findViewById(R.id.locationText1);
 		longitudeText = (EditText) findViewById(R.id.locationText2);
-	}
-	public void getLocation(View view){
-		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		LocationListener ll = new myLocation();
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, ll);
 	}
 
 	@Override
@@ -101,13 +95,13 @@ public class SettingsActivity extends Activity {
 		super.onStart();
 		if (D)
 			Log.e(TAG, "++ ON START ++");
-		
+
 		if (!mBluetoothAdapter.isEnabled()) {
 			Intent enableBtIntent = new Intent(
 					BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 		}
-		
+
 	}
 
 	@Override
@@ -131,8 +125,7 @@ public class SettingsActivity extends Activity {
 		case REQUEST_ENABLE_BT:
 			// When the request to enable Bluetooth returns
 			if (resultCode == Activity.RESULT_OK) {
-				// Initialize the BluetoothChatService to perform bluetooth
-				// connections
+				// Initialize the BluetoothChatService to perform bluetooth connections
 				mService = new BluetoothService(this, mHandler);
 				BluetoothDevice device = mBluetoothAdapter
 						.getRemoteDevice(MAC_ADDRESS);
@@ -144,7 +137,6 @@ public class SettingsActivity extends Activity {
 				Log.d(TAG, "BT not enabled");
 				Toast.makeText(this, "Unable to enable BT", Toast.LENGTH_SHORT)
 						.show();
-				finish();
 			}
 			break;
 		}
@@ -216,11 +208,11 @@ public class SettingsActivity extends Activity {
 						msg.getData().getString(TOAST), Toast.LENGTH_SHORT)
 						.show();
 				break;
-			
+
 			}
 		}
 	};
-	
+
 	public class myLocation implements LocationListener {
 
 		public myLocation() {
@@ -235,6 +227,7 @@ public class SettingsActivity extends Activity {
 				latitudeText.setText(String.valueOf(location.getLatitude()));
 				longitudeText.setText(String.valueOf(location.getLongitude()));
 			}
+			locationManager.removeUpdates(locationListener);
 		}
 
 		@Override
