@@ -1,5 +1,6 @@
 package activities;
 
+import orchestration.Orchestrator;
 import gr.mandim.R;
 import bluetooth.BluetoothService;
 
@@ -64,7 +65,7 @@ public class SettingsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_layout);
-
+		final Orchestrator orc = (Orchestrator)this.getApplicationContext();
 		// Check bt availability. If no bt available close the application
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
@@ -74,6 +75,9 @@ public class SettingsActivity extends Activity {
 			return;
 		}
 
+		latitudeText = (EditText) findViewById(R.id.latitudeField);
+		longitudeText = (EditText) findViewById(R.id.longitudeField);
+		
 		Button locationBtn = (Button) findViewById(R.id.locationBtn);
 		locationBtn.setOnClickListener(new OnClickListener() {
 
@@ -86,8 +90,22 @@ public class SettingsActivity extends Activity {
 				
 			}
 		});
-		latitudeText = (EditText) findViewById(R.id.locationText1);
-		longitudeText = (EditText) findViewById(R.id.locationText2);
+		
+		Button locationSave = (Button) findViewById(R.id.locationSave);
+		locationSave.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {			
+				if (latitudeText.getText().length() == 0 || longitudeText.getText().length() == 0){
+					Toast.makeText(SettingsActivity.this, "Error: Location Not Set", Toast.LENGTH_LONG).show();
+				}
+				else{
+					orc.setLatitude(Double.parseDouble(latitudeText.getText().toString()));
+					orc.setLongitude(Double.parseDouble(longitudeText.getText().toString()));
+					Toast.makeText(SettingsActivity.this, "Location Saved", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 	}
 
 	@Override
