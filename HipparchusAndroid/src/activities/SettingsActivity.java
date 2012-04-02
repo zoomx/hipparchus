@@ -179,7 +179,8 @@ public class SettingsActivity extends Activity {
 			return true;
 		case R.id.starAlignment:
 			// Launch TwoStarAlignment activity
-			
+			Intent twoStarAlignment = new Intent(this, TwoStarAlignmentActivity.class);			
+			startActivity(twoStarAlignment);
 			return true;
 		}
 		return false;
