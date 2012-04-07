@@ -1,74 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tableLayout1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical" >
 
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/row1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:baselineAligned="true" >
+        android:layout_margin="10dp" >
 
         <TextView
             android:id="@+id/latitudeLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/lat"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
         <EditText
             android:id="@+id/latitudeField"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1.5"
             android:inputType="numberDecimal" >
+
             <requestFocus />
         </EditText>
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/row2"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:baselineAligned="true" >
+        android:layout_margin="10dp" >
 
         <TextView
             android:id="@+id/longitudeLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/lon"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
             android:id="@+id/longitudeField"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1.5"
             android:inputType="numberDecimal" >
-
-            <requestFocus />
         </EditText>
-    </TableRow>
-
-    <LinearLayout
-        android:gravity="center_horizontal">
-
-        <Button
-            style="@android:color/transparent"
-            android:id="@+id/locationBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/location_btn"/>
-        <Button
-            style="@android:color/transparent"
-            android:id="@+id/locationSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/saveLocation"/>
-        
     </LinearLayout>
 
-</TableLayout>
+    <LinearLayout
+        android:id="@+id/row3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/locationBtn"
+            style="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location_btn" />
+
+        <Button
+            android:id="@+id/locationSave"
+            style="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saveLocation" />
+    </LinearLayout>
+
+</LinearLayout>

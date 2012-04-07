@@ -13,5 +13,6 @@
     <string name="locateSecondStarLabel">Locate Second Star:</string>
     <string name="setFirstStarBtn">Set 1st Star</string>
     <string name="setSecondStarBtn">Set 2nd Star</string>
+    <string name="selectStar">Select</string>
 
 </resources>
