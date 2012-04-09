@@ -101,7 +101,7 @@ public class SettingsActivity extends Activity {
 				}
 				else{
 					orc.setLatitude(Double.parseDouble(latitudeText.getText().toString()));
-					orc.setLongitude(Double.parseDouble(longitudeText.getText().toString()));
+					orc.setLongitude(Double.parseDouble(longitudeText.getText().toString()));					
 					Toast.makeText(SettingsActivity.this, "Location Saved", Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -114,11 +114,13 @@ public class SettingsActivity extends Activity {
 		if (D)
 			Log.e(TAG, "++ ON START ++");
 
+		/*
 		if (!mBluetoothAdapter.isEnabled()) {
 			Intent enableBtIntent = new Intent(
 					BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 		}
+		*/
 
 	}
 

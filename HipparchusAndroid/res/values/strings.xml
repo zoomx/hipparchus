@@ -6,13 +6,12 @@
     <string name="lat">Latitude:</string>
     <string name="starAlignment">Two Star Alignment</string>
     <string name="saveLocation">Save</string>
-    <string name="locateFirstStarLabel">Locate First Star:</string>
+    <string name="locateFirstStarLabel">Locate First Star</string>
     <string name="starNameLabel">Name:</string>
     <string name="raLabel">R.A.:</string>
     <string name="decLabel">Dec:</string>
-    <string name="locateSecondStarLabel">Locate Second Star:</string>
+    <string name="locateSecondStarLabel">Locate Second Star</string>
     <string name="setFirstStarBtn">Set 1st Star</string>
     <string name="setSecondStarBtn">Set 2nd Star</string>
     <string name="selectStar">Select</string>
-
 </resources>
