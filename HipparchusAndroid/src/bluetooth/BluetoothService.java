@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
-import activities.SettingsActivity;
+import orchestration.Orchestrator;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
@@ -38,7 +38,7 @@ import android.util.Log;
  * incoming connections, a thread for connecting with a device, and a
  * thread for performing data transmissions when connected.
  */
-public class BluetoothService {
+public class BluetoothService{
 	// Debugging
     private static final String TAG = "BluetoothService";
     private static final boolean D = true;
@@ -47,7 +47,7 @@ public class BluetoothService {
     private static final String NAME = "BluetoothSecure";
     //private static final String NAME_INSECURE = "BluetoothInsecure";
 
-    // Unique UUID for this application
+    // Unique UUID for this application. Password for pairing is 1234
     private static final UUID MY_UUID =
     		UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     //private static final UUID MY_UUID_INSECURE =  UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
@@ -173,9 +173,9 @@ public class BluetoothService {
         mConnectedThread.start();
 
         // Send the name of the connected device back to the UI Activity
-        Message msg = mHandler.obtainMessage(SettingsActivity.MESSAGE_DEVICE_NAME);
+        Message msg = mHandler.obtainMessage(Orchestrator.MESSAGE_DEVICE_NAME);
         Bundle bundle = new Bundle();
-        bundle.putString(SettingsActivity.DEVICE_NAME, device.getName());
+        bundle.putString(Orchestrator.DEVICE_NAME, device.getName());
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
@@ -232,9 +232,9 @@ public class BluetoothService {
      */
     private void connectionFailed() {
         // Send a failure message back to the Activity
-        Message msg = mHandler.obtainMessage(SettingsActivity.MESSAGE_UNABLE_TO_CONNECT);
+        Message msg = mHandler.obtainMessage(Orchestrator.MESSAGE_UNABLE_TO_CONNECT);
         Bundle bundle = new Bundle();
-        bundle.putString(SettingsActivity.TOAST, "Unable to connect with \nTelescope");
+        bundle.putString(Orchestrator.TOAST, "Unable to connect with \nTelescope");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
@@ -247,9 +247,9 @@ public class BluetoothService {
      */
     private void connectionLost() {
         // Send a failure message back to the Activity
-        Message msg = mHandler.obtainMessage(SettingsActivity.MESSAGE_UNABLE_TO_CONNECT);
+        Message msg = mHandler.obtainMessage(Orchestrator.MESSAGE_UNABLE_TO_CONNECT);
         Bundle bundle = new Bundle();
-        bundle.putString(SettingsActivity.TOAST, "Device connection was lost");
+        bundle.putString(Orchestrator.TOAST, "Device connection was lost");
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
@@ -440,8 +440,8 @@ public class BluetoothService {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
 
-                    // Send the obtained bytes to the UI Activity
-                    mHandler.obtainMessage(SettingsActivity.MESSAGE_READ, bytes, -1, buffer)
+                    // Send the obtained bytes to the  specified Activity
+                    mHandler.obtainMessage(Orchestrator.MESSAGE_READ, bytes, -1, buffer)
                             .sendToTarget();
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
@@ -460,7 +460,7 @@ public class BluetoothService {
                 mmOutStream.write(buffer);
 
                 // Share the sent message back to the UI Activity
-                mHandler.obtainMessage(SettingsActivity.MESSAGE_WRITE, -1, -1, buffer)
+                mHandler.obtainMessage(Orchestrator.MESSAGE_WRITE, -1, -1, buffer)
                         .sendToTarget();
             } catch (IOException e) {
                 Log.e(TAG, "Exception during write", e);

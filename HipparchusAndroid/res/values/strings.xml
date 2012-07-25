@@ -14,4 +14,7 @@
     <string name="setFirstStarBtn">Set 1st Star</string>
     <string name="setSecondStarBtn">Set 2nd Star</string>
     <string name="selectStar">Select</string>
+    <string name="defaultLat">35.3330</string>
+    <string name="defaultLon">25.1330</string>
+    <string name="not_connected">You are not connected to a device</string>
 </resources>

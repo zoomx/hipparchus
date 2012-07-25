@@ -201,7 +201,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/star2Select"
+            android:id="@+id/star2SelectBtn"
             style="@android:color/transparent"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
