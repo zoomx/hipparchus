@@ -1,15 +1,19 @@
 package activities;
 
-import orchestration.Orchestrator;
 import gr.mandim.R;
-
+import orchestration.Orchestrator;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,26 +23,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import bluetooth.BluetoothService;
+import bluetooth.BluetoothService.LocalBinder;
 
 public class SettingsActivity extends Activity {
 
-	// Debugging
 	private static final String TAG = "SettingsActivity";
-	private static final boolean D = true;
-
-	// Message types sent from the BluetoothService Handler
-	public static final int MESSAGE_STATE_CHANGE = 1;
-	public static final int MESSAGE_READ = 2;
-	public static final int MESSAGE_WRITE = 3;
-	public static final int MESSAGE_DEVICE_NAME = 4;
-	public static final int MESSAGE_UNABLE_TO_CONNECT = 5;
-	protected static final int MESSAGE_LOCATION = 6;
-
-	// Key names received from the BluetoothService Handler
-	public static final String DEVICE_NAME = "device_name";
-	public static final String TOAST = "toast";
-	public static String ARDUINO_MESSAGE;
-
+	private static final int REQUEST_ENABLE_BT = 3;
+	private static final String MAC_ADDRESS = "00:06:66:04:DB:38";
+	
+	public BluetoothService btService;
+	public BluetoothDevice device;
+	public boolean mIsBound = false;
+	
+	private BluetoothAdapter mBluetoothAdapter;
 	private LocationManager locationManager;
 	private LocationListener locationListener;
 
@@ -51,7 +49,18 @@ public class SettingsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_layout);
+
 		orc = (Orchestrator) this.getApplicationContext();
+
+		// Check bt availability. If no bt available close the application
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (mBluetoothAdapter == null) {
+			Toast.makeText(this, "Bluetooth is not available",
+					Toast.LENGTH_LONG).show();
+			finish();
+			return;
+		}
+		device = mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS);
 
 		latitudeText = (EditText) findViewById(R.id.latitudeField);
 		longitudeText = (EditText) findViewById(R.id.longitudeField);
@@ -94,20 +103,42 @@ public class SettingsActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if (D)
-			Log.i(TAG, "++ ON START ++");
-		orc.connectToBT();
+		Intent intent = new Intent(SettingsActivity.this,
+				BluetoothService.class);
+		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+		mIsBound = true;
+		if (!mBluetoothAdapter.isEnabled()) {
+			Intent enableBtIntent = new Intent(
+					BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+		}
+		
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if (D)
-			Log.i(TAG, "++ ON DESTROY ++");
-		/*
-		 * Stop the Bluetooth chat services if (mService != null)
-		 * mService.stop(); mBluetoothAdapter.disable();
-		 */
+		// Unbind from the service
+		if (mIsBound) {
+			unbindService(mConnection);
+			mIsBound = false;
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case REQUEST_ENABLE_BT:
+			if (resultCode == Activity.RESULT_OK) {
+				btService.connect(device);
+			} else {
+				// User did not enable Bluetooth or an error occured
+				Log.d(TAG, "BT not enabled");
+				Toast.makeText(this, "Unable to enable BT", Toast.LENGTH_SHORT)
+						.show();
+			}
+			break;
+		}
 	}
 
 	@Override
@@ -122,7 +153,10 @@ public class SettingsActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.reconnect:
-			orc.connectToBT();
+			// Activate bt connection
+			Intent enableBtIntent = new Intent(
+					BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 			return true;
 		case R.id.starAlignment:
 			// Launch TwoStarAlignment activity
@@ -163,4 +197,23 @@ public class SettingsActivity extends Activity {
 		public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		}
 	}
+
+	private ServiceConnection mConnection = new ServiceConnection() {
+
+		@Override
+		public void onServiceConnected(ComponentName className, IBinder service) {
+			LocalBinder binder = (LocalBinder) service;
+			btService = binder.getService();
+			mIsBound = true;
+			Log.i(TAG, "Service connected with activity");
+			btService.setmAdapter(mBluetoothAdapter);
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName arg0) {
+			btService = null;
+			mIsBound = false;
+			Log.i(TAG, "Service disconnected from activity");
+		}
+	};
 }

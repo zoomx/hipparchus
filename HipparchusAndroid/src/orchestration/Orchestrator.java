@@ -12,20 +12,14 @@ import calculations.SimpleCoordinatesConverter;
 import calculations.TimeAndUtils;
 
 import android.app.Application;
-import android.app.ProgressDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import Jama.Matrix;
 
 public class Orchestrator extends Application {
 
 	public static final String TAG = "Orchestrator";
-	private static final boolean D = true;
+		
 	/*
 	 * This constant determines the resolution of the encoders. if mouse is used
 	 * then the the encoder step is equals with the circumference of the circles
@@ -64,17 +58,16 @@ public class Orchestrator extends Application {
 	public static final int MESSAGE_DEVICE_NAME = 4;
 	public static final int MESSAGE_UNABLE_TO_CONNECT = 5;
 	protected static final int MESSAGE_LOCATION = 6;
-	private static final String MAC_ADDRESS = "00:06:66:04:DB:38";
-	private ProgressDialog dialog;
+	
 	// Key names received from the BluetoothService Handler
 	public static final String DEVICE_NAME = "device_name";
 	public static final String TOAST = "toast";
 	public static String ARDUINO_MESSAGE;
 
 	public String arduinoMessage;
-	private BluetoothAdapter mBluetoothAdapter;
-	private BluetoothService mService;
-	private String mConnectedDeviceName;
+	
+	public static BluetoothService btService;
+	
 
 	private TimeAndUtils tau = new TimeAndUtils();
 	private SimpleCoordinatesConverter cc = new SimpleCoordinatesConverter();
@@ -277,79 +270,8 @@ public class Orchestrator extends Application {
 		return visibleStarsLabelNames;
 	}
 
-	public void connectToBT() {
-		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		if (mBluetoothAdapter == null) {
-			Toast.makeText(this, "Bluetooth is not available",
-					Toast.LENGTH_LONG).show();
-			// finish();
-			// return;
-		}
-
-		if (!mBluetoothAdapter.isEnabled()) {
-			 //Intent enableBtIntent = new
-			 //Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			 //startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-			mService = new BluetoothService(this, mHandler);
-			BluetoothDevice device = mBluetoothAdapter
-					.getRemoteDevice(MAC_ADDRESS);
-			dialog = ProgressDialog.show(this, "",
-					"Connecting with \nthe Telescope...", true);
-			mService.connect(device);
-		}
-	}
-
+		
 	
-	private final Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case MESSAGE_STATE_CHANGE:
-				if (D)
-					Log.i(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
-				switch (msg.arg1) {
-				case BluetoothService.STATE_CONNECTED:
-					break;
-				case BluetoothService.STATE_CONNECTING:
-					break;
-				case BluetoothService.STATE_LISTEN:
-				case BluetoothService.STATE_NONE:
-					break;
-				}
-				break;
-			case MESSAGE_WRITE:
-				byte[] writeBuf = (byte[]) msg.obj;
-				// construct a string from the buffer
-				String writeMessage = new String(writeBuf);
-				Log.i(TAG, " +++ MESSAGE_WRITE +++ " + writeMessage);
-				mService.write(writeBuf);
-				break;
-			case MESSAGE_READ:
-				byte[] readBuf = (byte[]) msg.obj;
-				// construct a string from the valid bytes in the buffer
-				String arduinoMessage = new String(readBuf, 0, msg.arg1);
-				Log.i(TAG, " +++ MESSAGE_READ +++ " + arduinoMessage);
-				setArduinoMessage(arduinoMessage);
-				// orc.getArduinoMessage();
-				break;
-			case MESSAGE_DEVICE_NAME:
-				// save the connected device's name
-				dialog.dismiss();
-				mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
-				Toast.makeText(getApplicationContext(),
-						"Connected to " + mConnectedDeviceName,
-						Toast.LENGTH_SHORT).show();
-				break;
-			case MESSAGE_UNABLE_TO_CONNECT:
-				dialog.dismiss();
-				Toast.makeText(getApplicationContext(),
-						msg.getData().getString(TOAST), Toast.LENGTH_SHORT)
-						.show();
-				break;
-
-			}
-		}
-	};
 
 	public static void setVisibleStarsLabelNames(
 			List<String> visibleStarsLabelNames) {
@@ -443,5 +365,15 @@ public class Orchestrator extends Application {
 	public static void setVisibleStarsDec(List<Double> visibleStarsDec) {
 		Orchestrator.visibleStarsDec = visibleStarsDec;
 	}
+
+	public static BluetoothService getBtService() {
+		return btService;
+	}
+
+	public static void setBtService(BluetoothService btService) {
+		Orchestrator.btService = btService;
+	}
+	
+	
 
 }

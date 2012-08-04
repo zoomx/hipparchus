@@ -1,5 +1,6 @@
 package activities;
 
+import bluetooth.BluetoothService;
 import orchestration.Orchestrator;
 import gr.mandim.R;
 import android.app.Activity;
@@ -17,7 +18,7 @@ public class TwoStarAlignmentActivity extends Activity {
 	
 	private static final String TAG = "TwoStarAlignmentActivity";
 	protected static final int MESSAGE_WRITE = 1;
-	protected static final int MESSAGE_READ = 2;   
+	protected static final int MESSAGE_READ = 2;	
 		
 	/** Called when the activity is first created. */
 	@Override
@@ -38,9 +39,11 @@ public class TwoStarAlignmentActivity extends Activity {
 	    final ArrayAdapter<String> visStarDecStr = new ArrayAdapter<String>(this, R.layout.list_item, Orchestrator.getVisibleStarsLabelDec());
 	    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    
-	    Orchestrator orc = (Orchestrator)getApplicationContext();
-	    orc.clearVisibleStarLists();
-	    orc.calcVisibleStars();
+	    ((Orchestrator)this.getApplicationContext()).clearVisibleStarLists();
+	    ((Orchestrator)this.getApplicationContext()).calcVisibleStars();
+	    final BluetoothService btService = Orchestrator.getBtService();
+	    //orc.clearVisibleStarLists();
+	    //orc.calcVisibleStars();
 	    
 	    Button firstStarSelect = (Button) findViewById(R.id.star1SelectBtn);
 		firstStarSelect.setOnClickListener(new OnClickListener() {
@@ -86,6 +89,8 @@ public class TwoStarAlignmentActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
+				byte[] out = new String("T").getBytes();
+				btService.write(out);
 				
 			}
 		});
