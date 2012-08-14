@@ -18,7 +18,8 @@ public class TwoStarAlignmentActivity extends Activity {
 	
 	private static final String TAG = "TwoStarAlignmentActivity";
 	protected static final int MESSAGE_WRITE = 1;
-	protected static final int MESSAGE_READ = 2;	
+	protected static final int MESSAGE_READ = 2;
+	public Orchestrator orc;
 		
 	/** Called when the activity is first created. */
 	@Override
@@ -42,8 +43,7 @@ public class TwoStarAlignmentActivity extends Activity {
 	    ((Orchestrator)this.getApplicationContext()).clearVisibleStarLists();
 	    ((Orchestrator)this.getApplicationContext()).calcVisibleStars();
 	    final BluetoothService btService = Orchestrator.getBtService();
-	    //orc.clearVisibleStarLists();
-	    //orc.calcVisibleStars();
+	    
 	    
 	    Button firstStarSelect = (Button) findViewById(R.id.star1SelectBtn);
 		firstStarSelect.setOnClickListener(new OnClickListener() {

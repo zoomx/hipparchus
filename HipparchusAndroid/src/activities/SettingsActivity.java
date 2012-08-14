@@ -1,19 +1,20 @@
 package activities;
 
+import bluetooth.BluetoothService;
+
 import gr.mandim.R;
 import orchestration.Orchestrator;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.IBinder;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,17 +24,19 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import bluetooth.BluetoothService;
-import bluetooth.BluetoothService.LocalBinder;
 
 public class SettingsActivity extends Activity {
 
 	private static final String TAG = "SettingsActivity";
 	private static final int REQUEST_ENABLE_BT = 3;
-	private static final String MAC_ADDRESS = "00:06:66:04:DB:38";
+	public static final int MESSAGE_STATE_CONNECTED = 1;
+	public static final int CONNECTED_TOAST = 2;
+	public static final int CONNECTED_FAILED = 3;
+	public static final int CONNECTED_LOST = 4;
+	public static final String TOAST = "toast";
+	public static final int MESSAGE_STATE_CHANGE = 5;
 	
-	public BluetoothService btService;
-	public BluetoothDevice device;
+	
 	public boolean mIsBound = false;
 	
 	private BluetoothAdapter mBluetoothAdapter;
@@ -42,6 +45,9 @@ public class SettingsActivity extends Activity {
 
 	private EditText latitudeText;
 	private EditText longitudeText;
+	public static EditText log;
+	
+	public ProgressDialog dialog;
 
 	private Orchestrator orc;
 
@@ -50,7 +56,8 @@ public class SettingsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_layout);
 
-		orc = (Orchestrator) this.getApplicationContext();
+		orc = new Orchestrator();
+		orc.setmHandler(mHandler);
 
 		// Check bt availability. If no bt available close the application
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -60,10 +67,10 @@ public class SettingsActivity extends Activity {
 			finish();
 			return;
 		}
-		device = mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS);
-
+		
 		latitudeText = (EditText) findViewById(R.id.latitudeField);
 		longitudeText = (EditText) findViewById(R.id.longitudeField);
+		log = (EditText)findViewById(R.id.log);
 
 		Button locationBtn = (Button) findViewById(R.id.locationBtn);
 		locationBtn.setOnClickListener(new OnClickListener() {
@@ -98,31 +105,43 @@ public class SettingsActivity extends Activity {
 				}
 			}
 		});
+		
+		Button connectWithTelescope = (Button) findViewById(R.id.connectWithTelescope);
+		connectWithTelescope.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				orc.connectWithTelescope();
+				
+			}
+		});
+		
+		Button disconnectWithTelescope = (Button) findViewById(R.id.disconnectWithTelescope);
+		disconnectWithTelescope.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				orc.disconnect();
+				
+			}
+		});
 	}
 
 	@Override
 	protected void onStart() {
-		super.onStart();
-		Intent intent = new Intent(SettingsActivity.this,
-				BluetoothService.class);
-		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-		mIsBound = true;
+		super.onStart();		
 		if (!mBluetoothAdapter.isEnabled()) {
 			Intent enableBtIntent = new Intent(
 					BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 		}
-		
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		// Unbind from the service
-		if (mIsBound) {
-			unbindService(mConnection);
-			mIsBound = false;
-		}
+		orc.disconnect();
+		mBluetoothAdapter.disable();
 	}
 
 	@Override
@@ -130,12 +149,12 @@ public class SettingsActivity extends Activity {
 		switch (requestCode) {
 		case REQUEST_ENABLE_BT:
 			if (resultCode == Activity.RESULT_OK) {
-				btService.connect(device);
-			} else {
-				// User did not enable Bluetooth or an error occured
+				//device = mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS);
+				Log.i(TAG, "Bluetooth enabled");
+			} 
+			else {
 				Log.d(TAG, "BT not enabled");
-				Toast.makeText(this, "Unable to enable BT", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(this, "Unable to enable BT", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
@@ -153,20 +172,51 @@ public class SettingsActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.reconnect:
-			// Activate bt connection
-			Intent enableBtIntent = new Intent(
-					BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+			
 			return true;
 		case R.id.starAlignment:
 			// Launch TwoStarAlignment activity
-			Intent twoStarAlignment = new Intent(this,
-					TwoStarAlignmentActivity.class);
+			Intent twoStarAlignment = new Intent(this, TwoStarAlignmentActivity.class);
 			startActivity(twoStarAlignment);
 			return true;
 		}
 		return false;
 	}
+	
+	// The Handler that gets information back from the BluetoothChatService
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+            case MESSAGE_STATE_CHANGE:                
+                switch (msg.arg1) {
+                case BluetoothService.STATE_CONNECTED:
+                    dialog.dismiss();
+                    Toast.makeText(SettingsActivity.this, "Connected with telescope", Toast.LENGTH_LONG).show();                    
+                    break;
+                case BluetoothService.STATE_CONNECTING:
+                	dialog = ProgressDialog.show(SettingsActivity.this, "", "Connecting. Please wait...", true);
+                    break;
+                case BluetoothService.STATE_LISTEN:
+                case BluetoothService.STATE_NONE:
+                    
+                    break;
+                    
+                case BluetoothService.STATE_DISCONNECTED:
+                	Toast.makeText(SettingsActivity.this, "Disconnected", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                break;
+            
+            
+            case CONNECTED_FAILED:            	
+            	dialog.dismiss();
+            	Toast.makeText(SettingsActivity.this, "Connection failed", Toast.LENGTH_LONG).show();
+            	break;
+            }
+        }
+    
+    };
 
 	public class myLocation implements LocationListener {
 
@@ -197,23 +247,4 @@ public class SettingsActivity extends Activity {
 		public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		}
 	}
-
-	private ServiceConnection mConnection = new ServiceConnection() {
-
-		@Override
-		public void onServiceConnected(ComponentName className, IBinder service) {
-			LocalBinder binder = (LocalBinder) service;
-			btService = binder.getService();
-			mIsBound = true;
-			Log.i(TAG, "Service connected with activity");
-			btService.setmAdapter(mBluetoothAdapter);
-		}
-
-		@Override
-		public void onServiceDisconnected(ComponentName arg0) {
-			btService = null;
-			mIsBound = false;
-			Log.i(TAG, "Service disconnected from activity");
-		}
-	};
 }

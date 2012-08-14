@@ -12,6 +12,9 @@ import calculations.SimpleCoordinatesConverter;
 import calculations.TimeAndUtils;
 
 import android.app.Application;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.os.Handler;
 import android.util.Log;
 
 import Jama.Matrix;
@@ -66,12 +69,18 @@ public class Orchestrator extends Application {
 
 	public String arduinoMessage;
 	
-	public static BluetoothService btService;
+	private Handler mHandler;
 	
+	public static BluetoothService btService;
+	public static BluetoothDevice device;
+	public static BluetoothAdapter btAdapter;
+	private static final String MAC_ADDRESS = "00:06:66:04:DB:38";
+	private BluetoothAdapter mBluetoothAdapter;
 
 	private TimeAndUtils tau = new TimeAndUtils();
 	private SimpleCoordinatesConverter cc = new SimpleCoordinatesConverter();
 
+	
 	public static double starRaArray[] = { 8.97, 22.14, 19.51, 4.6, 0.22,
 			10.33, 9.46, 0.14, 2.03, 16.49, 5.55, 5.42, 5.92, 6.4, 5.28, 7.58,
 			12.93, 20.69, 11.82, 0.73, 11.06, 22.96, 2.12, 12.57, 23.8, 3.04,
@@ -210,9 +219,8 @@ public class Orchestrator extends Application {
 	/*
 	 * Sends a message to the Arduino in String form
 	 */
-	public void sendMessage(String message) {
-		// FIXME
-		// serialComm.writeData(message.getBytes());
+	public void sendMessage(String message) {		
+		btService.write(message.getBytes());
 	}
 
 	public void getTelescopeAltAz(String x, String y) {
@@ -265,13 +273,25 @@ public class Orchestrator extends Application {
 		visibleStarsLabelRa.clear();
 		visibleStarsLabelDec.clear();
 	}
+	
+	public void connectWithTelescope() {
+		
+		btService = new BluetoothService(this);
+		btService.setmHandler(getmHandler());
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		device = mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS);
+		btService.connect(device);
+	}
+	
+	public void disconnect() {
+		
+		btService.stop();
+		
+	}
 
 	public static List<String> getVisibleStarsLabelNames() {
 		return visibleStarsLabelNames;
 	}
-
-		
-	
 
 	public static void setVisibleStarsLabelNames(
 			List<String> visibleStarsLabelNames) {
@@ -373,7 +393,14 @@ public class Orchestrator extends Application {
 	public static void setBtService(BluetoothService btService) {
 		Orchestrator.btService = btService;
 	}
-	
-	
 
+	public Handler getmHandler() {
+		return mHandler;
+	}
+
+	public void setmHandler(Handler mHandler) {
+		this.mHandler = mHandler;
+	}
+	
+	
 }

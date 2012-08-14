@@ -2,8 +2,8 @@
 <resources>
     <string name="bt_reconnect">Connect To Telescope</string>
     <string name="location_btn">Update location</string>
-    <string name="lon">Longitude:</string>
-    <string name="lat">Latitude:</string>
+    <string name="lon">Lon:</string>
+    <string name="lat">Lat:</string>
     <string name="starAlignment">Two Star Alignment</string>
     <string name="saveLocation">Save</string>
     <string name="locateFirstStarLabel">Locate First Star</string>
@@ -17,4 +17,6 @@
     <string name="defaultLat">35.3330</string>
     <string name="defaultLon">25.1330</string>
     <string name="not_connected">You are not connected to a device</string>
+    <string name="bt_connect_with_telescope">Connect with telescope</string>
+    <string name="bt_disconnect_with_telescope">Disconnect</string>
 </resources>

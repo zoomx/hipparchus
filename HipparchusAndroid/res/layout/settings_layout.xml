@@ -5,78 +5,124 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical" >
-
+    
     <LinearLayout
-        android:id="@+id/row1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp" >
-
-        <TextView
-            android:id="@+id/latitudeLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/lat"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/latitudeField"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:inputType="numberDecimal" 
-            android:text="@string/defaultLat">
-
-            <requestFocus />
-        </EditText>
-    </LinearLayout>
-
+        android:orientation="horizontal" >
+
     <LinearLayout
-        android:id="@+id/row2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp" >
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_gravity="left"
+        android:layout_weight="0.50"
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/longitudeLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/lon"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <LinearLayout
+            android:id="@+id/row1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:layout_margin="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/latitudeLabel"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/lat"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/latitudeField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="@string/defaultLat" />
 
-        <EditText
-            android:id="@+id/longitudeField"
-            android:layout_width="0dp"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/row2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:inputType="numberDecimal" 
-            android:text="@string/defaultLon" >
-        </EditText>
+            android:layout_gravity="left"
+            android:layout_margin="10dp" >
+
+            <TextView
+                android:id="@+id/longitudeLabel"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/lon"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/longitudeField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="@string/defaultLon" >
+
+            </EditText>
+        </LinearLayout>
     </LinearLayout>
-
+
     <LinearLayout
         android:id="@+id/row3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" >
-
-        <Button
-            android:id="@+id/locationBtn"
-            style="@android:color/transparent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/location_btn" />
-
-        <Button
-            android:id="@+id/locationSave"
-            style="@android:color/transparent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/saveLocation" />
+        android:layout_height="150dp"
+        android:gravity="right"
+        android:orientation="vertical" 
+        android:layout_weight="0.5">
+            <Button
+                android:id="@+id/locationBtn"
+                style="@android:color/transparent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="@string/location_btn"
+                android:layout_weight="0.50" />
+            <Button
+                android:id="@+id/locationSave"
+                style="@android:color/transparent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="@string/saveLocation" 
+                android:layout_weight="0.50"/>
     </LinearLayout>
+</LinearLayout>
+
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:gravity="right"
+        android:orientation="horizontal" 
+        android:layout_weight="0.5">
+
+    <Button
+        android:id="@+id/connectWithTelescope"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/bt_connect_with_telescope" 
+        android:layout_weight="0.5"/>
+
+    <Button
+        android:id="@+id/disconnectWithTelescope"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/bt_disconnect_with_telescope" 
+        android:layout_weight="0.5"/>
+
+    </LinearLayout>
+    <EditText
+        android:id="@+id/log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textMultiLine" 
+        android:layout_weight="0.5">
+
+        <requestFocus />
+    </EditText>
 
 </LinearLayout>
