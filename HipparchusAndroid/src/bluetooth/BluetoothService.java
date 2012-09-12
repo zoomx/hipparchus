@@ -209,7 +209,7 @@ public class BluetoothService {
 			r = mConnectedThread;
 		}
 		// Perform the write unsynchronized
-		Log.i(TAG, "write()");
+		Log.i(TAG, "write():" + out.toString());
 		r.write(out);
 	}
 

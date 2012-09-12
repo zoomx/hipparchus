@@ -19,4 +19,8 @@
     <string name="not_connected">You are not connected to a device</string>
     <string name="bt_connect_with_telescope">Connect with telescope</string>
     <string name="bt_disconnect_with_telescope">Disconnect</string>
+    <string name="bt_moveLeft">Left</string>
+    <string name="bt_move_right">Right</string>
+    <string name="bt_move_up">Up</string>
+    <string name="bt_move_down">Down</string>
 </resources>

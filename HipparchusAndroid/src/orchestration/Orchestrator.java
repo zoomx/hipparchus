@@ -245,7 +245,7 @@ public class Orchestrator extends Application {
 		scopeAlt = yCoordinate;
 		scopeAz = xCoordinate;
 
-		Log.i(TAG, " +++ GET TELESCOPE ALT AZ +++ " + scopeAlt + " " + scopeAz);
+		Log.i(TAG, " +++ GOT TELESCOPE ALT AZ +++ " + scopeAlt + " " + scopeAz);
 	}
 
 	public void calcVisibleStars() {
