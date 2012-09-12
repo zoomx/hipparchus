@@ -1,100 +1,101 @@
 #include <ps2.h>
 
-//Serial communication vars
 char cmd[20];
-int index;
+int index = 0;
 
-int Setpoint1, Input1, Output1;
-int Setpoint2, Input2, Output2;
+int Setpoint1 = 0;
+int Input1 = 0;
+int Output1 = 0;
+int Setpoint2 = 0;
+int Input2 = 0;
+int Output2 = 0;
 
-// Motor's pins
 int motorApinA = 3;
 int motorApinB = 5;
 int motorBpinA = 9;
 int motorBpinB = 11;
 
+int spdLeft = 0;
+int spdRight = 0;
+int spdUp = 0;
+int spdDown = 0;
+
 //Mouse initialisation. PS2Mouse(clock, data)
 PS2Mouse mouse(12, 7);
 PS2Mouse mouse2(8, 2);
 
-boolean goTo1;
-boolean goTo2;
-boolean sendPosition;
+boolean goTo1 = false;
+boolean goTo2 = false;
+boolean sendPosition = false;
+boolean moveRight = false;
+boolean moveLeft = false;
+boolean moveUp = false;
+boolean moveDown = false;
 
 MouseInfo mouseInfo;
 MouseInfo mouseInfo2;
 
-int xPosition;
-int yPosition;
-int previousPosition1;
-int previousPosition2;
-int tmp1;
-int tmp2;
-int spd1;
-int spd2;
+int xPosition = 0;
+int yPosition = 0;
+int previousPosition1 = 0;
+int previousPosition2 = 0;
+int tmp1 = 0;
+int tmp2 = 0;
+int spd1 = 0;
+int spd2 = 0;
 
 void setup()
 {
+  Serial.begin(115200);
+
   pinMode(motorApinA, OUTPUT);
   pinMode(motorApinB, OUTPUT);
   pinMode(motorBpinA, OUTPUT);
   pinMode(motorBpinB, OUTPUT);
 
-  Serial.begin(9600);
-
-  xPosition = 0;
-  yPosition = 0;
-  
-  Input1 = 0;
-  Setpoint1 = 0;
-  Input2 = 0;
-  Setpoint2 = 0;
+  delay(2000);//wait for mouse to open up
 
   mouse.init();
   mouse2.init();
 
-  goTo1 = false;
-  goTo2 = false;
-  sendPosition = false;
 }
-
 void loop()
 {
+  while (Serial.available())
+  {
+    cmd[index] = Serial.read();
+    delay(1);    
+    index++;    
+  }
+  cmd[index] = '\0';
+  
+
   /************************ Mouse routines **************************/
   mouse.getData(&mouseInfo);
   mouse2.getData(&mouseInfo2);
   xPosition = mouseInfo.cX;
-  yPosition = mouseInfo2.cY;
+  yPosition = mouseInfo2.cX;
   /******************************************************************/
-
-  /********************* Serial Communication ***********************/
-  index = 0;
-  //Get the serial command and store it to the char array
-  while (Serial.available())
-  {  
-    cmd[index] = Serial.read();
-    delay(1);
-    index++;
-  }
-  cmd[index] = 0;
-
   if (index > 0)
-  {
+  {    
+    //Goes to specific set points: G100,200
     if (cmd[0] == 'G'){
       Setpoint2 = atoi(strtok((cmd+1), ","));
       Setpoint1 = atoi(strtok(NULL, ","));
-      
+
       previousPosition1 = yPosition;
       previousPosition2 = xPosition;
       goTo1 = true;
       goTo2 = true;
     }
+    //Stops the motors
     if (cmd[0] == 'S')
     {
       goTo1 = false;
       goTo2 = false;
       sendPosition = false;
     }
+    //Transmits the current position
     if (cmd[0] == 'T')
     {
       Serial.print("G:xyt:");
@@ -103,15 +104,132 @@ void loop()
       Serial.print(yPosition);
       Serial.print("\n");
     }
+    //Resets the mouse
     if (cmd[0] == 'R')
     {
       mouse.reset();
       mouse2.reset();
     }
+    //Manual moving
+    if (cmd[0] == 'r')
+    {
+      moveRight = true;
+    }
+    if (cmd[0] == 'r' && cmd[1] == 's')
+    {
+      moveRight = false;
+    }    
+    if (cmd[0] == 'l')
+    {
+      moveLeft = true;
+    }
+    if (cmd[0] == 'l' && cmd[1] == 's')
+    {
+      moveLeft = false;
+    }
+    
+    
+    
+    if (cmd[0] == 'u')
+    {
+      moveUp = true;
+    }
+    if (cmd[0] == 'u' && cmd[1] == 's')
+    {
+      moveUp = false;
+    }    
+    if (cmd[0] == 'd')
+    {
+      moveDown = true;
+    }
+    if (cmd[0] == 'd' && cmd[1] == 's')
+    {
+      moveDown = false;
+    }
+    index = 0;
   }
-  /************************** Serial communication end ************************/
-  /****************************************************************************/
+
+  if (moveRight && spdLeft == 0)
+  {
+    if (spdRight < 250)
+    {
+      spdRight += 25;
+      motorAForward(spdRight);
+      delay(100);
+    }
+  }
+  if (!moveRight)
+  {
+    if(spdRight > 0)
+    {
+      spdRight -= 25;
+      motorAForward(spdRight);
+      delay(100);
+    }
+  }
+  if (moveLeft && spdRight == 0)
+  {
+    if (spdLeft < 250)
+    {
+      spdLeft += 25;
+      motorABack(spdLeft);
+      delay(100);
+    }
+  }
+  if (!moveLeft)
+  {
+    if(spdLeft > 0)
+    {
+      spdLeft -= 25;
+      motorABack(spdLeft);
+      delay(100);
+    }
+  }
   
+  
+  
+  
+  
+  if (moveUp && spdDown == 0)
+  {
+    if (spdUp < 250)
+    {
+      spdUp += 25;
+      motorBForward(spdUp);
+      delay(100);
+    }
+  }
+  if (!moveUp)
+  {
+    if(spdUp > 0)
+    {
+      spdUp -= 25;
+      motorBForward(spdUp);
+      delay(100);
+    }
+  }
+  if (moveDown && spdUp == 0)
+  {
+    if (spdDown < 250)
+    {
+      spdDown += 25;
+      motorBBack(spdDown);
+      delay(100);
+    }
+  }
+  if (!moveDown)
+  {
+    if(spdDown > 0)
+    {
+      spdDown -= 25;
+      motorBBack(spdDown);
+      delay(100);
+    }
+  }
+
+
+
+  /************************** Serial communication end ************************/
   /******************************* Go-To/Tracking *****************************/
   tmp1 = yPosition;
   tmp2 = xPosition;
@@ -135,7 +253,7 @@ void loop()
   {
     spd1 = 250;
   }
-  
+
   if ((abs(tmp2 - previousPosition2) <= 10) || (abs(Setpoint2 - tmp2) <= 10))
   {
     spd2 = 50;
@@ -199,8 +317,6 @@ void loop()
     }
   }
   /***************************** Go-To/Tracking end ***************************/
-  /****************************************************************************/
-
   if (sendPosition)
   {
     Serial.print("G:xy:");
@@ -212,7 +328,6 @@ void loop()
     sendPosition = false;
   }
 }
-
 /***************************** Motor control commands **************************/
 void motorAForward(int spd)
 {
@@ -254,3 +369,12 @@ void motorBStop()
   digitalWrite(motorBpinB, LOW);
   analogWrite(motorBpinB, 0);
 }
+
+
+
+
+
+
+
+
+
