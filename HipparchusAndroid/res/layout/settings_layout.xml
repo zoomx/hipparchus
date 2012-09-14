@@ -1,114 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout1"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
+    style="@style/darkRedTextView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="155dp"
+    <TextView
+        style="@style/darkRedHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:baselineAligned="false"
-        android:orientation="horizontal" >
+        android:text="@string/hdr_location"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_gravity="left"
-            android:orientation="vertical" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal" >
 
-            <LinearLayout
-                android:id="@+id/row1"
+            <TextView
+                android:id="@+id/latitudeLabel"
+                style="@style/darkRedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="17dp"
+                android:text="@string/lbl_latitude"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/latitudeField"
+                style="@style/darkRedEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/latitudeLabel"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lat"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <EditText
-                    android:id="@+id/latitudeField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:text="@string/defaultLat" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/row2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_margin="10dp" >
-
-                <TextView
-                    android:id="@+id/longitudeLabel"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lon"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <EditText
-                    android:id="@+id/longitudeField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:text="@string/defaultLon" >
-                </EditText>
-            </LinearLayout>
+                android:inputType="numberDecimal"
+                android:text="@string/txt_default_latitude" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/row3"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:gravity="right"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_margin="10dp" >
 
-            <Button
-                android:id="@+id/locationBtn"
-                style="@android:color/transparent"
-                android:layout_width="fill_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="@string/location_btn" />
+            <TextView
+                android:id="@+id/longitudeLabel"
+                style="@style/darkRedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_longitude"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <Button
-                android:id="@+id/locationSave"
-                style="@android:color/transparent"
-                android:layout_width="fill_parent"
-                android:layout_height="0dip"
-                android:layout_weight="0.5"
-                android:text="@string/saveLocation" />
+            <EditText
+                android:id="@+id/longitudeField"
+                style="@style/darkRedEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="@string/txt_default_longitude" >
+            </EditText>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/locationBtn"
+            style="@style/darkRedButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="@string/bt_update_location" />
+
+        <Button
+            android:id="@+id/locationSave"
+            style="@style/darkRedButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/bt_save_location" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/darkRedHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/hrd_telescope_control"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/bt_move_left"
+            style="@style/darkRedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.3"
+            android:text="@string/bt_moveLeft" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.29"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/bt_move_up"
+                style="@style/darkRedButton"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:text="@string/bt_move_up" />
+
+            <Button
+                android:id="@+id/reset_position"
+                style="@style/darkRedButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/bt_reset_position" />
+
+            <Button
+                android:id="@+id/bt_move_down"
+                style="@style/darkRedButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/bt_move_down" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_move_right"
+            style="@style/darkRedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.3"
+            android:text="@string/bt_move_right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/connectWithTelescope"
+            style="@style/darkRedButton"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_height="50dp"
+            android:layout_weight="1"
             android:text="@string/bt_connect_with_telescope" />
 
         <Button
             android:id="@+id/disconnectWithTelescope"
+            style="@style/darkRedButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
             android:text="@string/bt_disconnect_with_telescope" />
-    </LinearLayout>    
+    </LinearLayout>
+
 </LinearLayout>

@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="bt_reconnect">Connect To Telescope</string>
-    <string name="location_btn">Update location</string>
-    <string name="lon">Lon:</string>
-    <string name="lat">Lat:</string>
-    <string name="starAlignment">Two Star Alignment</string>
-    <string name="saveLocation">Save</string>
-    <string name="locateFirstStarLabel">Locate First Star</string>
-    <string name="starNameLabel">Name:</string>
-    <string name="raLabel">R.A.:</string>
-    <string name="decLabel">Dec:</string>
-    <string name="locateSecondStarLabel">Locate Second Star</string>
-    <string name="setFirstStarBtn">Set 1st Star</string>
-    <string name="setSecondStarBtn">Set 2nd Star</string>
-    <string name="selectStar">Select</string>
-    <string name="defaultLat">35.3330</string>
-    <string name="defaultLon">25.1330</string>
-    <string name="not_connected">You are not connected to a device</string>
-    <string name="bt_connect_with_telescope">Connect with telescope</string>
-    <string name="bt_disconnect_with_telescope">Disconnect</string>
-    <string name="bt_moveLeft">Left</string>
-    <string name="bt_move_right">Right</string>
-    <string name="bt_move_up">Up</string>
-    <string name="bt_move_down">Down</string>
+    <string name="bt_update_location">Update location from GPS</string>
+    
+    
+    <string name="bt_move_down">Down</string><string name="bt_move_up">Up</string><string name="bt_save_location">Save Location</string><string name="bt_move_right">Right</string><string name="bt_moveLeft">Left</string><string name="bt_disconnect_with_telescope">Disconnect</string><string name="bt_connect_with_telescope">Connect with telescope</string><string name="m_star_alignment">Two Star Alignment</string><string name="lbl_latitude">Latitude:</string><string name="lbl_longitude">Longitude:</string>
+    
+    <string name="lbl_select_first_star">Locate First Star</string>
+    <string name="lbl_star_name">Name:</string>
+    <string name="lbl_ra">R.A.:</string>
+    <string name="lbl_dec">Dec:</string>
+    <string name="lbl_select_second_star">Locate Second Star</string>
+    <string name="bt_save_star_position">Save Star Position</string>
+    <string name="bt_select_star">Select</string>
+    <string name="txt_default_latitude">35.3330</string>
+    <string name="txt_default_longitude">25.1330</string>
+    
+    
+    
+    
+    
+    
+    <string name="hdr_location">Location</string>
+    <string name="hrd_telescope_control">Telescope Control</string>
+    <string name="bt_reset_position">Reset</string>
 </resources>

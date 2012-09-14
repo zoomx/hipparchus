@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="fill_parent" >
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,14 +12,15 @@
 
         <TextView
             android:id="@+id/firstStarLabel"
-            android:layout_width="fill_parent"
+            style="@style/darkRedHeaderText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/locateFirstStarLabel"
+            android:text="@string/lbl_select_first_star"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
@@ -29,104 +30,96 @@
             android:orientation="horizontal" >
 
             <LinearLayout
-                android:id="@+id/star1Labels"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="1.5"
+                android:layout_weight="0.1"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:id="@+id/star1Name"
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:id="@+id/star1NameLabel"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:text="@string/lbl_star_name"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/star1NameLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/starNameLabel"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <TextView
-                        android:id="@+id/star1NameText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/star1Ra"
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:id="@+id/star1RaLabel"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:text="@string/lbl_ra"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/star1RaLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/raLabel"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <TextView
-                        android:id="@+id/star1RaText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/star1Dec"
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:id="@+id/star1DecLabel"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:text="@string/lbl_dec"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/star1DecLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/decLabel"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical" >
 
-                    <TextView
-                        android:id="@+id/star1DecText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/star1NameText"
+                    style="@style/darkRedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/star1RaText"
+                    style="@style/darkRedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/star1DecText"
+                    style="@style/darkRedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/star1SelectBtn"
-                style="@android:color/transparent"
+                style="@style/darkRedButton"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_gravity="fill"
-                android:layout_weight="0.5"
-                android:text="@string/selectStar" />
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:text="@string/bt_select_star" />
         </LinearLayout>
 
         <Button
             android:id="@+id/star1SetBtn"
-            style="@android:color/transparent"
+            style="@style/darkRedButton"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/setFirstStarBtn" />
+            android:layout_height="50dp"
+            android:text="@string/bt_save_star_position" />
 
         <TextView
             android:id="@+id/secondStarLabel"
-            android:layout_width="fill_parent"
+            style="@style/darkRedHeaderText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/locateSecondStarLabel"
+            android:text="@string/lbl_select_second_star"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
@@ -137,137 +130,135 @@
 
             <LinearLayout
                 android:id="@+id/star2Labels"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="1.5"
+                android:layout_weight="0.1"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:id="@+id/star2Name"
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:id="@+id/star2NameLabel"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:text="@string/lbl_star_name"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/star2NameLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/starNameLabel"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <TextView
-                        android:id="@+id/star2NameText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/star2Ra"
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:id="@+id/star2RaLabel"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:text="@string/lbl_ra"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/star2RaLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/raLabel"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <TextView
-                        android:id="@+id/star2RaText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/star2Dec"
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:id="@+id/star2DecLabel"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:text="@string/lbl_dec"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/star2DecLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/decLabel"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <LinearLayout
+                android:id="@+id/star2Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical" >
 
-                    <TextView
-                        android:id="@+id/star2DecText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/star2NameText"
+                    style="@style/darkRedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/star2RaText"
+                    style="@style/darkRedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/star2DecText"
+                    style="@style/darkRedTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/star2SelectBtn"
-                style="@android:color/transparent"
+                style="@style/darkRedButton"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_gravity="fill"
-                android:layout_weight="0.5"
-                android:text="@string/selectStar" />
+                android:layout_weight="1"
+                android:text="@string/bt_select_star" />
         </LinearLayout>
 
         <Button
             android:id="@+id/star2SetBtn"
-            style="@android:color/transparent"
+            style="@style/darkRedButton"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/setSecondStarBtn" />
-        
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center" >
-        
-        <Button
-            android:id="@+id/bt_move_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="0.3"
-            android:text="@string/bt_moveLeft" />
+            android:layout_height="50dp"
+            android:text="@string/bt_save_star_position" />
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/bt_move_up"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bt_move_up" />
-
-            <Button
-                android:id="@+id/bt_move_down"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bt_move_down" />
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" >
 
+            <Button
+                android:id="@+id/bt_move_left"
+                style="@style/darkRedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.3"
+                android:text="@string/bt_moveLeft" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.29"
+                android:orientation="vertical" >
+
+                <Button
+                    android:id="@+id/bt_move_up"
+                    style="@style/darkRedButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/bt_move_up" />
+
+                <Button
+                    android:id="@+id/reset_position"
+                    style="@style/darkRedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/bt_reset_position" />
+
+                <Button
+                    android:id="@+id/bt_move_down"
+                    style="@style/darkRedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/bt_move_down" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_move_right"
+                style="@style/darkRedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.3"
+                android:text="@string/bt_move_right" />
         </LinearLayout>
-        
-        <Button
-            android:id="@+id/bt_move_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="0.3"
-            android:text="@string/bt_move_right" />
-
-    </LinearLayout>
-        
-
-        
     </LinearLayout>
 
 </ScrollView>
