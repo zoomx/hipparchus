@@ -21,7 +21,7 @@ public class TwoStarAlignmentActivity extends Activity {
 	private static final String TAG = "TwoStarAlignmentActivity";
 	protected static final int MESSAGE_WRITE = 1;
 	protected static final int MESSAGE_READ = 2;
-	public Orchestrator orc;
+	//public Orchestrator orc;
 	
 	/** Called when the activity is first created. */
 	@Override

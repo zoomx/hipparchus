@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/darkRedTextView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <TextView
+        style="@style/darkRedHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_telescope_position"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/darkRedTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/darkRedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_ra"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                style="@style/darkRedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_dec"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/scope_ra"
+                style="@style/darkRedTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/scope_dec"
+                style="@style/darkRedTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        style="@style/darkRedHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_target_position"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/darkRedTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/darkRedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_ra"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                style="@style/darkRedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_dec"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                style="@style/darkRedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_target_altitude"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                style="@style/darkRedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_target_azimuth"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/targer_ra"
+                style="@style/darkRedTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/target_dec"
+                style="@style/darkRedTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/target_alt"
+                style="@style/darkRedTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/target_az"
+                style="@style/darkRedTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <Button android:id="@+id/bt_move_left" style="@style/darkRedButton" android:layout_height="50dp" android:layout_gravity="center_vertical" android:layout_weight="1" android:text="@string/bt_moveLeft"/>
+        <LinearLayout android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+            <Button android:id="@+id/bt_move_up" style="@style/darkRedButton" android:layout_width="fill_parent" android:layout_height="50dp" android:text="@string/bt_move_up"/>
+            <Button android:id="@+id/reset_position" style="@style/darkRedButton" android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/bt_reset_position"/>
+            <Button android:id="@+id/bt_move_down" style="@style/darkRedButton" android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/bt_move_down"/>
+        </LinearLayout>
+        <Button android:id="@+id/bt_move_right" style="@style/darkRedButton" android:layout_height="50dp" android:layout_gravity="center_vertical" android:layout_weight="1" android:text="@string/bt_move_right"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/bt_sync"
+            style="@style/darkRedButton"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="@string/bt_sync_position" />
+
+        <Button
+            android:id="@+id/bt_track"
+            style="@style/darkRedButton"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="@string/bt_track" />
+
+        <Button
+            android:id="@+id/bt_stop"
+            style="@style/darkRedButton"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="@string/bt_stop" />
+    </LinearLayout>
+
+</LinearLayout>
