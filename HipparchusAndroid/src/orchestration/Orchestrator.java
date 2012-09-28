@@ -22,7 +22,7 @@ import Jama.Matrix;
 public class Orchestrator extends Application {
 
 	public static final String TAG = "Orchestrator";
-		
+
 	/*
 	 * This constant determines the resolution of the encoders. if mouse is used
 	 * then the the encoder step is equals with the circumference of the circles
@@ -61,16 +61,16 @@ public class Orchestrator extends Application {
 	public static final int MESSAGE_DEVICE_NAME = 4;
 	public static final int MESSAGE_UNABLE_TO_CONNECT = 5;
 	protected static final int MESSAGE_LOCATION = 6;
-	
+
 	// Key names received from the BluetoothService Handler
 	public static final String DEVICE_NAME = "device_name";
 	public static final String TOAST = "toast";
 	public static String ARDUINO_MESSAGE;
 
 	public String arduinoMessage;
-	
+
 	private Handler mHandler;
-	
+
 	public static BluetoothService btService;
 	public static BluetoothDevice device;
 	public static BluetoothAdapter btAdapter;
@@ -80,7 +80,6 @@ public class Orchestrator extends Application {
 	private TimeAndUtils tau = new TimeAndUtils();
 	private SimpleCoordinatesConverter cc = new SimpleCoordinatesConverter();
 
-	
 	public static double starRaArray[] = { 8.97, 22.14, 19.51, 4.6, 0.22,
 			10.33, 9.46, 0.14, 2.03, 16.49, 5.55, 5.42, 5.92, 6.4, 5.28, 7.58,
 			12.93, 20.69, 11.82, 0.73, 11.06, 22.96, 2.12, 12.57, 23.8, 3.04,
@@ -219,7 +218,7 @@ public class Orchestrator extends Application {
 	/*
 	 * Sends a message to the Arduino in String form
 	 */
-	public void sendMessage(String message) {		
+	public void sendMessage(String message) {
 		btService.write(message.getBytes());
 	}
 
@@ -273,20 +272,20 @@ public class Orchestrator extends Application {
 		visibleStarsLabelRa.clear();
 		visibleStarsLabelDec.clear();
 	}
-	
+
 	public void connectWithTelescope() {
-		
+
 		btService = new BluetoothService(this);
 		btService.setmHandler(getmHandler());
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		device = mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS);
 		btService.connect(device);
 	}
-	
+
 	public void disconnect() {
-		
+
 		btService.stop();
-		
+
 	}
 
 	public static List<String> getVisibleStarsLabelNames() {
@@ -401,6 +400,5 @@ public class Orchestrator extends Application {
 	public void setmHandler(Handler mHandler) {
 		this.mHandler = mHandler;
 	}
-	
-	
+
 }

@@ -1,8 +1,14 @@
 package activities;
 
 import gr.mandim.R;
+import kankan.wheel.widget.OnWheelChangedListener;
+import kankan.wheel.widget.OnWheelClickedListener;
+import kankan.wheel.widget.OnWheelScrollListener;
+import kankan.wheel.widget.WheelView;
+import kankan.wheel.widget.adapters.NumericWheelAdapter;
 import orchestration.Orchestrator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -34,23 +40,23 @@ public class SettingsActivity extends Activity {
 	public static final int CONNECTED_LOST = 4;
 	public static final String TOAST = "toast";
 	public static final int MESSAGE_STATE_CHANGE = 5;
+	public static final int COORDINATES_DIALOG = 6;
 
 	public boolean mIsBound = false;
-	
-	
 
 	private BluetoothAdapter mBluetoothAdapter;
 	private LocationManager locationManager;
 	private LocationListener locationListener;
-	
 
 	private EditText latitudeText;
 	private EditText longitudeText;
 
 	public ProgressDialog dialog;
+	public Dialog coordinatesDialog;
 
 	private Orchestrator orc;
-	
+	protected boolean timeScrolled = false;
+	protected boolean timeChanged = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -60,17 +66,8 @@ public class SettingsActivity extends Activity {
 		orc = new Orchestrator();
 		orc.setmHandler(mHandler);
 
-		// Check bt availability. If no bt available close the application
-		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		if (mBluetoothAdapter == null) {
-			Toast.makeText(this, "Bluetooth is not available",
-					Toast.LENGTH_LONG).show();
-			finish();
-			return;
-		}
-
 		latitudeText = (EditText) findViewById(R.id.latitudeField);
-		longitudeText = (EditText) findViewById(R.id.longitudeField);		
+		longitudeText = (EditText) findViewById(R.id.longitudeField);
 
 		Button locationBtn = (Button) findViewById(R.id.locationBtn);
 		locationBtn.setOnClickListener(new OnClickListener() {
@@ -125,6 +122,15 @@ public class SettingsActivity extends Activity {
 
 			}
 		});
+
+		// Check bt availability. If no bt available close the application
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (mBluetoothAdapter == null) {
+			Toast.makeText(this, "Bluetooth is not available",
+					Toast.LENGTH_LONG).show();
+			finish();
+			return;
+		}
 	}
 
 	@Override
@@ -223,9 +229,86 @@ public class SettingsActivity extends Activity {
 				break;
 			}
 		}
-
 	};
-	
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		Dialog dialog;
+		switch (id) {
+		case COORDINATES_DIALOG:
+
+			dialog = new Dialog(this.getApplicationContext());
+			dialog.setContentView(R.layout.coordinates_dialog);
+			dialog.setTitle("Add Coordinates");
+
+			final WheelView degrees = (WheelView) findViewById(R.id.deg);
+			degrees.setViewAdapter(new NumericWheelAdapter(this, 0, 360));
+
+			final WheelView miminutes = (WheelView) findViewById(R.id.min);
+			miminutes.setViewAdapter(new NumericWheelAdapter(this, 0, 59,
+					"%02d"));
+
+			// add listeners addChangingListener(miminutes, "min");
+			addChangingListener(degrees, "hour");
+
+			OnWheelChangedListener wheelListener = new OnWheelChangedListener() {
+				public void onChanged(WheelView wheel, int oldValue,
+						int newValue) {
+					if (!timeScrolled) {
+						timeChanged = true;
+						timeChanged = false;
+					}
+				}
+			};
+			degrees.addChangingListener(wheelListener);
+			miminutes.addChangingListener(wheelListener);
+
+			OnWheelClickedListener click = new OnWheelClickedListener() {
+				public void onItemClicked(WheelView wheel, int itemIndex) {
+					wheel.setCurrentItem(itemIndex, true);
+				}
+			};
+			degrees.addClickingListener(click);
+			miminutes.addClickingListener(click);
+
+			OnWheelScrollListener scrollListener = new OnWheelScrollListener() {
+				public void onScrollingStarted(WheelView wheel) {
+					timeScrolled = true;
+				}
+
+				public void onScrollingFinished(WheelView wheel) {
+					timeScrolled = false;
+					timeChanged = true;
+
+					timeChanged = false;
+				}
+			};
+
+			degrees.addScrollingListener(scrollListener);
+			miminutes.addScrollingListener(scrollListener);
+
+			break;
+		default:
+			dialog = null;
+		}
+		return dialog;
+	}
+
+	/**
+	 * Adds changing listener for wheel that updates the wheel label
+	 * 
+	 * @param wheel
+	 *            the wheel
+	 * @param label
+	 *            the wheel label
+	 */
+	private void addChangingListener(final WheelView wheel, final String label) {
+		wheel.addChangingListener(new OnWheelChangedListener() {
+			public void onChanged(WheelView wheel, int oldValue, int newValue) {
+				// wheel.setLabel(newValue != 1 ? label + "s" : label);
+			}
+		});
+	}
 
 	public class myLocation implements LocationListener {
 
@@ -256,7 +339,5 @@ public class SettingsActivity extends Activity {
 		public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		}
 	}
-	
-	
-	
+
 }
