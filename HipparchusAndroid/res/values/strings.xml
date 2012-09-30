@@ -2,7 +2,7 @@
 <resources>
 
     <string name="bt_reconnect">Connect To Telescope</string>
-    <string name="bt_update_location">Update location from GPS</string>
+    <string name="bt_update_location">Update Location</string>
     <string name="bt_move_down">Down</string>
     <string name="bt_move_up">Up</string>
     <string name="bt_save_location">Save Location</string>
@@ -16,6 +16,8 @@
     <string name="bt_sync_position">Sync</string>
     <string name="bt_track">Track</string>
     <string name="bt_stop">Stop</string>
+    <string name="bt_save_coordinates">Save</string>
+    <string name="bt_save_coordinates_cancel">Cancel</string>
     <string name="m_star_alignment">Two Star Alignment</string>
     <string name="lbl_latitude">Latitude:</string>
     <string name="lbl_longitude">Longitude:</string>

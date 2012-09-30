@@ -15,6 +15,10 @@
     </style>
     <style name="darkRedHeaderText" parent="@android:style/Widget.TextView">
         <item name="android:textColor">#D60606</item>
-        <item name="android:textStyle">bold</item>                
+        <item name="android:textStyle">bold</item>                        
+    </style>    
+    <style name="myDialog" parent="@android:Theme.Dialog">        
+      <item name="android:windowBackground">@drawable/dialog_bg</item>
     </style>
+      
 </resources>

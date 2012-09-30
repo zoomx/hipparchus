@@ -1,5 +1,12 @@
 package activities;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import gr.mandim.R;
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.OnWheelClickedListener;
@@ -13,13 +20,21 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.InflateException;
+import android.view.LayoutInflater;
+import android.view.LayoutInflater.Factory;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +42,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import bluetooth.BluetoothService;
 
@@ -68,6 +84,20 @@ public class SettingsActivity extends Activity {
 
 		latitudeText = (EditText) findViewById(R.id.latitudeField);
 		longitudeText = (EditText) findViewById(R.id.longitudeField);
+
+		latitudeText.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showDialog(COORDINATES_DIALOG);
+			}
+		});
+
+		longitudeText.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showDialog(COORDINATES_DIALOG);
+			}
+		});
 
 		Button locationBtn = (Button) findViewById(R.id.locationBtn);
 		locationBtn.setOnClickListener(new OnClickListener() {
@@ -173,16 +203,303 @@ public class SettingsActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.settings_menu, menu);
+		setMenuBackground();
 		return true;
+	}
+
+	protected void setMenuBackground() {
+		getLayoutInflater().setFactory(new Factory() {
+
+			@Override
+			public View onCreateView(String name, Context context,
+					AttributeSet attrs) {
+
+				if (name.equalsIgnoreCase("com.android.internal.view.menu.IconMenuItemView")) {
+
+					try { // Ask our inflater to create the view
+						final LayoutInflater f = getLayoutInflater();
+						final View[] view = new View[1];
+						try {
+							view[0] = f.createView(name, null, attrs);
+						} catch (InflateException e) {
+							hackAndroid23(name, attrs, f, view);
+						}
+						// Kind of apply our own background
+						new Handler().post(new Runnable() {
+							public void run() {
+								//view[0].setBackgroundColor(Color.BLACK);
+								view[0].setBackgroundResource(R.drawable.dialog_bg);
+								//view[0].setPadding(10, 10, 10, 10);
+							}
+						});
+						return view[0];
+					} catch (InflateException e) {
+					} catch (ClassNotFoundException e) {
+
+					}
+				}
+				return null;
+			}
+		});
+	}
+
+	static void hackAndroid23(final String name,
+			final android.util.AttributeSet attrs, final LayoutInflater f,
+			final View[] view) {
+		// mConstructorArgs[0] is only non-null during a running call to
+		// inflate()
+		// so we make a call to inflate() and inside that call our dully
+		// XmlPullParser get's called
+		// and inside that it will work to call
+		// "f.createView( name, null, attrs );"!
+		try {
+			f.inflate(new XmlPullParser() {
+				@Override
+				public int next() throws XmlPullParserException, IOException {
+					try {
+						view[0] = (TextView) f.createView(name, null, attrs);
+					} catch (InflateException e) {
+					} catch (ClassNotFoundException e) {
+					}
+					throw new XmlPullParserException("exit");
+				}
+
+				@Override
+				public void defineEntityReplacementText(String entityName,
+						String replacementText) throws XmlPullParserException {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public int getAttributeCount() {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public String getAttributeName(int index) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getAttributeNamespace(int index) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getAttributePrefix(int index) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getAttributeType(int index) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getAttributeValue(int index) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getAttributeValue(String namespace, String name) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public int getColumnNumber() {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public int getDepth() {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public int getEventType() throws XmlPullParserException {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public boolean getFeature(String name) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public String getInputEncoding() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public int getLineNumber() {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public String getName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getNamespace() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getNamespace(String prefix) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public int getNamespaceCount(int depth)
+						throws XmlPullParserException {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public String getNamespacePrefix(int pos)
+						throws XmlPullParserException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getNamespaceUri(int pos)
+						throws XmlPullParserException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getPositionDescription() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getPrefix() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public Object getProperty(String name) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getText() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public char[] getTextCharacters(int[] holderForStartAndLength) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public boolean isAttributeDefault(int index) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public boolean isEmptyElementTag()
+						throws XmlPullParserException {
+					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public boolean isWhitespace() throws XmlPullParserException {
+					// TODO Auto-generated method stub
+					return false;
+				}
+
+				@Override
+				public int nextTag() throws XmlPullParserException, IOException {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public String nextText() throws XmlPullParserException,
+						IOException {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public int nextToken() throws XmlPullParserException,
+						IOException {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public void require(int type, String namespace, String name)
+						throws XmlPullParserException, IOException {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void setFeature(String name, boolean state)
+						throws XmlPullParserException {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void setInput(Reader in) throws XmlPullParserException {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void setInput(InputStream inputStream,
+						String inputEncoding) throws XmlPullParserException {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void setProperty(String name, Object value)
+						throws XmlPullParserException {
+					// TODO Auto-generated method stub
+
+				}
+			}, null, false);
+		} catch (InflateException e1) {
+			// "exit" ignored
+		}
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		case R.id.reconnect:
-
-			return true;
 		case R.id.starAlignment:
 			// Launch TwoStarAlignment activity
 			Intent twoStarAlignment = new Intent(this,
@@ -233,22 +550,46 @@ public class SettingsActivity extends Activity {
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		Dialog dialog;
+		final Dialog dialog;
 		switch (id) {
 		case COORDINATES_DIALOG:
 
-			dialog = new Dialog(this.getApplicationContext());
+			dialog = new Dialog(this, R.style.myDialog);
 			dialog.setContentView(R.layout.coordinates_dialog);
 			dialog.setTitle("Add Coordinates");
 
-			final WheelView degrees = (WheelView) findViewById(R.id.deg);
+			final WheelView degrees = (WheelView) dialog.findViewById(R.id.deg);
 			degrees.setViewAdapter(new NumericWheelAdapter(this, 0, 360));
 
-			final WheelView miminutes = (WheelView) findViewById(R.id.min);
+			final WheelView miminutes = (WheelView) dialog
+					.findViewById(R.id.min);
 			miminutes.setViewAdapter(new NumericWheelAdapter(this, 0, 59,
 					"%02d"));
 
-			// add listeners addChangingListener(miminutes, "min");
+			Button saveCoordinates = (Button) dialog
+					.findViewById(R.id.btnSaveCoordinates);
+			saveCoordinates.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+
+				}
+			});
+
+			Button cancelCoordinates = (Button) dialog
+					.findViewById(R.id.btnSaveCoordinatesCancel);
+			cancelCoordinates.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					dialog.dismiss();
+				}
+			});
+
+			// add listeners
+			addChangingListener(miminutes, "min");
 			addChangingListener(degrees, "hour");
 
 			OnWheelChangedListener wheelListener = new OnWheelChangedListener() {
@@ -341,3 +682,4 @@ public class SettingsActivity extends Activity {
 	}
 
 }
+

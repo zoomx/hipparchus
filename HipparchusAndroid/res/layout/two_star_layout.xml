@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:id="@+id/scroll"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:padding="10dp">
+    android:layout_height="fill_parent"
+    android:padding="10dp" >
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

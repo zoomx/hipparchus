@@ -15,7 +15,7 @@
 
     <application
         android:icon="@drawable/ic_launcher"
-        android:theme="@android:style/Theme.Black"
+        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
         android:label="Hipparchus"
         android:name="orchestration.Orchestrator">       
         <activity android:name="activities.SettingsActivity">
