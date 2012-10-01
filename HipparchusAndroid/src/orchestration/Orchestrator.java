@@ -153,7 +153,6 @@ public class Orchestrator extends Application {
 	 * appropriate function
 	 */
 	public void getMessage() {
-
 		Log.i(TAG,
 				"+++ GOT MESSAGE FROM ARDUINO +++" + this.getArduinoMessage());
 		String[] msgSplit = getArduinoMessage().split(":");
@@ -179,7 +178,6 @@ public class Orchestrator extends Application {
 	}
 
 	public void startTracking() {
-
 		Calendar cal = Calendar.getInstance();
 		t = tau.getLocalDecimalTime(cal);
 		targetDcEq = ccm.starDcEquatorial(ra, dec, t, t0);
@@ -223,7 +221,6 @@ public class Orchestrator extends Application {
 	}
 
 	public void getTelescopeAltAz(String x, String y) {
-
 		// Convert string to int and store it
 		double xDouble = Double.parseDouble(x);
 		double yDouble = Double.parseDouble(y);
@@ -274,18 +271,19 @@ public class Orchestrator extends Application {
 	}
 
 	public void connectWithTelescope() {
-
 		btService = new BluetoothService(this);
 		btService.setmHandler(getmHandler());
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-		device = mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS);
-		btService.connect(device);
+		if (mBluetoothAdapter.isEnabled()) {
+			device = mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS);
+			btService.connect(device);
+		} else {
+			// TODO: show message for bluetooth adapter not opened
+		}
 	}
 
 	public void disconnect() {
-
 		btService.stop();
-
 	}
 
 	public static List<String> getVisibleStarsLabelNames() {
