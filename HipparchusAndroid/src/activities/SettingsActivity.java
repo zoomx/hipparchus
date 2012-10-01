@@ -30,6 +30,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.LayoutInflater.Factory;
@@ -38,8 +39,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import bluetooth.BluetoothService;
@@ -117,16 +120,15 @@ public class SettingsActivity extends Activity {
 			public void onClick(View v) {
 				if (latitudeText.getText().length() == 0
 						|| longitudeText.getText().length() == 0) {
-					Toast.makeText(SettingsActivity.this,
-							"Error: Location Not Set", Toast.LENGTH_LONG)
-							.show();
+					//Toast.makeText(SettingsActivity.this,"Error: Location Not Set", Toast.LENGTH_LONG).show();
+					showToast("Please enter location!");
 				} else {
 					orc.setLatitude(Double.parseDouble(latitudeText.getText()
 							.toString()));
 					orc.setLongitude(Double.parseDouble(longitudeText.getText()
 							.toString()));
-					Toast.makeText(SettingsActivity.this, "Location Saved",
-							Toast.LENGTH_SHORT).show();
+					//Toast.makeText(SettingsActivity.this, "Location Saved",	Toast.LENGTH_SHORT).show();
+					showToast("Location saved");
 				}
 			}
 		});
@@ -154,8 +156,8 @@ public class SettingsActivity extends Activity {
 		// Check bt availability. If no bt available close the application
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
-			Toast.makeText(this, "Bluetooth is not available",
-					Toast.LENGTH_LONG).show();
+			//Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+			showToast("Bluetooth is not available for this device!");
 			finish();
 			return;
 		}
@@ -174,7 +176,7 @@ public class SettingsActivity extends Activity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		// orc.disconnect();
+		// TODO: disconnect first if connections has been established orc.disconnect();
 		if (mBluetoothAdapter.isEnabled()) {
 			mBluetoothAdapter.disable();
 		}
@@ -185,13 +187,12 @@ public class SettingsActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case REQUEST_ENABLE_BT:
-			if (resultCode == Activity.RESULT_OK) {
-				// device = mBluetoothAdapter.getRemoteDevice(MAC_ADDRESS);
+			if (resultCode == Activity.RESULT_OK) {				
 				Log.i(TAG, "Bluetooth enabled");
 			} else {
 				Log.d(TAG, "BT not enabled");
-				Toast.makeText(this, "Unable to enable BT", Toast.LENGTH_SHORT)
-						.show();
+				//Toast.makeText(this, "Unable to enable BT", Toast.LENGTH_SHORT).show();
+				showToast("Unable to open Bluetooth!");
 			}
 			break;
 		}
@@ -499,7 +500,7 @@ public class SettingsActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.starAlignment:
-			// Launch TwoStarAlignment activity
+			
 			Intent twoStarAlignment = new Intent(this,
 					TwoStarAlignmentActivity.class);
 			startActivity(twoStarAlignment);
@@ -517,9 +518,8 @@ public class SettingsActivity extends Activity {
 				switch (msg.arg1) {
 				case BluetoothService.STATE_CONNECTED:
 					dialog.dismiss();
-					Toast.makeText(SettingsActivity.this,
-							"Connected with telescope", Toast.LENGTH_LONG)
-							.show();
+					//Toast.makeText(SettingsActivity.this,"Connected with telescope", Toast.LENGTH_LONG).show();
+					showToast("Connected with Hipparchus mount");
 					break;
 				case BluetoothService.STATE_CONNECTING:
 					dialog = ProgressDialog.show(SettingsActivity.this, "",
@@ -531,16 +531,16 @@ public class SettingsActivity extends Activity {
 					break;
 
 				case BluetoothService.STATE_DISCONNECTED:
-					Toast.makeText(SettingsActivity.this, "Disconnected",
-							Toast.LENGTH_LONG).show();
+					//Toast.makeText(SettingsActivity.this, "Disconnected",Toast.LENGTH_LONG).show();
+					showToast("Disconnected from mount");
 					break;
 				}
 				break;
 
 			case CONNECTED_FAILED:
 				dialog.dismiss();
-				Toast.makeText(SettingsActivity.this, "Connection failed",
-						Toast.LENGTH_LONG).show();
+				//Toast.makeText(SettingsActivity.this, "Connection failed",Toast.LENGTH_LONG).show();
+				showToast("Failure connection");
 				break;
 			}
 		}
@@ -570,8 +570,7 @@ public class SettingsActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-
+					
 				}
 			});
 
@@ -647,6 +646,23 @@ public class SettingsActivity extends Activity {
 				// wheel.setLabel(newValue != 1 ? label + "s" : label);
 			}
 		});
+	}
+	
+	public void showToast(String message) {
+		LayoutInflater inflater = getLayoutInflater();
+		View layout = inflater.inflate(R.layout.red_toast,
+		                               (ViewGroup) findViewById(R.id.toast_layout_root));
+
+		//ImageView image = (ImageView) layout.findViewById(R.id.image);
+		//image.setImageResource(R.drawable.android);
+		TextView text = (TextView) layout.findViewById(R.id.text);
+		text.setText(message);
+
+		Toast toast = new Toast(getApplicationContext());
+		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+		toast.setDuration(Toast.LENGTH_LONG);
+		toast.setView(layout);
+		toast.show();
 	}
 
 	public class myLocation implements LocationListener {

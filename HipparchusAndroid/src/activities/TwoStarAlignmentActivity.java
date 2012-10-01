@@ -21,8 +21,9 @@ public class TwoStarAlignmentActivity extends Activity {
 	private static final String TAG = "TwoStarAlignmentActivity";
 	protected static final int MESSAGE_WRITE = 1;
 	protected static final int MESSAGE_READ = 2;
-	//public Orchestrator orc;
-	
+
+	// public Orchestrator orc;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -114,80 +115,99 @@ public class TwoStarAlignmentActivity extends Activity {
 		Button moveLeft = (Button) findViewById(R.id.bt_move_left);
 		moveLeft.setOnTouchListener(new OnTouchListener() {
 			byte[] out;
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				switch ( event.getAction() ) {
-			    case MotionEvent.ACTION_DOWN:
-			    	out = new String("l").getBytes();
-			    	btService.write(out);
-			    	break;
-			    case MotionEvent.ACTION_UP:
-			    	out = new String("ls").getBytes();
-			    	btService.write(out);
-			    	break;
-			    }
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					out = new String("l").getBytes();
+					btService.write(out);
+					break;
+				case MotionEvent.ACTION_UP:
+					out = new String("ls").getBytes();
+					btService.write(out);
+					break;
+				}
 				return false;
 			}
 
 		});
-		
+
 		Button moveRight = (Button) findViewById(R.id.bt_move_right);
 		moveRight.setOnTouchListener(new OnTouchListener() {
 			byte[] out;
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				switch ( event.getAction() ) {
-			    case MotionEvent.ACTION_DOWN:
-			    	out = new String("r").getBytes();
-			    	btService.write(out);
-			    	break;
-			    case MotionEvent.ACTION_UP:
-			    	out = new String("rs").getBytes();
-			    	btService.write(out);
-			    	break;
-			    }
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					out = new String("r").getBytes();
+					btService.write(out);
+					break;
+				case MotionEvent.ACTION_UP:
+					out = new String("rs").getBytes();
+					btService.write(out);
+					break;
+				}
 				return false;
 			}
 
 		});
-		
-		
+
 		Button moveUp = (Button) findViewById(R.id.bt_move_up);
 		moveUp.setOnTouchListener(new OnTouchListener() {
 			byte[] out;
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				switch ( event.getAction() ) {
-			    case MotionEvent.ACTION_DOWN:
-			    	out = new String("u").getBytes();
-			    	btService.write(out);
-			    	break;
-			    case MotionEvent.ACTION_UP:
-			    	out = new String("us").getBytes();
-			    	btService.write(out);
-			    	break;
-			    }
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					out = new String("u").getBytes();
+					btService.write(out);
+					break;
+				case MotionEvent.ACTION_UP:
+					out = new String("us").getBytes();
+					btService.write(out);
+					break;
+				}
 				return false;
 			}
 
 		});
-		
-		
+
 		Button moveDown = (Button) findViewById(R.id.bt_move_down);
 		moveDown.setOnTouchListener(new OnTouchListener() {
 			byte[] out;
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				switch ( event.getAction() ) {
-			    case MotionEvent.ACTION_DOWN:
-			    	out = new String("d").getBytes();
-			    	btService.write(out);
-			    	break;
-			    case MotionEvent.ACTION_UP:
-			    	out = new String("ds").getBytes();
-			    	btService.write(out);
-			    	break;
-			    }
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					out = new String("d").getBytes();
+					btService.write(out);
+					break;
+				case MotionEvent.ACTION_UP:
+					out = new String("ds").getBytes();
+					btService.write(out);
+					break;
+				}
+				return false;
+			}
+
+		});
+
+		Button moveReset = (Button) findViewById(R.id.bt_reset_position);
+		moveReset.setOnTouchListener(new OnTouchListener() {
+			byte[] out;
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					out = new String("R").getBytes();
+					btService.write(out);
+					break;
+				}
 				return false;
 			}
 

@@ -237,11 +237,7 @@
                     android:text="@string/bt_move_up" />
 
                 <Button
-                    android:id="@+id/reset_position"
-                    style="@style/darkRedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="@string/bt_reset_position" />
+                    android:id="@+id/bt_reset_position" style="@style/darkRedButton" android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/bt_reset_position"/>
 
                 <Button
                     android:id="@+id/bt_move_down"
