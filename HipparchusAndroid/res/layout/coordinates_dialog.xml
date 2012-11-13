@@ -9,42 +9,5 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-
-        <kankan.wheel.widget.WheelView
-            android:id="@+id/deg"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
-
-        <kankan.wheel.widget.WheelView
-            android:id="@+id/min"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="true"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btnSaveCoordinates"
-            style="@style/darkRedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_margin="10dp"
-            android:padding="10dp"
-            android:text="@string/bt_save_coordinates" />
-
-        <Button
-            android:id="@+id/btnSaveCoordinatesCancel"
-            style="@style/darkRedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|right"
-            android:padding="10dp"
-            android:text="@string/bt_save_coordinates_cancel" />
-    </LinearLayout>
-
 </LinearLayout>

@@ -24,10 +24,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import bluetooth.BluetoothService;
+import calculations.AngleConverter;
 
 public class SettingsActivity extends Activity {
 
@@ -46,9 +46,14 @@ public class SettingsActivity extends Activity {
 	private BluetoothAdapter mBluetoothAdapter;
 	private LocationManager locationManager;
 	private LocationListener locationListener;
+	private AngleConverter ac;
 
-	private EditText latitudeText;
-	private EditText longitudeText;
+	private TextView latitudeDegree;
+	private TextView latitudeMinutes;
+	private TextView latitudeSeconds;
+	private TextView longitudeDegree;
+	private TextView longitudeMinutes;
+	private TextView longitudeSeconds;
 
 	public ProgressDialog dialog;
 	public Dialog coordinatesDialog;
@@ -63,9 +68,14 @@ public class SettingsActivity extends Activity {
 		setContentView(R.layout.settings_layout);
 
 		orc = new Orchestrator();
+		ac = new AngleConverter();
 		orc.setmHandler(mHandler);
-		latitudeText = (EditText) findViewById(R.id.latitudeField);		
-		longitudeText = (EditText) findViewById(R.id.longitudeField);
+		latitudeDegree = (TextView) findViewById(R.id.latitudeDegreeField);
+		latitudeMinutes = (TextView) findViewById(R.id.latitudeMinField);
+		latitudeSeconds = (TextView) findViewById(R.id.latitudeSecondsField);
+		longitudeDegree = (TextView) findViewById(R.id.longitudeDegreeField);
+		longitudeMinutes = (TextView) findViewById(R.id.longitudeMinField);
+		longitudeSeconds = (TextView) findViewById(R.id.longitudeSecField);
 
 		Button locationBtn = (Button) findViewById(R.id.locationBtn);
 		locationBtn.setOnClickListener(new OnClickListener() {
@@ -78,24 +88,7 @@ public class SettingsActivity extends Activity {
 						LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 			}
-		});
-		Button locationSave = (Button) findViewById(R.id.locationSave);
-		locationSave.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (latitudeText.getText().length() == 0
-						|| longitudeText.getText().length() == 0) {
-					showToast("Please enter location!", Toast.LENGTH_LONG);
-				} else {
-					orc.setLatitude(Double.parseDouble(latitudeText.getText()
-							.toString()));
-					orc.setLongitude(Double.parseDouble(longitudeText.getText()
-							.toString()));
-					showToast("Location saved", Toast.LENGTH_SHORT);
-				}
-			}
-		});
+		});		
 		Button connectWithTelescope = (Button) findViewById(R.id.connectWithTelescope);
 		connectWithTelescope.setOnClickListener(new OnClickListener() {
 			@Override
@@ -103,15 +96,7 @@ public class SettingsActivity extends Activity {
 				orc.connectWithTelescope();
 			}
 		});
-		Button disconnectWithTelescope = (Button) findViewById(R.id.disconnectWithTelescope);
-		disconnectWithTelescope.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				orc.disconnect();
-
-			}
-		});
-
+		
 		// Check bt availability. If no bt available close the application
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
@@ -138,6 +123,7 @@ public class SettingsActivity extends Activity {
 		// TODO: disconnect first if connections has been established
 		// orc.disconnect();
 		if (mBluetoothAdapter.isEnabled()) {
+			orc.disconnect();
 			mBluetoothAdapter.disable();
 		}
 
@@ -170,9 +156,9 @@ public class SettingsActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.starAlignment:
 
-			Intent twoStarAlignment = new Intent(this,
-					TwoStarAlignmentActivity.class);
-			startActivity(twoStarAlignment);
+			Intent firstStarAlignment = new Intent(this,
+					FirstStarAlignmentActivity.class);
+			startActivity(firstStarAlignment);
 			return true;
 		}
 		return false;
@@ -191,8 +177,10 @@ public class SettingsActivity extends Activity {
 							Toast.LENGTH_LONG);
 					break;
 				case BluetoothService.STATE_CONNECTING:
-					dialog = ProgressDialog.show(SettingsActivity.this, "",
-							"Connecting. Please wait...", true);
+					dialog = new ProgressDialog(SettingsActivity.this, R.style.myDialog);
+					//dialog = ProgressDialog.show(SettingsActivity.this, "","Connecting. Please wait...", true);
+					dialog.setMessage("Connecting...");
+					dialog.show();
 					break;
 				case BluetoothService.STATE_LISTEN:
 				case BluetoothService.STATE_NONE:
@@ -237,8 +225,22 @@ public class SettingsActivity extends Activity {
 			if (location != null) {
 				Log.d("LOCATION CHANGED", location.getLatitude() + "");
 				Log.d("LOCATION CHANGED", location.getLongitude() + "");
-				latitudeText.setText(String.valueOf(location.getLatitude()));
-				longitudeText.setText(String.valueOf(location.getLongitude()));
+				ac.setDegreeDecimal(location.getLatitude());				
+				ac.convertToDegMinSec();
+				latitudeDegree.setText(String.valueOf(ac.getDeg()));
+				latitudeMinutes.setText(String.valueOf(ac.getMin()));
+				latitudeSeconds.setText(String.valueOf(ac.getSec()));
+				
+				ac.setDegreeDecimal(location.getLongitude());				
+				ac.convertToDegMinSec();
+				longitudeDegree.setText(String.valueOf(ac.getDeg()));
+				longitudeMinutes.setText(String.valueOf(ac.getMin()));
+				longitudeSeconds.setText(String.valueOf(ac.getSec()));
+				
+				orc.setLatitude(location.getLatitude());
+				orc.setLongitude(location.getLongitude());
+				
+				showToast("Location Updated", Toast.LENGTH_SHORT);
 			}
 			locationManager.removeUpdates(locationListener);
 		}

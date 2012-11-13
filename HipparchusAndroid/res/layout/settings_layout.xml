@@ -40,13 +40,55 @@
                     android:text="@string/lbl_latitude"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                <EditText
-                    android:id="@+id/latitudeField"
-                    style="@style/darkRedEditText"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/latitudeDegreeField"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:text="@string/txt_default_latitude" />
+                    android:text="@string/lbl_default_degree_latitude"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/lbl_degree_symbol"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/latitudeMinField"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_default_min_latitude"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/lbl_min_symbol"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/latitudeSecondsField"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_default_min_latitude"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_sec_symbol"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
             </LinearLayout>
 
             <LinearLayout
@@ -63,14 +105,55 @@
                     android:text="@string/lbl_longitude"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                <EditText
-                    android:id="@+id/longitudeField"
-                    style="@style/darkRedEditText"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/longitudeDegreeField"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:text="@string/txt_default_longitude" >
-                </EditText>
+                    android:text="@string/lbl_default_degree_longitude"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/lbl_degree_symbol"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/longitudeMinField"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_default_min_longitude"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/lbl_min_symbol"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/longitudeSecField"
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_default_min_longitude"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_sec_symbol"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
             </LinearLayout>
         </LinearLayout>
 
@@ -86,14 +169,6 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="@string/bt_update_location" />
-
-            <Button
-                android:id="@+id/locationSave"
-                style="@style/darkRedButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/bt_save_location" />
         </LinearLayout>
 
         <LinearLayout
@@ -108,14 +183,6 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="@string/bt_connect_with_telescope" />
-
-            <Button
-                android:id="@+id/disconnectWithTelescope"
-                style="@style/darkRedButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/bt_disconnect_with_telescope" />
         </LinearLayout>
     </LinearLayout>
 

@@ -18,10 +18,11 @@
     <string name="bt_stop">Stop</string>
     <string name="bt_save_coordinates">Save</string>
     <string name="bt_save_coordinates_cancel">Cancel</string>
+    <string name="bt_calibrate">Calibrate Alignment</string>
     <string name="m_star_alignment">Two Star Alignment</string>
     <string name="lbl_latitude">Latitude:</string>
     <string name="lbl_longitude">Longitude:</string>
-    <string name="lbl_select_first_star">Locate First Star</string>
+    
     <string name="lbl_star_name">Name:</string>
     <string name="lbl_ra">R.A.:</string>
     <string name="lbl_dec">Dec:</string>
@@ -30,8 +31,15 @@
     <string name="lbl_target_position">Target position</string>
     <string name="lbl_target_altitude">Alt</string>
     <string name="lbl_target_azimuth">Az</string>    
-    <string name="txt_default_latitude">35.3330</string>
-    <string name="txt_default_longitude">25.1330</string>
+    <string name="lbl_default_degree_latitude">35</string>
+    <string name="lbl_default_min_latitude">00</string>
+    <string name="lbl_default_sec_latitude">00</string>
+    <string name="lbl_default_degree_longitude">25</string>
+    <string name="lbl_default_min_longitude">00</string>
+    <string name="lbl_default_sec_longitude">00</string>
+    <string name="lbl_degree_symbol">\u00B0</string>
+    <string name="lbl_min_symbol">\'</string>
+    <string name="lbl_sec_symbol">\"</string>
     <string name="hdr_location">Location</string>
     <string name="hrd_telescope_control">Telescope Control</string>
 

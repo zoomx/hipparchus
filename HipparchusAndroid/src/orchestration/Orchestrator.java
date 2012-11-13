@@ -33,7 +33,18 @@ public class Orchestrator extends Application {
 	public static double MOUSE_TICKS_PER_REV = 21600;
 	public static double scopeAlt;
 	public static double scopeAz;
+	public static double star1Alt;
+	public static double star1Az;
+	public static double star2Alt;
+	public static double star2Az;
 	private double t; // Current time
+	private static Matrix T; // Transformation matrix T
+	private static Matrix star1DcEq;   //L1M1N1
+    private static Matrix star1DcTel;  //l1m1n1
+    private static Matrix star2DcEq;   //L2M2N2
+    private static Matrix star2DcTel;  //l2m2n2
+    private static Matrix star3DcEq;   //L3M3N3
+    private static Matrix star3DcTel;  //l3m3n3
 	private static Matrix targetDcEq; // LMN
 	private static Matrix targetDcTel; // lmn
 	private CoordinatesConverterMatrix ccm = new CoordinatesConverterMatrix();
@@ -41,9 +52,14 @@ public class Orchestrator extends Application {
 	public static double ALT_LIMIT = 0;// This can be configured in the
 										// front-end
 	public static double t0;
-	private static Matrix T; // Transformation matrix T
+	
+        
 	public static double ra;
 	public static double dec;
+	public static double firstStarRa;
+	public static double firstStarDec;
+	public static double secondStarRa;
+	public static double secondStarDec;
 
 	public double longitude;
 	public double latitude;
@@ -79,6 +95,8 @@ public class Orchestrator extends Application {
 
 	private TimeAndUtils tau = new TimeAndUtils();
 	private SimpleCoordinatesConverter cc = new SimpleCoordinatesConverter();
+
+	private int star = 0;
 
 	public static double starRaArray[] = { 8.97, 22.14, 19.51, 4.6, 0.22,
 			10.33, 9.46, 0.14, 2.03, 16.49, 5.55, 5.42, 5.92, 6.4, 5.28, 7.58,
@@ -173,7 +191,8 @@ public class Orchestrator extends Application {
 		if (keyWord.equals("xyt")) {
 			Log.i(TAG, "+++ GOT TELESCOPE POSITION " + firstVaule + " "
 					+ secondValue);
-			getTelescopeAltAz(firstVaule, secondValue);
+			star++;
+			getTelescopeAltAz(firstVaule, secondValue, star );
 		}
 	}
 
@@ -220,6 +239,41 @@ public class Orchestrator extends Application {
 		btService.write(message.getBytes());
 	}
 
+	public void getTelescopeAltAz(String x, String y, int star) {
+		// Convert string to int and store it
+		double xDouble = Double.parseDouble(x);
+		double yDouble = Double.parseDouble(y);
+
+		// convert to degrees based on the steps
+		double xCoordinate = (xDouble / MOUSE_TICKS_PER_REV) * 360.0;
+		double yCoordinate = (yDouble / MOUSE_TICKS_PER_REV) * 360.0;
+
+		ac.setDegreeDecimal(yCoordinate);
+		// ac.convertToDegMinSec();
+		// GuiUpdater.window.scopeAlt.setText("" + ac.getDeg() + "\u00b0" +
+		// ac.getMin() + "'" + ac.getSec() + "\"");
+		ac.setDegreeDecimal(xCoordinate);
+		// ac.convertToDegMinSec();
+		// GuiUpdater.window.scopeAz.setText("" + ac.getDeg() + "\u00b0" +
+		// ac.getMin() + "'" + ac.getSec() + "\"");
+
+		switch (star){
+			case 1: 
+				setStar1Alt(yCoordinate);
+				setStar1Az(xCoordinate);
+				break;
+			case 2:
+				setStar2Alt(yCoordinate);
+				setStar2Az(xCoordinate);
+				break;
+		}
+		star = 0;	
+		//scopeAlt = yCoordinate;
+		//scopeAz = xCoordinate;
+
+		//Log.i(TAG, " +++ GOT TELESCOPE ALT AZ +++ " + scopeAlt + " " + scopeAz);
+	}
+	
 	public void getTelescopeAltAz(String x, String y) {
 		// Convert string to int and store it
 		double xDouble = Double.parseDouble(x);
@@ -243,6 +297,77 @@ public class Orchestrator extends Application {
 
 		Log.i(TAG, " +++ GOT TELESCOPE ALT AZ +++ " + scopeAlt + " " + scopeAz);
 	}
+	
+	public void calcStar1(double ra, double dec) {
+
+        Calendar cal = Calendar.getInstance();
+        //cal.set(2011, 10, 21, 21, 27, 56);// this is a test
+        t = tau.getLocalDecimalTime(cal);
+
+        star1DcEq = ccm.starDcEquatorial(ra, dec, t, t0);
+        //star1DcEq = ccm.starDcEquatorial(0.1316, 29.038, 21.4655, 21.0);//this is a test
+        star1DcTel = ccm.starDcTelescope(star1Az, star1Alt);
+        //star1DcTel = ccm.starDcTelescope(99.25, 83.87);
+        Log.i(TAG, "++ calcStar1() ++ \nstar1DcEq");
+        star1DcEq.print(5, 2);
+        Log.i(TAG, "star1DcTel");
+        star1DcTel.print(5, 2);
+    }
+	
+	public void calcStar2(double ra, double dec) {
+
+        Calendar cal = Calendar.getInstance();
+        t = tau.getLocalDecimalTime(cal);
+
+        star2DcEq = ccm.starDcEquatorial(ra, dec, t, t0);
+        //star2DcEq = ccm.starDcEquatorial(2.3625, 89.222, 21.6172, 21.0);//this is a test
+        star2DcTel = ccm.starDcTelescope(star2Az, star2Alt);
+        //star2DcTel = ccm.starDcTelescope(310.98, 35.04);
+        Log.i(TAG, "++ calcStar2() ++ \nstar2DcEq");
+        star2DcEq.print(5, 2);
+        Log.i(TAG, "star2DcTel");
+        star2DcTel.print(5, 2);
+        
+    }
+
+    public void twoStarAlign() {
+        //Calculate the 3rd star 2 direction cosines
+        if (star1DcEq != null && star2DcEq != null) {
+            star3DcEq = ccm.starVectorProduct(star1DcEq, star2DcEq);
+        }
+        if (star1DcTel != null && star2DcTel != null) {
+            star3DcTel = ccm.starVectorProduct(star1DcTel, star2DcTel);
+        }
+        if (star3DcTel == null || star3DcEq == null) {
+            //GuiUpdater.updateLog("Error: Null Matrixes found. Check your input!!", Color.RED);
+        	Log.e(TAG, "Error: Null Matrix calculation for 3rd star. Possible null matrixes");
+        }
+
+        //Construct two 3X3 matrix for eq direction cosines 
+        //and telescope direction cosines
+        double star1DcEqD[] = star1DcEq.getColumnPackedCopy();
+        double star2DcEqD[] = star2DcEq.getColumnPackedCopy();
+        double star3DcEqD[] = star3DcEq.getColumnPackedCopy();
+        double starsDcEqD[][] = {
+            {star1DcEqD[0], star2DcEqD[0], star3DcEqD[0]},
+            {star1DcEqD[1], star2DcEqD[1], star3DcEqD[1]},
+            {star1DcEqD[2], star2DcEqD[2], star3DcEqD[2]}};
+        Matrix eqDirectionCosines = new Matrix(starsDcEqD);
+
+        double star1DcTelD[] = star1DcTel.getColumnPackedCopy();
+        double star2DcTelD[] = star2DcTel.getColumnPackedCopy();
+        double star3DcTelD[] = star3DcTel.getColumnPackedCopy();
+        double starsDcTelD[][] = {
+            {star1DcTelD[0], star2DcTelD[0], star3DcTelD[0]},
+            {star1DcTelD[1], star2DcTelD[1], star3DcTelD[1]},
+            {star1DcTelD[2], star2DcTelD[2], star3DcTelD[2]}};
+        Matrix telDirectionCosines = new Matrix(starsDcTelD);
+
+        T = telDirectionCosines.times(eqDirectionCosines.inverse());
+        //GuiUpdater.updateLog("Two Star Alignment completed successfuly!");
+        Log.i(TAG, "++ twoStarAlign() ++ \nT=");
+        T.print(5, 2);
+    }
 
 	public void calcVisibleStars() {
 		Log.i(TAG, "++ calcVisibleStars() ++");
@@ -397,6 +522,88 @@ public class Orchestrator extends Application {
 
 	public void setmHandler(Handler mHandler) {
 		this.mHandler = mHandler;
+	}
+	
+	
+
+	public static double getStar1Alt() {
+		return star1Alt;
+	}
+
+	public static void setStar1Alt(double star1Alt) {
+		Orchestrator.star1Alt = star1Alt;
+	}
+
+	public static double getStar1Az() {
+		return star1Az;
+	}
+
+	public static void setStar1Az(double star1Az) {
+		Orchestrator.star1Az = star1Az;
+	}
+
+	public static double getStar2Alt() {
+		return star2Alt;
+	}
+
+	public static void setStar2Alt(double star2Alt) {
+		Orchestrator.star2Alt = star2Alt;
+	}
+
+	public static double getStar2Az() {
+		return star2Az;
+	}
+
+	public static void setStar2Az(double star2Az) {
+		Orchestrator.star2Az = star2Az;
+	}
+	
+	
+
+	public static double getFirstStarRa() {
+		return firstStarRa;
+	}
+
+	public static void setFirstStarRa(double firstStarRa) {
+		Orchestrator.firstStarRa = firstStarRa;
+	}
+
+	public static double getFirstStarDec() {
+		return firstStarDec;
+	}
+
+	public static void setFirstStarDec(double firstStarDec) {
+		Orchestrator.firstStarDec = firstStarDec;
+	}
+
+	public static double getSecondStarRa() {
+		return secondStarRa;
+	}
+
+	public static void setSecondStarRa(double secondStarRa) {
+		Orchestrator.secondStarRa = secondStarRa;
+	}
+
+	public static double getSecondStarDec() {
+		return secondStarDec;
+	}
+
+	public static void setSecondStarDec(double secondStarDec) {
+		Orchestrator.secondStarDec = secondStarDec;
+	}
+
+	public static void getStar1Coordinates() {
+		// TODO Auto-generated method stub
+		byte[] out = new String("T").getBytes();
+		btService.write(out);
+		
+	}
+	
+	public static void getStar2Coordinates() {
+		// TODO Auto-generated method stub
+		byte[] out = new String("T").getBytes();
+		btService.write(out);
+		
 	}
 
 }

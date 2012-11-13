@@ -24,7 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="activities.TwoStarAlignmentActivity"></activity>
+        <activity android:name="activities.FirstStarAlignmentActivity"></activity>
+        <activity android:name="activities.SecondStarAlignmentActivity"></activity>
         <activity android:name="activities.ObjectTrackingActivity"></activity>
         <service android:enabled="true" android:name="bluetooth.BluetoothService" />
     </application>
