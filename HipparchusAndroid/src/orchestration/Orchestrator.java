@@ -4,20 +4,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import bluetooth.BluetoothService;
-
-import calculations.AngleConverter;
-import calculations.CoordinatesConverterMatrix;
-import calculations.SimpleCoordinatesConverter;
-import calculations.TimeAndUtils;
-
+import Jama.Matrix;
 import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
 import android.util.Log;
-
-import Jama.Matrix;
+import bluetooth.BluetoothService;
+import calculations.AngleConverter;
+import calculations.CoordinatesConverterMatrix;
+import calculations.SimpleCoordinatesConverter;
+import calculations.TimeAndUtils;
 
 public class Orchestrator extends Application {
 
@@ -37,7 +34,7 @@ public class Orchestrator extends Application {
 	public static double star1Az;
 	public static double star2Alt;
 	public static double star2Az;
-	private double t; // Current time
+	private static double t; // Current time
 	private static Matrix T; // Transformation matrix T
 	private static Matrix star1DcEq;   //L1M1N1
     private static Matrix star1DcTel;  //l1m1n1
@@ -47,8 +44,8 @@ public class Orchestrator extends Application {
     private static Matrix star3DcTel;  //l3m3n3
 	private static Matrix targetDcEq; // LMN
 	private static Matrix targetDcTel; // lmn
-	private CoordinatesConverterMatrix ccm = new CoordinatesConverterMatrix();
-	private AngleConverter ac = new AngleConverter();
+	private static CoordinatesConverterMatrix ccm = new CoordinatesConverterMatrix();
+	private static AngleConverter ac = new AngleConverter();
 	public static double ALT_LIMIT = 0;// This can be configured in the
 										// front-end
 	public static double t0;
@@ -61,8 +58,8 @@ public class Orchestrator extends Application {
 	public static double secondStarRa;
 	public static double secondStarDec;
 
-	public double longitude;
-	public double latitude;
+	public static double longitude;
+	public static double latitude;
 
 	public static List<Double> visibleStarsRa = new ArrayList<Double>();
 	public static List<Double> visibleStarsDec = new ArrayList<Double>();
@@ -83,20 +80,20 @@ public class Orchestrator extends Application {
 	public static final String TOAST = "toast";
 	public static String ARDUINO_MESSAGE;
 
-	public String arduinoMessage;
+	public static String arduinoMessage;
 
-	private Handler mHandler;
+	private static Handler mHandler;
 
 	public static BluetoothService btService;
 	public static BluetoothDevice device;
 	public static BluetoothAdapter btAdapter;
 	private static final String MAC_ADDRESS = "00:06:66:04:DB:38";
-	private BluetoothAdapter mBluetoothAdapter;
+	private static BluetoothAdapter mBluetoothAdapter;
 
-	private TimeAndUtils tau = new TimeAndUtils();
-	private SimpleCoordinatesConverter cc = new SimpleCoordinatesConverter();
+	private static TimeAndUtils tau = new TimeAndUtils();
+	private static SimpleCoordinatesConverter cc = new SimpleCoordinatesConverter();
 
-	private int star = 0;
+	private static int star = 0;
 
 	public static double starRaArray[] = { 8.97, 22.14, 19.51, 4.6, 0.22,
 			10.33, 9.46, 0.14, 2.03, 16.49, 5.55, 5.42, 5.92, 6.4, 5.28, 7.58,
@@ -160,8 +157,13 @@ public class Orchestrator extends Application {
 			"-43 25m 58s", "+64 22m 34s", "+06 25m 31s", "+38 46m 55s",
 			"+10 57m 33s" };
 
-	public Orchestrator() {
+	/*public Orchestrator() {
 		super();
+		Calendar cal = Calendar.getInstance();
+		t0 = tau.getLocalDecimalTime(cal);
+	}*/
+	
+	public static void calcInitialTime() {
 		Calendar cal = Calendar.getInstance();
 		t0 = tau.getLocalDecimalTime(cal);
 	}
@@ -170,9 +172,9 @@ public class Orchestrator extends Application {
 	 * This method gets the serial message from Arduino and calls the
 	 * appropriate function
 	 */
-	public void getMessage() {
+	public static void getMessage() {
 		Log.i(TAG,
-				"+++ GOT MESSAGE FROM ARDUINO +++" + this.getArduinoMessage());
+				"+++ GOT MESSAGE FROM ARDUINO +++" + getArduinoMessage());
 		String[] msgSplit = getArduinoMessage().split(":");
 		String keyWord = "";
 		String firstVaule = "";
@@ -196,7 +198,7 @@ public class Orchestrator extends Application {
 		}
 	}
 
-	public void startTracking() {
+	public static void startTracking() {
 		Calendar cal = Calendar.getInstance();
 		t = tau.getLocalDecimalTime(cal);
 		targetDcEq = ccm.starDcEquatorial(ra, dec, t, t0);
@@ -235,11 +237,11 @@ public class Orchestrator extends Application {
 	/*
 	 * Sends a message to the Arduino in String form
 	 */
-	public void sendMessage(String message) {
+	public static void sendMessage(String message) {
 		btService.write(message.getBytes());
 	}
 
-	public void getTelescopeAltAz(String x, String y, int star) {
+	public static void getTelescopeAltAz(String x, String y, int star) {
 		// Convert string to int and store it
 		double xDouble = Double.parseDouble(x);
 		double yDouble = Double.parseDouble(y);
@@ -274,7 +276,7 @@ public class Orchestrator extends Application {
 		//Log.i(TAG, " +++ GOT TELESCOPE ALT AZ +++ " + scopeAlt + " " + scopeAz);
 	}
 	
-	public void getTelescopeAltAz(String x, String y) {
+	public static void getTelescopeAltAz(String x, String y) {
 		// Convert string to int and store it
 		double xDouble = Double.parseDouble(x);
 		double yDouble = Double.parseDouble(y);
@@ -298,7 +300,7 @@ public class Orchestrator extends Application {
 		Log.i(TAG, " +++ GOT TELESCOPE ALT AZ +++ " + scopeAlt + " " + scopeAz);
 	}
 	
-	public void calcStar1(double ra, double dec) {
+	public static void calcStar1(double ra, double dec) {
 
         Calendar cal = Calendar.getInstance();
         //cal.set(2011, 10, 21, 21, 27, 56);// this is a test
@@ -314,7 +316,7 @@ public class Orchestrator extends Application {
         star1DcTel.print(5, 2);
     }
 	
-	public void calcStar2(double ra, double dec) {
+	public static void calcStar2(double ra, double dec) {
 
         Calendar cal = Calendar.getInstance();
         t = tau.getLocalDecimalTime(cal);
@@ -330,7 +332,7 @@ public class Orchestrator extends Application {
         
     }
 
-    public void twoStarAlign() {
+    public static void twoStarAlign() {
         //Calculate the 3rd star 2 direction cosines
         if (star1DcEq != null && star2DcEq != null) {
             star3DcEq = ccm.starVectorProduct(star1DcEq, star2DcEq);
@@ -369,7 +371,7 @@ public class Orchestrator extends Application {
         T.print(5, 2);
     }
 
-	public void calcVisibleStars() {
+	public static void calcVisibleStars() {
 		Log.i(TAG, "++ calcVisibleStars() ++");
 		for (int i = 0; i < starRaArray.length; i++) {
 			Calendar cal = Calendar.getInstance();
@@ -387,7 +389,7 @@ public class Orchestrator extends Application {
 		}
 	}
 
-	public void clearVisibleStarLists() {
+	public static void clearVisibleStarLists() {
 		visibleStarsDec.clear();
 		visibleStarsLabelNames.clear();
 		visibleStarsRa.clear();
@@ -395,8 +397,8 @@ public class Orchestrator extends Application {
 		visibleStarsLabelDec.clear();
 	}
 
-	public void connectWithTelescope() {
-		btService = new BluetoothService(this);
+	public static void connectWithTelescope() {
+		btService = new BluetoothService();
 		btService.setmHandler(getmHandler());
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter.isEnabled()) {
@@ -440,19 +442,19 @@ public class Orchestrator extends Application {
 		return longitude;
 	}
 
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+	public static void setLongitude(double longitude) {
+		Orchestrator.longitude = longitude;
 	}
 
 	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+	public static void setLatitude(double latitude) {
+		Orchestrator.latitude = latitude;
 	}
 
-	public String getArduinoMessage() {
+	public static String getArduinoMessage() {
 		return arduinoMessage;
 	}
 
@@ -488,8 +490,8 @@ public class Orchestrator extends Application {
 		Orchestrator.dec = dec;
 	}
 
-	public void setArduinoMessage(String arduinoMessage) {
-		this.arduinoMessage = arduinoMessage;
+	public static void setArduinoMessage(String arduinoMessage) {
+		Orchestrator.arduinoMessage = arduinoMessage;
 	}
 
 	public static List<Double> getVisibleStarsRa() {
@@ -516,15 +518,13 @@ public class Orchestrator extends Application {
 		Orchestrator.btService = btService;
 	}
 
-	public Handler getmHandler() {
+	public static Handler getmHandler() {
 		return mHandler;
 	}
 
-	public void setmHandler(Handler mHandler) {
-		this.mHandler = mHandler;
+	public static void setmHandler(Handler mHandler) {
+		Orchestrator.mHandler = mHandler;
 	}
-	
-	
 
 	public static double getStar1Alt() {
 		return star1Alt;
@@ -592,18 +592,13 @@ public class Orchestrator extends Application {
 		Orchestrator.secondStarDec = secondStarDec;
 	}
 
-	public static void getStar1Coordinates() {
-		// TODO Auto-generated method stub
+	public static void getStar1Coordinates() {		
 		byte[] out = new String("T").getBytes();
 		btService.write(out);
-		
 	}
 	
-	public static void getStar2Coordinates() {
-		// TODO Auto-generated method stub
+	public static void getStar2Coordinates() {		
 		byte[] out = new String("T").getBytes();
 		btService.write(out);
-		
 	}
-
 }

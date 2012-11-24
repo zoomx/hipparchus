@@ -23,8 +23,7 @@ public class SecondStarAlignmentActivity extends Activity {
 	protected static final int MESSAGE_WRITE = 1;
 	protected static final int MESSAGE_READ = 2;
 
-	public Orchestrator orc;
-
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,16 +48,15 @@ public class SecondStarAlignmentActivity extends Activity {
 				Orchestrator.getVisibleStarsLabelDec());
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-		orc = (Orchestrator)this.getApplicationContext();
-		((Orchestrator) this.getApplicationContext()).clearVisibleStarLists();
-		((Orchestrator) this.getApplicationContext()).calcVisibleStars();
+		Orchestrator.clearVisibleStarLists();
+		Orchestrator.calcVisibleStars();
 		final BluetoothService btService = Orchestrator.getBtService();
 
 		Button firstStarSelect = (Button) findViewById(R.id.star2SelectBtn);
 		firstStarSelect.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				builder.setTitle("Select a Star");
+				//builder.setTitle("Select a Star");
 				builder.setAdapter(visStarNames,
 						new DialogInterface.OnClickListener() {
 							@Override
@@ -83,9 +81,7 @@ public class SecondStarAlignmentActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
-				Orchestrator.getStar2Coordinates();
-				Log.i(TAG, "Star2 Alt="+Orchestrator.getStar2Alt()+" Az="+Orchestrator.getStar2Az());				
+				Orchestrator.getStar2Coordinates();				
 			}
 		});
 		
@@ -94,9 +90,9 @@ public class SecondStarAlignmentActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				((Orchestrator)getApplicationContext()).calcStar1(Orchestrator.getFirstStarRa(), Orchestrator.getFirstStarDec());
-				((Orchestrator)getApplicationContext()).calcStar2(Orchestrator.getSecondStarRa(), Orchestrator.getSecondStarDec());
-				((Orchestrator)getApplicationContext()).twoStarAlign();
+				Orchestrator.calcStar1(Orchestrator.getFirstStarRa(), Orchestrator.getFirstStarDec());
+				Orchestrator.calcStar2(Orchestrator.getSecondStarRa(), Orchestrator.getSecondStarDec());
+				Orchestrator.twoStarAlign();
 				Intent trackActivity = new Intent(getApplicationContext(), ObjectTrackingActivity.class);
 				startActivity(trackActivity);
 			}

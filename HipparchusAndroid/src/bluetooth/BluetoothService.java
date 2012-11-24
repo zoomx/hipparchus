@@ -22,13 +22,11 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 import orchestration.Orchestrator;
-
 import activities.SettingsActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,14 +61,14 @@ public class BluetoothService {
 	private AcceptThread mInsecureAcceptThread;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
-	public Orchestrator orc;
+	//public Orchestrator orc;
 	
 	public BluetoothAdapter mAdapter;
 	
-	public BluetoothService(Context context) {
+	public BluetoothService() {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
-        orc = new Orchestrator();
+        //orc = new Orchestrator();
     }
 	
 	public synchronized void start() {
@@ -410,7 +408,7 @@ public class BluetoothService {
 
 		public void run() {
 			Log.i(TAG, "BEGIN mConnectedThread");
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[50];
 			int bytes;
 
 			// Keep listening to the InputStream while connected
@@ -419,10 +417,10 @@ public class BluetoothService {
 					// Read from the InputStream
 					bytes = mmInStream.read(buffer);					
 					Log.i(TAG, "Bytes recieved"+bytes);
-					String word = new String(buffer);    
+					String word = new String(buffer, 0, bytes);    
 				    Log.i(TAG, word);
-				    orc.setArduinoMessage(word);
-				    orc.getMessage();
+				    Orchestrator.setArduinoMessage(word);
+				    Orchestrator.getMessage();
 
 				} catch (IOException e) {
 					Log.e(TAG, "disconnected", e);

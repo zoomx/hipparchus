@@ -23,8 +23,6 @@ public class FirstStarAlignmentActivity extends Activity {
 	protected static final int MESSAGE_WRITE = 1;
 	protected static final int MESSAGE_READ = 2;
 
-	public Orchestrator orc;
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,17 +45,17 @@ public class FirstStarAlignmentActivity extends Activity {
 				this, R.layout.list_item,
 				Orchestrator.getVisibleStarsLabelDec());
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
 
-		orc = (Orchestrator)this.getApplicationContext();
-		((Orchestrator) this.getApplicationContext()).clearVisibleStarLists();
-		((Orchestrator) this.getApplicationContext()).calcVisibleStars();
+		Orchestrator.clearVisibleStarLists();
+		Orchestrator.calcVisibleStars();
 		final BluetoothService btService = Orchestrator.getBtService();
 
 		Button firstStarSelect = (Button) findViewById(R.id.star1SelectBtn);
 		firstStarSelect.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				builder.setTitle("Select a Star");
+				//builder.setTitle("Select a Star");
 				builder.setAdapter(visStarNames,
 						new DialogInterface.OnClickListener() {
 							@Override
@@ -82,15 +80,8 @@ public class FirstStarAlignmentActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
-				/*
-				byte[] out = new String("T").getBytes();
-				btService.write(out);
 				
-				((Orchestrator) getApplicationContext()).calcStar1(Orchestrator.getRa(), Orchestrator.getDec());
-				*/
-				Orchestrator.getStar1Coordinates();
-				//Log.i(TAG, "Star1 Alt="+Orchestrator.getStar1Alt()+" Az="+Orchestrator.getStar1Az());
+				Orchestrator.getStar1Coordinates();				
 				Intent secondStarAlignment = new Intent(getApplicationContext(), SecondStarAlignmentActivity.class);
 				startActivity(secondStarAlignment);
 			}

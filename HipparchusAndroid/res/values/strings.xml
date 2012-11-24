@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="bt_reconnect">Connect To Telescope</string>
-    <string name="bt_update_location">Update Location</string>
+    <string name="bt_reconnect">Connect With Telescope</string>
+    <string name="bt_update_location">Update</string>
     <string name="bt_move_down">Down</string>
     <string name="bt_move_up">Up</string>
     <string name="bt_save_location">Save Location</string>
     <string name="bt_move_right">Right</string>
     <string name="bt_moveLeft">Left</string>
     <string name="bt_disconnect_with_telescope">Disconnect</string>
-    <string name="bt_connect_with_telescope">Connect with telescope</string>
+    <string name="bt_connect_with_telescope">Connect</string>
     <string name="bt_save_star_position">Save Star Position</string>
     <string name="bt_select_star">Select</string>
     <string name="bt_reset_position">Reset</string>
@@ -20,9 +20,8 @@
     <string name="bt_save_coordinates_cancel">Cancel</string>
     <string name="bt_calibrate">Calibrate Alignment</string>
     <string name="m_star_alignment">Two Star Alignment</string>
-    <string name="lbl_latitude">Latitude:</string>
-    <string name="lbl_longitude">Longitude:</string>
-    
+    <string name="lbl_latitude">Lat:</string>
+    <string name="lbl_longitude">Lon:</string>    
     <string name="lbl_star_name">Name:</string>
     <string name="lbl_ra">R.A.:</string>
     <string name="lbl_dec">Dec:</string>
@@ -40,7 +39,10 @@
     <string name="lbl_degree_symbol">\u00B0</string>
     <string name="lbl_min_symbol">\'</string>
     <string name="lbl_sec_symbol">\"</string>
-    <string name="hdr_location">Location</string>
+    <string name="lbl_Connected">Not-Connected</string>
+    <string name="lbl_connect_with_telescope">Connect With Telescope</string>
+    <string name="lbl_title">Hipparchus</string>
+    <string name="hdr_location">Update Location</string>
     <string name="hrd_telescope_control">Telescope Control</string>
 
 </resources>

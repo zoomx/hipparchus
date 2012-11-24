@@ -3,11 +3,10 @@ package activities;
 import gr.mandim.R;
 import orchestration.Orchestrator;
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,13 +16,11 @@ import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import bluetooth.BluetoothService;
@@ -54,11 +51,14 @@ public class SettingsActivity extends Activity {
 	private TextView longitudeDegree;
 	private TextView longitudeMinutes;
 	private TextView longitudeSeconds;
+	private TextView connectedNotification;
+	private Button connectWithTelescope;
+	private Button twoStarAlignment;
 
-	public ProgressDialog dialog;
-	public Dialog coordinatesDialog;
-
-	private Orchestrator orc;
+	public ProgressBar connectedBar;
+	public ProgressBar updateLocationBar;
+	
+	//private Orchestrator orc;
 	protected boolean timeScrolled = false;
 	protected boolean timeChanged = false;
 
@@ -66,10 +66,16 @@ public class SettingsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_layout);
-
-		orc = new Orchestrator();
+		
+		//orc = new Orchestrator();
+		Orchestrator.calcInitialTime();
 		ac = new AngleConverter();
-		orc.setmHandler(mHandler);
+		Orchestrator.setmHandler(mHandler);
+
+		connectedNotification = (TextView)findViewById(R.id.connectedNotification);		
+		connectedBar = (ProgressBar)findViewById(R.id.connectProgressBar);		
+		updateLocationBar = (ProgressBar)findViewById(R.id.updateLocationProgress);
+		updateLocationBar.setIndeterminate(true);
 		latitudeDegree = (TextView) findViewById(R.id.latitudeDegreeField);
 		latitudeMinutes = (TextView) findViewById(R.id.latitudeMinField);
 		latitudeSeconds = (TextView) findViewById(R.id.latitudeSecondsField);
@@ -86,14 +92,32 @@ public class SettingsActivity extends Activity {
 				locationListener = new myLocation();
 				locationManager.requestLocationUpdates(
 						LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+				updateLocationBar.setVisibility(View.VISIBLE);
 
 			}
 		});		
-		Button connectWithTelescope = (Button) findViewById(R.id.connectWithTelescope);
+		connectWithTelescope = (Button) findViewById(R.id.connectWithTelescope);
 		connectWithTelescope.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				orc.connectWithTelescope();
+				Orchestrator.connectWithTelescope();
+			}
+		});
+		
+		twoStarAlignment = (Button) findViewById(R.id.bt_twoStar);
+		twoStarAlignment.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (Orchestrator.getBtService() != null && Orchestrator.getBtService().getState() == BluetoothService.STATE_CONNECTED) {
+					//TODO: Add a check if the bt has been connected
+					Intent firstStarAlignment = new Intent(getApplicationContext(), FirstStarAlignmentActivity.class);
+					startActivity(firstStarAlignment);
+				}
+				else {
+					showToast("The mount is not connected!", Toast.LENGTH_LONG);
+				}
+				
 			}
 		});
 		
@@ -119,14 +143,14 @@ public class SettingsActivity extends Activity {
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-		// TODO: disconnect first if connections has been established
-		// orc.disconnect();
-		if (mBluetoothAdapter.isEnabled()) {
+		super.onDestroy();		
+		/*if (Orchestrator.getBtService().getState() == BluetoothService.STATE_CONNECTED){
 			orc.disconnect();
+		}*/
+		/*if (mBluetoothAdapter.isEnabled()) {			
 			mBluetoothAdapter.disable();
 		}
-
+*/
 	}
 
 	@Override
@@ -142,60 +166,51 @@ public class SettingsActivity extends Activity {
 			break;
 		}
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.settings_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
-		case R.id.starAlignment:
-
-			Intent firstStarAlignment = new Intent(this,
-					FirstStarAlignmentActivity.class);
-			startActivity(firstStarAlignment);
-			return true;
-		}
-		return false;
-	}
-
-	// The Handler that gets information back from the BluetoothChatService
-	private final Handler mHandler = new Handler() {
+	
+	// The Handler that gets information back from the BluetoothService	
+	private Handler mHandler = new Handler() {		
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case MESSAGE_STATE_CHANGE:
 				switch (msg.arg1) {
 				case BluetoothService.STATE_CONNECTED:
-					dialog.dismiss();
-					showToast("Connected with Hipparchus mount",
-							Toast.LENGTH_LONG);
+					//dialog.dismiss();
+					connectedBar.setVisibility(View.INVISIBLE);
+					showToast("Connected with mount",Toast.LENGTH_LONG);
+					connectedNotification.setText("Connected");
+					connectedNotification.setBackgroundColor(Color.parseColor("#DC2D2D"));
+					connectedNotification.setTextColor(Color.BLACK);
+					connectWithTelescope.setEnabled(false);
+					connectWithTelescope.setBackgroundColor(Color.parseColor("#892121"));
+					connectWithTelescope.setTextColor(Color.parseColor("#DC2D2D"));
 					break;
 				case BluetoothService.STATE_CONNECTING:
-					dialog = new ProgressDialog(SettingsActivity.this, R.style.myDialog);
-					//dialog = ProgressDialog.show(SettingsActivity.this, "","Connecting. Please wait...", true);
+					/*dialog = new ProgressDialog(SettingsActivity.this, R.style.myDialog);
 					dialog.setMessage("Connecting...");
-					dialog.show();
+					dialog.show();*/
+					connectedBar.setVisibility(View.VISIBLE);
+					connectedNotification.setText("Connecting...");
 					break;
 				case BluetoothService.STATE_LISTEN:
-				case BluetoothService.STATE_NONE:
-
 					break;
-
+				case BluetoothService.STATE_NONE:
+					break;
 				case BluetoothService.STATE_DISCONNECTED:
-					showToast("Disconnected from mount", Toast.LENGTH_LONG);
+					connectedBar.setVisibility(View.INVISIBLE);
+					showToast("Disconnected from mount", Toast.LENGTH_SHORT);
+					connectedNotification.setText("Disconnected!");
+					connectedNotification.setBackgroundColor(Color.BLACK);
+					connectedNotification.setTextColor(Color.parseColor("#DC2D2D"));
 					break;
 				}
 				break;
 
 			case CONNECTED_FAILED:
-				dialog.dismiss();
-				showToast("Failure connection", Toast.LENGTH_LONG);
+				//dialog.dismiss();
+				connectedBar.setVisibility(View.GONE);
+				connectedNotification.setText("Connection failed");
+				showToast("Failure connection", Toast.LENGTH_SHORT);
 				break;
 			}
 		}
@@ -237,9 +252,9 @@ public class SettingsActivity extends Activity {
 				longitudeMinutes.setText(String.valueOf(ac.getMin()));
 				longitudeSeconds.setText(String.valueOf(ac.getSec()));
 				
-				orc.setLatitude(location.getLatitude());
-				orc.setLongitude(location.getLongitude());
-				
+				Orchestrator.setLatitude(location.getLatitude());
+				Orchestrator.setLongitude(location.getLongitude());
+				updateLocationBar.setVisibility(View.INVISIBLE);
 				showToast("Location Updated", Toast.LENGTH_SHORT);
 			}
 			locationManager.removeUpdates(locationListener);
