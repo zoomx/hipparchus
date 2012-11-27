@@ -5,12 +5,12 @@
     android:layout_height="fill_parent"
     android:background="@drawable/rectangle_shape"
     android:orientation="vertical" >
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical" >
-
+
         <TextView
             style="@style/darkRedTitle"
             android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:text="@string/lbl_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
         <TextView
             android:id="@+id/subTitle"
             style="@style/darkRedSubTitle"
@@ -26,17 +26,16 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="@string/m_star_alignment"
+            android:text="@string/lbl_star_alignment"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </LinearLayout>
-
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical" >
-
+
         <TextView
             android:id="@+id/firstStarLabel"
             style="@style/darkRedHeaderText"
@@ -51,7 +50,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_shape"
             android:orientation="horizontal" >
-
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -84,7 +83,7 @@
                     android:text="@string/lbl_dec"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
-
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -116,7 +115,7 @@
                     android:layout_marginLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
-
+
             <Button
                 android:id="@+id/star1SelectBtn"
                 style="@style/darkRedButton"
@@ -124,10 +123,9 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="2"
                 android:text="@string/bt_select_star" />
-
         </LinearLayout>
     </LinearLayout>
-
+
     <Button
         android:id="@+id/star1SetBtn"
         style="@style/darkRedButton"

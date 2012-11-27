@@ -27,8 +27,8 @@ public class ObjectTrackingActivity extends Activity {
 	    
 	    Log.i(TAG, "++ ON CREATE ++");
 	    
-	    final TextView scopeRa = (TextView) findViewById(R.id.scope_ra);
-		final TextView scopeDec = (TextView) findViewById(R.id.scope_dec);
+	    final TextView scopeRa = (TextView) findViewById(R.id.scope_alt);
+		final TextView scopeDec = (TextView) findViewById(R.id.scope_az);
 		final TextView targetRa = (TextView) findViewById(R.id.targer_ra);
 		final TextView targetDec = (TextView) findViewById(R.id.target_dec);
 		final TextView targetAlt = (TextView) findViewById(R.id.target_alt);

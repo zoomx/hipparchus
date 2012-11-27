@@ -4,30 +4,40 @@
     android:versionCode="1"
     android:versionName="1.0-SNAPSHOT" >
 
-    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="10"/>
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="10" />
+
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
-    <uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.CONTROL_LOCATION_UPDATES" />
 
     <application
+        android:name="orchestration.Orchestrator"
         android:icon="@drawable/ic_launcher"
-        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
         android:label="Hipparchus"
-        android:name="orchestration.Orchestrator">       
-        <activity android:name="activities.SettingsActivity">
+        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+        <activity android:name="activities.SettingsActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="activities.FirstStarAlignmentActivity"></activity>
-        <activity android:name="activities.SecondStarAlignmentActivity"></activity>
-        <activity android:name="activities.ObjectTrackingActivity"></activity>
-        <service android:enabled="true" android:name="bluetooth.BluetoothService" />
+        <activity android:name="activities.FirstStarAlignmentActivity" >
+        </activity>
+        <activity android:name="activities.SecondStarAlignmentActivity" >
+        </activity>
+        <activity android:name="activities.ObjectTrackingActivity" >
+        </activity>
+        <activity android:name="activities.ManualMovementActivity" >
+        </activity>
+        <activity android:name="bluetooth.BluetoothService" >
+        </activity>
     </application>
-    
+
 </manifest>

@@ -69,11 +69,7 @@
         android:background="@drawable/rectangle_shape" >
 
         <Button
-            android:id="@+id/button1"
-            style="@style/darkRedButton"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:text="@string/bt_close" />
+            android:id="@+id/button_close" style="@style/darkRedButton" android:layout_width="fill_parent" android:layout_height="50dp" android:text="@string/bt_close"/>
 
     </LinearLayout>
 

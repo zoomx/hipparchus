@@ -1,202 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/darkRedTextView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp" >
-
-    <TextView
-        style="@style/darkRedHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_telescope_position"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/rectangle_shape"
+    android:orientation="vertical" >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        style="@style/darkRedTextView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp" >
+        android:layout_height="wrap_content" >
 
-        <LinearLayout
+        <TextView
+            style="@style/darkRedTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_weight="1"
+            android:text="@string/lbl_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <TextView
-                style="@style/darkRedTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_ra"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/trackingSubTitle"
+            style="@style/darkRedSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/lbl_trackingSubTitle"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
 
-            <TextView
-                style="@style/darkRedTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_dec"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/darkRedHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_telescope_position"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/darkRedTextView"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_shape"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/scope_ra"
-                style="@style/darkRedTextView"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:layout_margin="10dp"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/scope_dec"
-                style="@style/darkRedTextView"
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_altitude"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_azimuth"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/scope_alt" style="@style/darkRedTextView" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView
+                    android:id="@+id/scope_az" style="@style/darkRedTextView" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        style="@style/darkRedHeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_target_position"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        style="@style/darkRedTextView"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp" >
+        android:layout_margin="10dp"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <TextView
+            style="@style/darkRedHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                style="@style/darkRedTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_ra"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                style="@style/darkRedTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_dec"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                style="@style/darkRedTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_target_altitude"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                style="@style/darkRedTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_target_azimuth"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-        </LinearLayout>
+            android:text="@string/lbl_target_position"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/darkRedTextView"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/targer_ra"
-                style="@style/darkRedTextView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/target_dec"
-                style="@style/darkRedTextView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/target_alt"
-                style="@style/darkRedTextView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/target_az"
-                style="@style/darkRedTextView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/bt_move_left"
-            style="@style/darkRedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/bt_moveLeft" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+            android:background="@drawable/rectangle_shape"
+            android:orientation="horizontal"
+            android:padding="10dp" >
 
-            <Button android:id="@+id/bt_move_up" style="@style/darkRedButton" android:layout_width="fill_parent" android:layout_height="50dp" android:text="@string/bt_move_up"/>
-            <Button android:id="@+id/reset_position" style="@style/darkRedButton" android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/bt_reset_position"/>
-            <Button android:id="@+id/bt_move_down" style="@style/darkRedButton" android:layout_width="match_parent" android:layout_height="50dp" android:text="@string/bt_move_down"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="vertical">
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_ra"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_dec"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_altitude"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_altitude"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent" android:layout_height="fill_parent" android:gravity="top" android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/targer_ra"
+                    style="@style/darkRedEditText" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView
+                    android:id="@+id/target_dec"
+                    style="@style/darkRedEditText" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView
+                    android:id="@+id/target_alt"
+                    style="@style/darkRedTextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/target_az"
+                    style="@style/darkRedTextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/bt_move_right"
-            style="@style/darkRedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/bt_move_right" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/bt_sync"
-            style="@style/darkRedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:text="@string/bt_sync_position" />
-
+
         <Button
             android:id="@+id/bt_track"
             style="@style/darkRedButton"
@@ -205,7 +181,16 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="@string/bt_track" />
-
+
+        <Button
+            android:id="@+id/bt_sync"
+            style="@style/darkRedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="@string/bt_sync_position" />
+
         <Button
             android:id="@+id/bt_stop"
             style="@style/darkRedButton"
@@ -213,8 +198,17 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="@string/bt_stop" />
-
+            android:text="@string/bt_manual" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/trackingStatus"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/rectangle_shape"
+        android:padding="5dp"
+        android:text="@string/lbl_tracking_status"
+        android:textAppearance="@style/darkRedTextView" />
 
 </LinearLayout>
