@@ -5,17 +5,31 @@
     android:layout_height="fill_parent"
     android:background="@drawable/rectangle_shape"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/textView1"
-        style="@style/darkRedTitle"
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_horizontal"
-        android:text="@string/lbl_title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_gravity="center_vertical|center_horizontal" >
+
+        <TextView
+            style="@style/darkRedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/lbl_title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/settingsSubTitle"
+            style="@style/darkRedSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/lbl_settingsSubTitle"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -199,14 +213,15 @@
                         android:textAppearance="?android:attr/textAppearanceLarge" />
                 </LinearLayout>
             </LinearLayout>
-
+
             <Button
                 android:id="@+id/locationBtn"
                 style="@style/darkRedButton"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="100"
                 android:text="@string/bt_update_location" />
+
         </LinearLayout>
     </LinearLayout>
 
@@ -229,33 +244,38 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal" >
-
+
             <Button
                 android:id="@+id/connectWithTelescope"
                 style="@style/darkRedButton"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
+                android:layout_height="fill_parent"
+                android:layout_weight="15"
                 android:text="@string/bt_connect_with_telescope" />
-
-            <TextView
-                android:id="@+id/connectedNotification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/rectangle_shape"
-                android:padding="3dp"
-                android:text="@string/lbl_Connected"
-                android:textAppearance="@style/darkRedTextView" />
-
+
             <ProgressBar
                 android:id="@+id/connectProgressBar"
                 style="@android:style/Widget.ProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:layout_weight="8"
                 android:visibility="invisible" />
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/connectedNotification"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/rectangle_shape"
+            android:gravity="right"
+            android:padding="5dp"
+            android:text="@string/lbl_Connected"
+            android:textAppearance="@style/darkRedTextView" />
+
     </LinearLayout>
 
     <!--
@@ -266,15 +286,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:indeterminate="true"
-            android:visibility="invisible" /
+            android:visibility="invisible" /
     -->
-
+
     <Button
         android:id="@+id/bt_twoStar"
         style="@style/darkRedButton"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/m_star_alignment" />
 

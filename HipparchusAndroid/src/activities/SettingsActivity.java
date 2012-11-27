@@ -52,6 +52,7 @@ public class SettingsActivity extends Activity {
 	private TextView longitudeMinutes;
 	private TextView longitudeSeconds;
 	private TextView connectedNotification;
+	
 	private Button connectWithTelescope;
 	private Button twoStarAlignment;
 
@@ -67,15 +68,16 @@ public class SettingsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings_layout);
 		
-		//orc = new Orchestrator();
 		Orchestrator.calcInitialTime();
 		ac = new AngleConverter();
 		Orchestrator.setmHandler(mHandler);
 
 		connectedNotification = (TextView)findViewById(R.id.connectedNotification);		
 		connectedBar = (ProgressBar)findViewById(R.id.connectProgressBar);		
+		
 		updateLocationBar = (ProgressBar)findViewById(R.id.updateLocationProgress);
 		updateLocationBar.setIndeterminate(true);
+		
 		latitudeDegree = (TextView) findViewById(R.id.latitudeDegreeField);
 		latitudeMinutes = (TextView) findViewById(R.id.latitudeMinField);
 		latitudeSeconds = (TextView) findViewById(R.id.latitudeSecondsField);
@@ -110,7 +112,6 @@ public class SettingsActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (Orchestrator.getBtService() != null && Orchestrator.getBtService().getState() == BluetoothService.STATE_CONNECTED) {
-					//TODO: Add a check if the bt has been connected
 					Intent firstStarAlignment = new Intent(getApplicationContext(), FirstStarAlignmentActivity.class);
 					startActivity(firstStarAlignment);
 				}
@@ -121,7 +122,6 @@ public class SettingsActivity extends Activity {
 			}
 		});
 		
-		// Check bt availability. If no bt available close the application
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
 			showToast("Bluetooth is not available for this device!",
@@ -175,9 +175,8 @@ public class SettingsActivity extends Activity {
 			case MESSAGE_STATE_CHANGE:
 				switch (msg.arg1) {
 				case BluetoothService.STATE_CONNECTED:
-					//dialog.dismiss();
-					connectedBar.setVisibility(View.INVISIBLE);
 					showToast("Connected with mount",Toast.LENGTH_LONG);
+					connectedBar.setVisibility(View.INVISIBLE);
 					connectedNotification.setText("Connected");
 					connectedNotification.setBackgroundColor(Color.parseColor("#DC2D2D"));
 					connectedNotification.setTextColor(Color.BLACK);
@@ -186,9 +185,6 @@ public class SettingsActivity extends Activity {
 					connectWithTelescope.setTextColor(Color.parseColor("#DC2D2D"));
 					break;
 				case BluetoothService.STATE_CONNECTING:
-					/*dialog = new ProgressDialog(SettingsActivity.this, R.style.myDialog);
-					dialog.setMessage("Connecting...");
-					dialog.show();*/
 					connectedBar.setVisibility(View.VISIBLE);
 					connectedNotification.setText("Connecting...");
 					break;
@@ -197,8 +193,8 @@ public class SettingsActivity extends Activity {
 				case BluetoothService.STATE_NONE:
 					break;
 				case BluetoothService.STATE_DISCONNECTED:
-					connectedBar.setVisibility(View.INVISIBLE);
 					showToast("Disconnected from mount", Toast.LENGTH_SHORT);
+					connectedBar.setVisibility(View.INVISIBLE);
 					connectedNotification.setText("Disconnected!");
 					connectedNotification.setBackgroundColor(Color.BLACK);
 					connectedNotification.setTextColor(Color.parseColor("#DC2D2D"));
@@ -207,10 +203,9 @@ public class SettingsActivity extends Activity {
 				break;
 
 			case CONNECTED_FAILED:
-				//dialog.dismiss();
+				showToast("Failure connection", Toast.LENGTH_SHORT);
 				connectedBar.setVisibility(View.GONE);
 				connectedNotification.setText("Connection failed");
-				showToast("Failure connection", Toast.LENGTH_SHORT);
 				break;
 			}
 		}

@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:id="@+id/scroll"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="10dp" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,95 +6,126 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/secondStarLabel"
-            style="@style/darkRedHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"            
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
         <LinearLayout
-            
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content" >
 
-            <LinearLayout
+            <TextView
+                style="@style/darkRedTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.1"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/star2NameLabel"
-                    style="@style/darkRedTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_star_name"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/star2RaLabel"
-                    style="@style/darkRedTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_ra"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/star2DecLabel"
-                    style="@style/darkRedTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_dec"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/star2NameText"
-                    style="@style/darkRedTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/star2RaText"
-                    style="@style/darkRedTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/star2DecText"
-                    style="@style/darkRedTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/star2SelectBtn"
-                style="@style/darkRedButton"
-                android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_gravity="right"
                 android:layout_weight="1"
-                android:text="@string/bt_select_star" />
+                android:text="@string/lbl_title"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/subTitle"
+                style="@style/darkRedSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/m_star_alignment"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/secondStarLabel"
+                    style="@style/darkRedHeaderText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_select_second_star"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_shape"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_weight="1.3"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/star2NameLabel"
+                            style="@style/darkRedTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_star_name"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/star2RaLabel"
+                            style="@style/darkRedTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_ra"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/star2DecLabel"
+                            style="@style/darkRedTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lbl_dec"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="2"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/star2NameText"
+                            style="@style/darkRedTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/star2RaText"
+                            style="@style/darkRedTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <TextView
+                            android:id="@+id/star2DecText"
+                            style="@style/darkRedTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/star2SelectBtn"
+                        style="@style/darkRedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="2"
+                        android:text="@string/bt_select_star" />
+
+                </LinearLayout>
+            
         </LinearLayout>
 
         <Button
@@ -107,64 +134,12 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:text="@string/bt_save_star_position" />
-
+
         <Button
             android:id="@+id/calibrateBtn"
             style="@style/darkRedButton"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="@string/bt_calibrate" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent" >
-
-            <Button
-                android:id="@+id/bt_move_left"
-                style="@style/darkRedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.3"
-                android:text="@string/bt_moveLeft" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.29"
-                android:orientation="vertical" >
-
-                <Button
-                    android:id="@+id/bt_move_up"
-                    style="@style/darkRedButton"
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dp"
-                    android:text="@string/bt_move_up" />
-
-                <Button
-                    android:id="@+id/bt_reset_position" 
-                    style="@style/darkRedButton" 
-                    android:layout_width="match_parent" 
-                    android:layout_height="50dp" 
-                    android:text="@string/bt_reset_position"/>
-
-                <Button
-                    android:id="@+id/bt_move_down"
-                    style="@style/darkRedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="@string/bt_move_down" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/bt_move_right"
-                style="@style/darkRedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.3"
-                android:text="@string/bt_move_right" />
-        </LinearLayout>
     </LinearLayout>
-
-</ScrollView>
