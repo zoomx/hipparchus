@@ -137,8 +137,7 @@
                     style="@style/darkRedTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lbl_altitude"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:text="@string/lbl_azimuth" android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
 
             <LinearLayout
