@@ -409,7 +409,7 @@ public class Orchestrator extends Application {
 		}
 	}
 
-	public void disconnect() {
+	public static void disconnect() {
 		btService.stop();
 	}
 

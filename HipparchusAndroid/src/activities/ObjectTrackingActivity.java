@@ -4,6 +4,7 @@ import bluetooth.BluetoothService;
 import orchestration.Orchestrator;
 import gr.mandim.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 public class ObjectTrackingActivity extends Activity {
 
 	
-	private static final String TAG = "ObjectTrackingActivity";
+	private static final String TAG = "Object Tracking";
 	//protected static final int MESSAGE_WRITE = 1;
 	//protected static final int MESSAGE_READ = 2;
 	public Orchestrator orc;
@@ -56,13 +57,13 @@ public class ObjectTrackingActivity extends Activity {
 			}
 		});
 		
-		Button stopBtn = (Button) findViewById(R.id.bt_stop);
+		Button stopBtn = (Button) findViewById(R.id.bt_manual);
 		stopBtn.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
+				Intent locateStar = new Intent(getApplicationContext(), ManualMovementActivity.class);
+				startActivity(locateStar);				
 			}
 		});
 	}

@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:layout_weight="0.3"
+    android:background="@drawable/rectangle_shape"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/darkRedTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/lbl_manual_movement_title"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
         android:background="@drawable/rectangle_shape"
         android:orientation="vertical" >
-
+
         <Button
             android:id="@+id/bt_move_up"
             style="@style/darkRedButton"
@@ -21,37 +30,38 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/bt_move_up" />
-
+
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="horizontal" >
-
+
             <Button
                 android:id="@+id/bt_move_left"
                 style="@style/darkRedButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:text="@string/bt_moveLeft" />
-
+
             <Button
                 android:id="@+id/bt_reset_position"
                 style="@style/darkRedButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:text="@string/bt_reset_position" />
-
+
             <Button
                 android:id="@+id/bt_move_right"
                 style="@style/darkRedButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:text="@string/bt_move_right" />
+
         </LinearLayout>
-
+
         <Button
             android:id="@+id/bt_move_down"
             style="@style/darkRedButton"
@@ -61,15 +71,18 @@
             android:text="@string/bt_move_down" />
 
     </LinearLayout>
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:background="@drawable/rectangle_shape" >
-
+
         <Button
-            android:id="@+id/button_close" style="@style/darkRedButton" android:layout_width="fill_parent" android:layout_height="50dp" android:text="@string/bt_close"/>
+            android:id="@+id/button_close"
+            style="@style/darkRedButton"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="@string/bt_close" />
 
     </LinearLayout>
 

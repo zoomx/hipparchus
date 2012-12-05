@@ -28,7 +28,7 @@ import calculations.AngleConverter;
 
 public class SettingsActivity extends Activity {
 
-	private static final String TAG = "SettingsActivity";
+	private static final String TAG = "Settings";
 	private static final int REQUEST_ENABLE_BT = 3;
 	public static final int MESSAGE_STATE_CONNECTED = 1;
 	public static final int CONNECTED_TOAST = 2;
@@ -144,13 +144,12 @@ public class SettingsActivity extends Activity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();		
-		/*if (Orchestrator.getBtService().getState() == BluetoothService.STATE_CONNECTED){
-			orc.disconnect();
-		}*/
-		/*if (mBluetoothAdapter.isEnabled()) {			
+		if (Orchestrator.getBtService().getState() == BluetoothService.STATE_CONNECTED){
+			Orchestrator.disconnect();
+		}
+		if (mBluetoothAdapter.isEnabled()) {			
 			mBluetoothAdapter.disable();
 		}
-*/
 	}
 
 	@Override

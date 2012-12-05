@@ -9,7 +9,7 @@
     <string name="bt_moveLeft">Left</string>
     <string name="bt_disconnect_with_telescope">Disconnect</string>
     <string name="bt_connect_with_telescope">Connect</string>
-    <string name="bt_save_star_position">Save Star Position</string>
+    <string name="bt_save_star_position">Save</string>
     <string name="bt_select_star">Select</string>
     <string name="bt_reset_position">Reset</string>
     <string name="bt_sync_position">Sync</string>
@@ -18,8 +18,9 @@
     <string name="bt_save_coordinates">Save</string>
     <string name="bt_save_coordinates_cancel">Cancel</string>
     <string name="bt_calibrate">Calibrate</string>
-    <string name="bt_close">Close</string>
-    <string name="lbl_star_alignment">Star Alignment</string>
+    <string name="bt_close">OK</string>
+    <string name="bt_locate">Locate</string>
+    <string name="lbl_star_alignment">Star Alignment Procedure</string>
     <string name="lbl_latitude">Lat:</string>
     <string name="lbl_longitude">Lon:</string>
     <string name="lbl_star_name">Name:</string>
@@ -32,11 +33,11 @@
     <string name="lbl_altitude">Alt:</string>
     <string name="lbl_azimuth">Az:</string>
     <string name="lbl_default_degree_latitude">35</string>
-    <string name="lbl_default_min_latitude">00</string>
-    <string name="lbl_default_sec_latitude">00</string>
+    <string name="lbl_default_min_latitude">19</string>
+    <string name="lbl_default_sec_latitude">58</string>
     <string name="lbl_default_degree_longitude">25</string>
-    <string name="lbl_default_min_longitude">00</string>
-    <string name="lbl_default_sec_longitude">00</string>
+    <string name="lbl_default_min_longitude">07</string>
+    <string name="lbl_default_sec_longitude">59</string>
     <string name="lbl_degree_symbol">\u00B0</string>
     <string name="lbl_min_symbol">\'</string>
     <string name="lbl_sec_symbol">\"</string>
@@ -46,6 +47,7 @@
     <string name="lbl_title">Hipparchus:</string>
     <string name="lbl_settingsSubTitle">Settings</string>
     <string name="lbl_trackingSubTitle">Object Tracking</string>
+    <string name="lbl_manual_movement_title">Move To The Target</string>
     <string name="hdr_location">Update Location</string>
     <string name="hrd_telescope_control">Telescope Control</string>
 

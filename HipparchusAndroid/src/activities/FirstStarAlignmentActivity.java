@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class FirstStarAlignmentActivity extends Activity {
 
-	private static final String TAG = "TwoStarAlignmentActivity";
+	private static final String TAG = "First Star Alignment";
 	protected static final int MESSAGE_WRITE = 1;
 	protected static final int MESSAGE_READ = 2;
 
@@ -67,6 +67,7 @@ public class FirstStarAlignmentActivity extends Activity {
 										.getVisibleStarsDec().get(item));
 							}
 						});
+				//builder.setView(view)
 				builder.show();
 			}
 		});
@@ -80,7 +81,18 @@ public class FirstStarAlignmentActivity extends Activity {
 				Intent secondStarAlignment = new Intent(getApplicationContext(), SecondStarAlignmentActivity.class);
 				startActivity(secondStarAlignment);
 			}
-		});		
+		});
+		
+		Button locate = (Button) findViewById(R.id.locate1stStar);
+		locate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {				
+								
+				Intent locateStar = new Intent(getApplicationContext(), ManualMovementActivity.class);
+				startActivity(locateStar);
+			}
+		});	
 
 	}
 }

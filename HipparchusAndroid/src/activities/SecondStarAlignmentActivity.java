@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class SecondStarAlignmentActivity extends Activity {
 
-	private static final String TAG = "TwoStarAlignmentActivity";
+	private static final String TAG = "Second Star Alignment";
 	protected static final int MESSAGE_WRITE = 1;
 	protected static final int MESSAGE_READ = 2;
 
@@ -78,6 +78,17 @@ public class SecondStarAlignmentActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Orchestrator.getStar2Coordinates();				
+			}
+		});
+		
+		Button locate = (Button) findViewById(R.id.locate2ndStar);
+		locate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {				
+								
+				Intent locateStar = new Intent(getApplicationContext(), ManualMovementActivity.class);
+				startActivity(locateStar);
 			}
 		});
 		

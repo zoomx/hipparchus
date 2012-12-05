@@ -34,7 +34,7 @@
         </activity>
         <activity android:name="activities.ObjectTrackingActivity" >
         </activity>
-        <activity android:name="activities.ManualMovementActivity" >
+        <activity android:name="activities.ManualMovementActivity" android:theme="@style/NoTitleDialog" >
         </activity>
         <activity android:name="bluetooth.BluetoothService" >
         </activity>

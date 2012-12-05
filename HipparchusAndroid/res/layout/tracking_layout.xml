@@ -9,24 +9,119 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-
+
         <TextView
             style="@style/darkRedTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/lbl_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
         <TextView
             android:id="@+id/trackingSubTitle"
             style="@style/darkRedSubTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
             android:text="@string/lbl_trackingSubTitle"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/darkRedHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_target_position"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/darkRedTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_shape"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_ra"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_dec"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_altitude"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    style="@style/darkRedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_azimuth"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="top"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/targer_ra"
+                    style="@style/darkRedEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/target_dec"
+                    style="@style/darkRedEditText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/target_alt"
+                    style="@style/darkRedTextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/target_az"
+                    style="@style/darkRedTextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -88,88 +183,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical" >
-
-        <TextView
-            style="@style/darkRedHeaderText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lbl_target_position"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            style="@style/darkRedTextView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_shape"
-            android:orientation="horizontal"
-            android:padding="10dp" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="vertical">
-
-                <TextView
-                    style="@style/darkRedTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_ra"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    style="@style/darkRedTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_dec"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    style="@style/darkRedTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_altitude"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    style="@style/darkRedTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lbl_azimuth" android:textAppearance="?android:attr/textAppearanceMedium"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent" android:layout_height="fill_parent" android:gravity="top" android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/targer_ra"
-                    style="@style/darkRedEditText" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-                <TextView
-                    android:id="@+id/target_dec"
-                    style="@style/darkRedEditText" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-                <TextView
-                    android:id="@+id/target_alt"
-                    style="@style/darkRedTextView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/target_az"
-                    style="@style/darkRedTextView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <Button
@@ -189,22 +202,25 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="@string/bt_sync_position" />
-
+
         <Button
-            android:id="@+id/bt_stop"
+            android:id="@+id/bt_manual"
             style="@style/darkRedButton"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:padding="10dp"
             android:text="@string/bt_manual" />
-    </LinearLayout>
 
+    </LinearLayout>
+
     <TextView
         android:id="@+id/trackingStatus"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
         android:background="@drawable/rectangle_shape"
         android:padding="5dp"
         android:text="@string/lbl_tracking_status"
