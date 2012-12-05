@@ -203,7 +203,7 @@ public class SettingsActivity extends Activity {
 
 			case CONNECTED_FAILED:
 				showToast("Failure connection", Toast.LENGTH_SHORT);
-				connectedBar.setVisibility(View.GONE);
+				connectedBar.setVisibility(View.INVISIBLE);
 				connectedNotification.setText("Connection failed");
 				break;
 			}

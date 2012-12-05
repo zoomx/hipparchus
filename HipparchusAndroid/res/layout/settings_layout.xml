@@ -220,8 +220,7 @@
                 style="@style/darkRedButton"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="@string/bt_update_location" />
+                android:layout_weight="1" android:background="@drawable/button_style" android:text="@string/bt_update_location"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -251,8 +250,7 @@
                 style="@style/darkRedButton"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="15"
-                android:text="@string/bt_connect_with_telescope" />
+                android:layout_weight="15" android:background="@drawable/button_style" android:text="@string/bt_connect_with_telescope"/>
 
             <ProgressBar
                 android:id="@+id/connectProgressBar"
@@ -292,9 +290,6 @@
         android:id="@+id/bt_twoStar"
         style="@style/darkRedButton"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="0dp"
-        android:text="@string/lbl_star_alignment" />
+        android:layout_height="50dp" android:layout_marginBottom="10dp" android:layout_marginTop="0dp" android:background="@drawable/button_style" android:text="@string/lbl_star_alignment"/>
 
 </LinearLayout>

@@ -127,8 +127,7 @@
         android:id="@+id/star2SelectBtn"
         style="@style/darkRedButton"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:text="@string/bt_select_star" />
+        android:layout_height="50dp" android:background="@drawable/button_style" android:text="@string/bt_select_star"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -139,16 +138,14 @@
             style="@style/darkRedButton"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="@string/bt_locate" />
+            android:layout_weight="1" android:background="@drawable/button_style" android:text="@string/bt_locate"/>
 
         <Button
             android:id="@+id/star2SetBtn"
             style="@style/darkRedButton"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="@string/bt_save_star_position" />
+            android:layout_weight="1" android:background="@drawable/button_style" android:text="@string/bt_save_star_position"/>
 
     </LinearLayout>
 
@@ -156,7 +153,6 @@
         android:id="@+id/calibrateBtn"
         style="@style/darkRedButton"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/bt_calibrate" />
+        android:layout_height="50dp" android:background="@drawable/button_style" android:text="@string/bt_calibrate"/>
 
 </LinearLayout>

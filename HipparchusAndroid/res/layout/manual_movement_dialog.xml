@@ -28,8 +28,7 @@
             style="@style/darkRedButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/bt_move_up" />
+            android:layout_gravity="center_horizontal" android:background="@drawable/button_style" android:text="@string/bt_move_up"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,22 +42,19 @@
                 android:id="@+id/bt_move_left"
                 style="@style/darkRedButton"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="@string/bt_moveLeft" />
+                android:layout_height="50dp" android:background="@drawable/button_style" android:text="@string/bt_moveLeft"/>
 
             <Button
                 android:id="@+id/bt_reset_position"
                 style="@style/darkRedButton"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="@string/bt_reset_position" />
+                android:layout_height="50dp" android:background="@drawable/button_style" android:text="@string/bt_reset_position"/>
 
             <Button
                 android:id="@+id/bt_move_right"
                 style="@style/darkRedButton"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:text="@string/bt_move_right" />
+                android:layout_height="50dp" android:background="@drawable/button_style" android:text="@string/bt_move_right"/>
 
         </LinearLayout>
 
@@ -67,8 +63,7 @@
             style="@style/darkRedButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/bt_move_down" />
+            android:layout_gravity="center_horizontal" android:background="@drawable/button_style" android:text="@string/bt_move_down"/>
 
     </LinearLayout>
 
@@ -81,8 +76,7 @@
             android:id="@+id/button_close"
             style="@style/darkRedButton"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:text="@string/bt_close" />
+            android:layout_height="50dp" android:background="@drawable/button_style" android:text="@string/bt_close"/>
 
     </LinearLayout>
 
