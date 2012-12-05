@@ -10,20 +10,21 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal" >
-
+
         <TextView
             style="@style/darkRedTitle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="@string/lbl_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
         <TextView
             android:id="@+id/settingsSubTitle"
             style="@style/darkRedSubTitle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="0dp"
             android:layout_weight="1"
             android:gravity="right"
             android:text="@string/lbl_settingsSubTitle"
@@ -41,12 +42,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
+
             <TextView
                 style="@style/darkRedHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/line_shape"
                 android:text="@string/hdr_location"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -69,33 +69,29 @@
                 android:layout_weight="1.5"
                 android:gravity="right"
                 android:orientation="vertical" >
-
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_margin="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginTop="1dp"
                     android:background="@drawable/rectangle_shape"
-                    android:paddingRight="5dp" >
-
+                    android:padding="5dp" >
+
                     <TextView
                         android:id="@+id/latitudeLabel"
                         style="@style/darkRedHeaderText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="4dp"
                         android:text="@string/lbl_latitude"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                     <TextView
                         android:id="@+id/latitudeDegreeField"
                         style="@style/darkRedTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:text="@string/lbl_default_degree_latitude"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold" />
@@ -142,17 +138,13 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </LinearLayout>
-
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginTop="1dp"
                     android:background="@drawable/rectangle_shape"
-                    android:paddingRight="5dp" >
+                    android:padding="5dp" >
 
                     <TextView
                         android:id="@+id/longitudeLabel"
@@ -231,12 +223,11 @@
         android:layout_margin="10dp"
         android:background="@drawable/rectangle_shape"
         android:orientation="vertical" >
-
+
         <TextView
             style="@style/darkRedHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/line_shape"
             android:text="@string/lbl_connect_with_telescope"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -285,11 +276,15 @@
             android:indeterminate="true"
             android:visibility="invisible" /
     -->
-
+
     <Button
         android:id="@+id/bt_twoStar"
         style="@style/darkRedButton"
         android:layout_width="fill_parent"
-        android:layout_height="50dp" android:layout_marginBottom="10dp" android:layout_marginTop="0dp" android:background="@drawable/button_style" android:text="@string/lbl_star_alignment"/>
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/button_style"
+        android:text="@string/lbl_star_alignment" />
 
 </LinearLayout>

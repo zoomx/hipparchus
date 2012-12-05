@@ -85,40 +85,37 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>
-
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:gravity="left"
                 android:orientation="vertical" >
-
+
                 <TextView
                     android:id="@+id/star1NameText"
                     style="@style/darkRedTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                 <TextView
                     android:id="@+id/star1RaText"
                     style="@style/darkRedTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                 <TextView
                     android:id="@+id/star1DecText"
                     style="@style/darkRedTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>

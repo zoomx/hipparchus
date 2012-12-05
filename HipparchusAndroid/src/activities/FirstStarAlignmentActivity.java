@@ -4,6 +4,7 @@ import gr.mandim.R;
 import orchestration.Orchestrator;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,7 +43,6 @@ public class FirstStarAlignmentActivity extends Activity {
 				this, R.layout.list_item,
 				Orchestrator.getVisibleStarsLabelDec());
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
 
 		Orchestrator.clearVisibleStarLists();
 		Orchestrator.calcVisibleStars();		
@@ -67,7 +67,7 @@ public class FirstStarAlignmentActivity extends Activity {
 										.getVisibleStarsDec().get(item));
 							}
 						});
-				//builder.setView(view)
+				builder.setInverseBackgroundForced(true);
 				builder.show();
 			}
 		});

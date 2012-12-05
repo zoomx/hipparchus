@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/darkRedTextView"
-    android:background="@drawable/line_shape" xmlns:android="http://schemas.android.com/apk/res/android" android:padding="10dp" android:textSize="16sp">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/rectangle_shape"
+    android:padding="10dp"
+    android:textSize="16sp" >
+
 </TextView>
