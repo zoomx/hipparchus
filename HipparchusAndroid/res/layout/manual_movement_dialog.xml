@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_weight="0.3"
-    android:background="@drawable/rectangle_shape"
-    android:orientation="vertical" >
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:layout_weight="0.3" android:background="@drawable/rectangle_shape" android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView1"

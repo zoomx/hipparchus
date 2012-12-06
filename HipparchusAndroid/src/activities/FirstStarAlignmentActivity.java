@@ -4,7 +4,6 @@ import gr.mandim.R;
 import orchestration.Orchestrator;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,8 +50,7 @@ public class FirstStarAlignmentActivity extends Activity {
 		firstStarSelect.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//builder.setTitle("Select a Star");
-				builder.setAdapter(visStarNames,
+				/*builder.setAdapter(visStarNames,
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int item) {
@@ -66,9 +64,10 @@ public class FirstStarAlignmentActivity extends Activity {
 								Orchestrator.setFirstStarDec(Orchestrator
 										.getVisibleStarsDec().get(item));
 							}
-						});
-				builder.setInverseBackgroundForced(true);
-				builder.show();
+						});				
+				builder.show();*/
+				Intent visStar = new Intent(getApplicationContext(), VisibleStarsActivity.class);
+				startActivity(visStar);
 			}
 		});
 

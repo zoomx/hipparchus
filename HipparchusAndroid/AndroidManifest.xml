@@ -34,10 +34,16 @@
         </activity>
         <activity android:name="activities.ObjectTrackingActivity" >
         </activity>
-        <activity android:name="activities.ManualMovementActivity" android:theme="@style/NoTitleDialog" >
+        <activity
+            android:name="activities.ManualMovementActivity"
+            android:theme="@style/NoTitleDialog" >
+        </activity>
+        <activity
+            android:name="activities.VisibleStarsActivity"
+            android:theme="@style/NoTitleDialog" >
         </activity>
         <activity android:name="bluetooth.BluetoothService" >
-        </activity>
+        </activity>        
     </application>
 
 </manifest>

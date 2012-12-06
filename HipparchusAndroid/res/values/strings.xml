@@ -50,5 +50,8 @@
     <string name="lbl_manual_movement_title">Move To The Target</string>
     <string name="hdr_location">Update Location</string>
     <string name="hrd_telescope_control">Telescope Control</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_visible_stars">VisibleStarsActivity</string>
 
 </resources>
