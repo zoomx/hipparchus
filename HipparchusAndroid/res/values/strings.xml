@@ -13,14 +13,16 @@
     <string name="bt_select_star">Select</string>
     <string name="bt_reset_position">Reset</string>
     <string name="bt_sync_position">Sync</string>
-    <string name="bt_track">Track</string>
+    <string name="bt_track_on">Track On</string>
+    <string name="bt_track_off">Track Off</string>
     <string name="bt_manual">Manual</string>
     <string name="bt_save_coordinates">Save</string>
     <string name="bt_save_coordinates_cancel">Cancel</string>
     <string name="bt_calibrate">Calibrate</string>
     <string name="bt_close">OK</string>
     <string name="bt_locate">Locate</string>
-    <string name="lbl_star_alignment">Star Alignment Procedure</string>
+    <string name="bt_goto">Go-To</string>    
+    <string name="lbl_star_alignment">Star Alignment Proc.</string>
     <string name="lbl_latitude">Lat:</string>
     <string name="lbl_longitude">Lon:</string>
     <string name="lbl_star_name">Name:</string>
@@ -48,6 +50,7 @@
     <string name="lbl_settingsSubTitle">Settings</string>
     <string name="lbl_trackingSubTitle">Object Tracking</string>
     <string name="lbl_manual_movement_title">Move To The Target</string>
+    <string name="lbl_enter_target_coords">Enter Eq. Coordinates</string>
     <string name="hdr_location">Update Location</string>
     <string name="hrd_telescope_control">Telescope Control</string>
     <string name="hello_world">Hello world!</string>

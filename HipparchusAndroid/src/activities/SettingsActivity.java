@@ -110,17 +110,13 @@ public class SettingsActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				/*if (Orchestrator.getBtService() != null && Orchestrator.getBtService().getState() == BluetoothService.STATE_CONNECTED) {
+				if (Orchestrator.getBtService() != null && Orchestrator.getBtService().getState() == BluetoothService.STATE_CONNECTED) {
 					Intent firstStarAlignment = new Intent(getApplicationContext(), FirstStarAlignmentActivity.class);
 					startActivity(firstStarAlignment);
 				}
 				else {
 					showToast("The mount is not connected!", Toast.LENGTH_LONG);
-				}*/
-				// Remove this when finish with visible stars activity
-				Intent firstStarAlignment = new Intent(getApplicationContext(), FirstStarAlignmentActivity.class);
-				startActivity(firstStarAlignment);
-				
+				}
 			}
 		});
 		

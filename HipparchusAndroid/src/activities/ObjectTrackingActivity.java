@@ -1,6 +1,5 @@
 package activities;
 
-import bluetooth.BluetoothService;
 import orchestration.Orchestrator;
 import gr.mandim.R;
 import android.app.Activity;
@@ -10,15 +9,21 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class ObjectTrackingActivity extends Activity {
 
 	
 	private static final String TAG = "Object Tracking";
-	//protected static final int MESSAGE_WRITE = 1;
-	//protected static final int MESSAGE_READ = 2;
-	public Orchestrator orc;
+	
+	public TextView scopeRa;
+	public TextView scopeDec;
+	public TextView targetRa;
+	public TextView targetDec;
+	public TextView targetAlt;
+	public TextView targetAz;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -28,14 +33,12 @@ public class ObjectTrackingActivity extends Activity {
 	    
 	    Log.i(TAG, "++ ON CREATE ++");
 	    
-	    final TextView scopeRa = (TextView) findViewById(R.id.scope_alt);
-		final TextView scopeDec = (TextView) findViewById(R.id.scope_az);
-		final TextView targetRa = (TextView) findViewById(R.id.targer_ra);
-		final TextView targetDec = (TextView) findViewById(R.id.target_dec);
-		final TextView targetAlt = (TextView) findViewById(R.id.target_alt);
-		final TextView targetAz = (TextView) findViewById(R.id.target_az);
-		
-		final BluetoothService btService = Orchestrator.getBtService();
+	    scopeRa = (TextView) findViewById(R.id.scope_alt);
+		scopeDec = (TextView) findViewById(R.id.scope_az);
+		targetRa = (TextView) findViewById(R.id.targer_ra);
+		targetDec = (TextView) findViewById(R.id.target_dec);
+		targetAlt = (TextView) findViewById(R.id.target_alt);
+		targetAz = (TextView) findViewById(R.id.target_az);
 		
 		Button syncBtn = (Button) findViewById(R.id.bt_sync);
 		syncBtn.setOnClickListener(new OnClickListener() {
@@ -47,14 +50,16 @@ public class ObjectTrackingActivity extends Activity {
 			}
 		});
 		
-		Button trackBtn = (Button) findViewById(R.id.bt_track);
-		trackBtn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
+		
+		ToggleButton trackBtn = (ToggleButton) findViewById(R.id.toggleTrackButton);
+		trackBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		        if (isChecked) {
+		            // The toggle is enabled
+		        } else {
+		        	Orchestrator.sendMessage("S");
+		        }
+		    }
 		});
 		
 		Button stopBtn = (Button) findViewById(R.id.bt_manual);
@@ -64,6 +69,16 @@ public class ObjectTrackingActivity extends Activity {
 			public void onClick(View v) {
 				Intent locateStar = new Intent(getApplicationContext(), ManualMovementActivity.class);
 				startActivity(locateStar);				
+			}
+		});
+		
+		Button goTo = (Button) findViewById(R.id.bt_goto);
+		goTo.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent locateObject = new Intent(getApplicationContext(), InsertTargetActivity.class);
+				startActivity(locateObject);				
 			}
 		});
 	}

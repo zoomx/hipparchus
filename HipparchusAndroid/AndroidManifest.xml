@@ -42,6 +42,10 @@
             android:name="activities.VisibleStarsActivity"
             android:theme="@style/NoTitleDialog" >
         </activity>
+        <activity
+            android:name="activities.InsertTargetActivity"
+            android:theme="@style/NoTitleDialog" >
+        </activity>
         <activity android:name="bluetooth.BluetoothService" >
         </activity>        
     </application>

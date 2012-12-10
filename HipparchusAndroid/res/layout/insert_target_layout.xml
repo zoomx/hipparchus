@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rectangle_shape"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/darkRedTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/lbl_enter_target_coords"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/rectangle_shape"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/insertRaLbl"
+            style="@style/darkRedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/lbl_ra"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/ra_h"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+
+		<kankan.wheel.widget.WheelView
+		    android:id="@+id/ra_min"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/rectangle_shape"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/insertDecLbl"
+            style="@style/darkRedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/lbl_dec"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <kankan.wheel.widget.WheelView
+            android:id="@+id/dec_deg"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+
+		<kankan.wheel.widget.WheelView
+		    android:id="@+id/dec_min"
+		    android:layout_width="100dp"
+		    android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveTargetCoord"
+        style="@style/darkRedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@drawable/button_style"
+        android:text="@string/bt_close" />
+
+</LinearLayout>

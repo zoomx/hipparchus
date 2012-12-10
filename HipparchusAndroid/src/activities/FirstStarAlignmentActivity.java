@@ -3,14 +3,11 @@ package activities;
 import gr.mandim.R;
 import orchestration.Orchestrator;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,6 +16,12 @@ public class FirstStarAlignmentActivity extends Activity {
 	private static final String TAG = "First Star Alignment";
 	protected static final int MESSAGE_WRITE = 1;
 	protected static final int MESSAGE_READ = 2;
+	protected static final int ACTIVITY_REQUEST = 3;
+	
+	public TextView star1Name;
+	public TextView star1RaName;
+	public TextView star1DecName;
+	public TextView star1Title;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -26,22 +29,12 @@ public class FirstStarAlignmentActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first_star_layout);
 		Log.i(TAG, "++ ON CREATE ++");
-
-		final TextView star1Name = (TextView) findViewById(R.id.star1NameText);
-		final TextView star1RaName = (TextView) findViewById(R.id.star1RaText);
-		final TextView star1DecName = (TextView) findViewById(R.id.star1DecText);
-		final TextView star1Title = (TextView) findViewById(R.id.firstStarLabel);
+		
+		star1Title = (TextView) findViewById(R.id.firstStarLabel);
 		star1Title.setText("Select First Star");
-
-		final ArrayAdapter<String> visStarNames = new ArrayAdapter<String>(
-				this, R.layout.list_item,
-				Orchestrator.getVisibleStarsLabelNames());
-		final ArrayAdapter<String> visStarRaStr = new ArrayAdapter<String>(
-				this, R.layout.list_item, Orchestrator.getVisibleStarsLabelRa());
-		final ArrayAdapter<String> visStarDecStr = new ArrayAdapter<String>(
-				this, R.layout.list_item,
-				Orchestrator.getVisibleStarsLabelDec());
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		star1DecName = (TextView) findViewById(R.id.star1DecText);
+		star1RaName = (TextView) findViewById(R.id.star1RaText);
+		star1Name = (TextView) findViewById(R.id.star1NameText);
 
 		Orchestrator.clearVisibleStarLists();
 		Orchestrator.calcVisibleStars();		
@@ -50,24 +43,9 @@ public class FirstStarAlignmentActivity extends Activity {
 		firstStarSelect.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				/*builder.setAdapter(visStarNames,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int item) {
-								star1Name.setText(visStarNames.getItem(item));
-								star1RaName.setText(visStarRaStr.getItem(item));
-								star1DecName.setText(visStarDecStr
-										.getItem(item));
-
-								Orchestrator.setFirstStarRa(Orchestrator
-										.getVisibleStarsRa().get(item));
-								Orchestrator.setFirstStarDec(Orchestrator
-										.getVisibleStarsDec().get(item));
-							}
-						});				
-				builder.show();*/
 				Intent visStar = new Intent(getApplicationContext(), VisibleStarsActivity.class);
-				startActivity(visStar);
+				visStar.putExtra("Activity", "firstStar");
+				startActivityForResult(visStar, ACTIVITY_REQUEST);
 			}
 		});
 
@@ -92,6 +70,24 @@ public class FirstStarAlignmentActivity extends Activity {
 				startActivity(locateStar);
 			}
 		});	
-
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == ACTIVITY_REQUEST && resultCode == RESULT_OK){
+			if (data.hasExtra("selectedPosition")){
+				int position = data.getExtras().getInt("selectedPosition");
+				
+				star1Name.setText(Orchestrator.getVisibleStarsLabelNames().get(position));
+				star1RaName.setText(Orchestrator.getVisibleStarsLabelRa().get(position));
+				star1DecName.setText(Orchestrator.getVisibleStarsLabelDec().get(position));
+				
+				Orchestrator.setFirstStarDec(Orchestrator.getVisibleStarsDec().get(position));
+				Orchestrator.setFirstStarRa(Orchestrator.getVisibleStarsRa().get(position));
+			}
+			
+		}
+	}
+	
 }
