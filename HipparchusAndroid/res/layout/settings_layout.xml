@@ -10,7 +10,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal" >
-
+
+
+
         <TextView
             style="@style/darkRedTitle"
             android:layout_width="0dp"
@@ -18,7 +20,10 @@
             android:layout_weight="1"
             android:text="@string/lbl_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
+
+
+
         <TextView
             android:id="@+id/settingsSubTitle"
             style="@style/darkRedSubTitle"
@@ -42,7 +47,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
+
+
+
+
+
             <TextView
                 style="@style/darkRedHeaderText"
                 android:layout_width="wrap_content"
@@ -62,14 +71,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
+
+
+
+
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
                 android:gravity="right"
                 android:orientation="vertical" >
-
+
+
+
+
+
+
+
+
+
+
+
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -77,7 +101,11 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/rectangle_shape"
                     android:padding="5dp" >
-
+
+
+
+
+
                     <TextView
                         android:id="@+id/latitudeLabel"
                         style="@style/darkRedHeaderText"
@@ -85,7 +113,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/lbl_latitude"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
+
+
+
+
                     <TextView
                         android:id="@+id/latitudeDegreeField"
                         style="@style/darkRedTextView"
@@ -95,7 +128,8 @@
                         android:text="@string/lbl_default_degree_latitude"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold" />
-
+
+
                     <TextView
                         style="@style/darkRedTextView"
                         android:layout_width="wrap_content"
@@ -103,7 +137,8 @@
                         android:layout_marginRight="5dp"
                         android:text="@string/lbl_degree_symbol"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
                     <TextView
                         android:id="@+id/latitudeMinField"
                         style="@style/darkRedTextView"
@@ -112,7 +147,8 @@
                         android:text="@string/lbl_default_min_latitude"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold" />
-
+
+
                     <TextView
                         style="@style/darkRedTextView"
                         android:layout_width="wrap_content"
@@ -120,7 +156,8 @@
                         android:layout_marginRight="5dp"
                         android:text="@string/lbl_min_symbol"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
                     <TextView
                         android:id="@+id/latitudeSecondsField"
                         style="@style/darkRedTextView"
@@ -129,7 +166,8 @@
                         android:text="@string/lbl_default_min_latitude"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold" />
-
+
+
                     <TextView
                         style="@style/darkRedTextView"
                         android:layout_width="wrap_content"
@@ -138,14 +176,25 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </LinearLayout>
-
+
+
+
+
+
+
+
+
+
+
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/rectangle_shape"
                     android:padding="5dp" >
-
+
+
                     <TextView
                         android:id="@+id/longitudeLabel"
                         style="@style/darkRedHeaderText"
@@ -153,7 +202,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/lbl_longitude"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
                     <TextView
                         android:id="@+id/longitudeDegreeField"
                         style="@style/darkRedTextView"
@@ -162,7 +212,8 @@
                         android:text="@string/lbl_default_degree_longitude"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold" />
-
+
+
                     <TextView
                         style="@style/darkRedTextView"
                         android:layout_width="wrap_content"
@@ -170,7 +221,8 @@
                         android:layout_marginRight="5dp"
                         android:text="@string/lbl_degree_symbol"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
                     <TextView
                         android:id="@+id/longitudeMinField"
                         style="@style/darkRedTextView"
@@ -179,7 +231,8 @@
                         android:text="@string/lbl_default_min_longitude"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold" />
-
+
+
                     <TextView
                         style="@style/darkRedTextView"
                         android:layout_width="wrap_content"
@@ -187,7 +240,8 @@
                         android:layout_marginRight="5dp"
                         android:text="@string/lbl_min_symbol"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
                     <TextView
                         android:id="@+id/longitudeSecField"
                         style="@style/darkRedTextView"
@@ -196,7 +250,8 @@
                         android:text="@string/lbl_default_min_longitude"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textStyle="bold" />
-
+
+
                     <TextView
                         style="@style/darkRedTextView"
                         android:layout_width="wrap_content"
@@ -206,7 +261,8 @@
 
                 </LinearLayout>
             </LinearLayout>
-
+
+
             <Button
                 android:id="@+id/locationBtn"
                 style="@style/darkRedButton"
@@ -223,7 +279,12 @@
         android:layout_margin="10dp"
         android:background="@drawable/rectangle_shape"
         android:orientation="vertical" >
-
+
+
+
+
+
+
         <TextView
             style="@style/darkRedHeaderText"
             android:layout_width="wrap_content"
@@ -242,7 +303,10 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="15" android:background="@drawable/button_style" android:text="@string/bt_connect_with_telescope"/>
-
+
+
+
+
             <ProgressBar
                 android:id="@+id/connectProgressBar"
                 style="@android:style/Widget.ProgressBar"
@@ -274,9 +338,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:indeterminate="true"
-            android:visibility="invisible" /
+            android:visibility="invisible" /
+
+
+
+
+
     -->
-
+
+
+
+
+
     <Button
         android:id="@+id/bt_twoStar"
         style="@style/darkRedButton"

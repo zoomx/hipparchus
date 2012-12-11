@@ -12,12 +12,12 @@
 
     <style name="darkRedTextView" parent="@android:style/Widget.TextView">
         <item name="android:textColor">#D60606</item>
-        <item name="android:background">@android:color/black</item>
-        <item name="android:windowBackground">@null</item>
+        <item name="android:background">@android:color/black</item>        
     </style>
 
     <style name="darkRedEditText" parent="@android:style/Widget.EditText">
-        <item name="android:background">#D60606</item>
+        <item name="android:textColor">#D60606</item>
+        <item name="android:background">@drawable/rectangle_shape</item>        
     </style>
 
     <style name="darkRedHeaderText" parent="@android:style/Widget.TextView">

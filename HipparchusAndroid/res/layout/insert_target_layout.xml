@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/rectangle_shape"
-    android:orientation="vertical" >
+<LinearLayout android:layout_width="wrap_content" xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="wrap_content" android:background="@drawable/rectangle_shape" android:gravity="center_vertical|center_horizontal" android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView1"
@@ -26,20 +22,18 @@
             style="@style/darkRedTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/lbl_ra"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-        
-        <kankan.wheel.widget.WheelView
-            android:id="@+id/ra_h"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
+            android:layout_gravity="center_vertical" android:text="@string/lbl_ra" android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-		<kankan.wheel.widget.WheelView
-		    android:id="@+id/ra_min"
-		    android:layout_width="100dp"
-		    android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/raHin" style="@style/darkRedEditText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:layout_marginLeft="10dp" android:layout_marginRight="0dp" android:layout_marginTop="10dp" android:layout_weight="1" android:ems="10" android:inputType="number">
 
+            <requestFocus />
+        </EditText>
+        <TextView android:id="@+id/textView2" style="@style/darkRedTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" android:layout_marginTop="10dp" android:text="@string/lbl_ra_h" android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <EditText
+            android:id="@+id/raMin" style="@style/darkRedEditText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" android:layout_marginTop="10dp" android:layout_weight="1" android:ems="10" android:inputType="number"/>
+        <TextView android:id="@+id/TextView01" style="@style/darkRedTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" android:layout_marginTop="10dp" android:text="@string/lbl_ra_m" android:textAppearance="?android:attr/textAppearanceMedium"/>
     </LinearLayout>
 
     <LinearLayout
@@ -48,35 +42,16 @@
         android:layout_margin="10dp"
         android:background="@drawable/rectangle_shape"
         android:padding="10dp" >
-
-        <TextView
-            android:id="@+id/insertDecLbl"
-            style="@style/darkRedTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/lbl_dec"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-        
-        <kankan.wheel.widget.WheelView
-            android:id="@+id/dec_deg"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
-
-		<kankan.wheel.widget.WheelView
-		    android:id="@+id/dec_min"
-		    android:layout_width="100dp"
-		    android:layout_height="wrap_content" />
-
+        <TextView android:id="@+id/insertDecLbl" style="@style/darkRedTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical" android:text="@string/lbl_dec" android:textAppearance="?android:attr/textAppearanceMedium"/>
+        <EditText android:id="@+id/EditText01" style="@style/darkRedEditText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:layout_marginLeft="10dp" android:layout_marginRight="0dp" android:layout_marginTop="10dp" android:layout_weight="1" android:ems="10" android:inputType="number"/>
+        <TextView android:id="@+id/TextView02" style="@style/darkRedTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" android:layout_marginTop="10dp" android:text="@string/lbl_degree_symbol" android:textAppearance="?android:attr/textAppearanceMedium"/>
+        <EditText android:id="@+id/EditText02" style="@style/darkRedEditText" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" android:layout_marginTop="10dp" android:layout_weight="1" android:ems="10" android:inputType="number"/>
+        <TextView android:id="@+id/TextView03" style="@style/darkRedTextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="10dp" android:layout_marginLeft="0dp" android:layout_marginRight="0dp" android:layout_marginTop="10dp" android:text="@string/lbl_min_symbol" android:textAppearance="?android:attr/textAppearanceMedium"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/saveTargetCoord"
         style="@style/darkRedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:background="@drawable/button_style"
-        android:text="@string/bt_close" />
+        android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center_vertical|center_horizontal" android:background="@drawable/button_style" android:text="@string/bt_close"/>
 
 </LinearLayout>

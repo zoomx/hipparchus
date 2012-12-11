@@ -1,5 +1,13 @@
-<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/rectangle_shape" android:fadingEdge="none" android:gravity="center_horizontal|center_vertical" android:orientation="vertical" android:scrollbarAlwaysDrawVerticalTrack="false" xmlns:android="http://schemas.android.com/apk/res/android" android:scrollbars="none" xmlns:tools="http://schemas.android.com/tools">
-    <TextView android:id="@+id/textView1" style="@style/darkRedHeaderText" android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center_horizontal" android:text="@string/bt_select_star" android:textAppearance="?android:attr/textAppearanceMedium"/>
+<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="@drawable/rectangle_shape" android:fadingEdge="none" xmlns:android="http://schemas.android.com/apk/res/android" android:gravity="center_horizontal" xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical" android:scrollbarAlwaysDrawVerticalTrack="false" android:scrollbars="none">
+
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/darkRedHeaderText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/bt_select_star"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     <ListView android:id="@android:id/list" style="@style/darkRedTextView" android:layout_width="match_parent" android:layout_height="wrap_content" android:choiceMode="singleChoice" android:divider="@drawable/rectangle_shape" android:dividerHeight="2dp" android:drawSelectorOnTop="false"></ListView>
 
 </LinearLayout>

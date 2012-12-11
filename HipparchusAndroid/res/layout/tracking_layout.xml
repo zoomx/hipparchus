@@ -10,8 +10,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-
-
         <TextView
             style="@style/darkRedTitle"
             android:layout_width="0dp"
@@ -19,8 +17,6 @@
             android:layout_weight="1"
             android:text="@string/lbl_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-
 
         <TextView
             android:id="@+id/trackingSubTitle"
@@ -31,7 +27,6 @@
             android:gravity="right"
             android:text="@string/lbl_trackingSubTitle"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -91,10 +86,6 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
-
-
-
-
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -102,15 +93,12 @@
                 android:gravity="top"
                 android:orientation="vertical" >
 
-
-
                 <TextView
                     android:id="@+id/targer_ra"
                     style="@style/darkRedTextView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
 
                 <TextView
                     android:id="@+id/target_dec"
@@ -134,16 +122,6 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
 
-
-
-
-
-
-
-
-
-
-
             <Button
                 android:id="@+id/bt_goto"
                 style="@style/darkRedButton"
@@ -153,7 +131,6 @@
                 android:background="@drawable/button_style"
                 android:text="@string/bt_goto"
                 android:textStyle="bold" />
-
         </LinearLayout>
     </LinearLayout>
 
@@ -206,10 +183,18 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/scope_alt" style="@style/darkRedTextView" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:id="@+id/scope_alt"
+                    style="@style/darkRedTextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
-                    android:id="@+id/scope_az" style="@style/darkRedTextView" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:id="@+id/scope_az"
+                    style="@style/darkRedTextView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -217,30 +202,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <ToggleButton
             android:id="@+id/toggleTrackButton"
@@ -254,7 +215,6 @@
             android:textOff="@string/bt_track_off"
             android:textOn="@string/bt_track_on" />
 
-
         <Button
             android:id="@+id/bt_sync"
             style="@style/darkRedButton"
@@ -265,22 +225,16 @@
             android:padding="10dp"
             android:text="@string/bt_sync_position" />
 
-
         <Button
             android:id="@+id/bt_manual"
             style="@style/darkRedButton"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="1" android:background="@drawable/button_style" android:padding="10dp" android:text="@string/bt_manual"/>
-
+            android:layout_weight="1"
+            android:background="@drawable/button_style"
+            android:padding="10dp"
+            android:text="@string/bt_manual" />
     </LinearLayout>
-
-
-
-
-
-
-
 
     <TextView
         android:id="@+id/trackingStatus"
@@ -293,6 +247,6 @@
         android:background="@drawable/rectangle_shape"
         android:padding="5dp"
         android:text="@string/lbl_tracking_status" >
-
     </TextView>
+
 </LinearLayout>

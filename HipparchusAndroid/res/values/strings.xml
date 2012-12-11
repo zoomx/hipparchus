@@ -27,6 +27,8 @@
     <string name="lbl_longitude">Lon:</string>
     <string name="lbl_star_name">Name:</string>
     <string name="lbl_ra">R.A.:</string>
+    <string name="lbl_ra_h">h</string>
+    <string name="lbl_ra_m">m</string>
     <string name="lbl_dec">Dec.:</string>
     <string name="lbl_select_second_star">Locate Second Star</string>
     <string name="lbl_select_first_star">Locate First Star</string>
